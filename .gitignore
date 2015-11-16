@@ -1,0 +1,12 @@
+/var/
+/media/*
+!/media/board
+!/media/private
+/errors/local.xml
+/app/etc/local.xml
+error_log
+_aitoc_filelists
+.htaccess
+/wp/
+robots.txt
+.idea

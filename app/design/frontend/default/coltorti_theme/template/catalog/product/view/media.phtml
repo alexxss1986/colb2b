@@ -1,0 +1,330 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+
+/* @var $this Mage_Catalog_Block_Product_View_Media */
+?>
+
+<script type="text/javascript">
+
+    var myScroll;
+
+    isMobile=false;
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        isMobile = true;
+    }
+
+    function loaded () {
+
+        myScroll = new IScroll('#container_img', { probeType: 3, mouseWheel: true });
+
+
+            myScroll.on('scroll', function () {
+                var posizione = myScroll.y;
+                document.getElementById('position').value = posizione;
+                if (posizione % 800 == 0) {
+                    var indice = (Math.abs(posizione) / 800) + 1;
+                    jQuery(".ul_img").find("div").removeClass("active");
+                    jQuery(".ul_img li:nth-child(" + indice + ") div").addClass("active");
+                }
+                if (this.y == this.maxScrollY) {
+                    myScroll.disable();
+                }
+            });
+
+
+            myScroll.on('scrollEnd', function () {
+                var posizione = myScroll.y;
+                document.getElementById('position').value = posizione;
+                if (posizione % 800 == 0) {
+                    var indice = (Math.abs(posizione) / 800) + 1;
+                    jQuery(".ul_img").find("div").removeClass("active");
+                    jQuery(".ul_img li:nth-child(" + indice + ") div").addClass("active");
+                }
+
+            });
+
+    }
+
+    jQuery( window ).scroll(function() {
+        if (jQuery(window).width()>=940) {
+
+            if (isMobile==false) {
+                document.getElementById('position2').value = jQuery(window).scrollTop();
+                if (jQuery(window).scrollTop() == 0) {
+                    myScroll.enable();
+                }
+            }
+        }
+
+    });
+
+    document.addEventListener('touchmove', function (e) {
+        if (jQuery(window).width()>=940) {
+
+            if (isMobile==false) {
+                e.preventDefault();
+            }
+        }
+    }, false);
+
+    Event.observe(window, 'load', function() {
+        if (jQuery(window).width()>=940) {
+            jQuery(".link_img").click(function () {
+                jQuery(".ul_img").find("div").removeClass("active");
+                jQuery(this).addClass("active");
+                var indice = jQuery(this).parent().index();
+                indice = indice + 1;
+                myScroll.scrollToElement(document.querySelector('#scroller li:nth-child(' + indice + ')'))
+            });
+
+            /*jQuery(".product_related").hover(function(){
+             myScroll.disable();
+             });*/
+
+            loaded();
+        }
+    });
+
+
+</script>
+
+<?php
+    $_product = $this->getProduct();$_product = $this->getProduct();
+    $product = Mage::getModel('catalog/product')->load($_product->getId());
+    $_helper = $this->helper('catalog/output');
+?>
+<meta itemprop="image" content="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."catalog/product".$product->getImage() ?>" >
+<div class="product-image product-image-zoom">
+    <div class="product-image-gallery">
+        <div id="container_img">
+            <div id="scroller">
+                <ul>
+                    <li>
+                        <a rel="prettyPhoto[gallery2]" href="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>" >
+        <img id="image-main"
+             class="gallery-image visible"
+             src="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>"
+             alt="<?php echo $_product->getAttributeText("ca_brand")." ".strtolower($_product->getData("ca_name")) ?>"
+             title="<?php echo $_product->getAttributeText("ca_brand")." ".strtolower($_product->getData("ca_name")) ?>" />
+                            </a>
+                    </li>
+        <?php
+            $i=0;
+
+        $ImageColl=$_product->getMediaGallery('images');
+
+
+        $sorter=array();
+        $ret=array();
+        $key='position_default';
+        reset($ImageColl);
+
+        foreach ($ImageColl as $ii => $image) {
+            if($image['disabled']){
+                continue;
+            }
+            $sorter[$ii]=$image[$key];
+        }
+        asort($sorter);
+
+
+        $j=0;
+        foreach ($sorter as $ii => $va) {
+
+            $ret[$ii]=$ImageColl[$ii];
+            $_image=$ret[$ii];
+            if ($_image["file"] == $_product->getImage() || $_image["file"] == $_product->getSmallImage() || $_image["file"] == $_product->getThumbnail() ||  $_image["label"] == "back") {
+            }
+            else {
+                $_imageUrl = $this->helper('catalog/image')
+                    ->init($_product, 'image', $_image["file"])
+                    ->keepFrame(false)
+                    ->constrainOnly(true)
+                    ->resize(1200);
+                ?>
+                <li>
+                    <a rel="prettyPhoto[gallery2]" href="<?php echo $_imageUrl ?>" >
+                        <img id="image-<?php echo $j; ?>"
+                             class="gallery-image"
+                             src="<?php echo $_imageUrl; ?>"
+                             alt="<?php echo $_product->getAttributeText("ca_brand")." ".strtolower($_product->getData("ca_name")) ?>"
+                             title="<?php echo $_product->getAttributeText("ca_brand")." ".strtolower($_product->getData("ca_name")) ?>"
+                             data-zoom-image="<?php echo $_imageUrl; ?>"/>
+                    </a>
+                </li>
+                <?php
+                $i++;
+            }
+            $j++;
+        }
+
+        /*
+            foreach ($this->getGalleryImages() as $_image):
+                if ($_image->getFile() == $_product->getImage() || $_image->getFile() == $_product->getSmallImage() || $_image->getFile() == $_product->getThumbnail()) {
+                }
+                else {
+                    $_imageUrl = $this->helper('catalog/image')
+                        ->init($_product, 'image', $_image->getFile())
+                        ->keepFrame(false)
+                        ->constrainOnly(true)
+                        ->resize(1200);
+                    ?>
+                    <li>
+                        <a rel="prettyPhoto[gallery2]" href="<?php echo $_imageUrl ?>" >
+                        <img id="image-<?php echo $i; ?>"
+                             class="gallery-image"
+                             src="<?php echo $_imageUrl; ?>"
+                             data-zoom-image="<?php echo $_imageUrl; ?>"/>
+                            </a>
+                    </li>
+                    <?php
+                    $i++;
+                }
+            endforeach;*/
+        ?>
+                    </ul>
+                <div class="more-views-arrow prev" id="slide_prev">&nbsp;</div>
+                <div class="more-views-arrow next" id="slide_next">&nbsp;</div>
+                </div>
+            </div>
+        <input type="hidden" id="position">
+        <input type="hidden" id="position2">
+        <div class="slide_img">
+            <ul class="ul_img">
+                <?php $i=$i+1; for ($j=0; $j<$i; $j++){ ?>
+                    <?php if ($j==0) { ?>
+                        <li><div class="link_img active"></div></li>
+                        <?php } else { ?>
+                        <li><div class="link_img"></div></li>
+                        <?php } ?>
+                <?php } ?>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<?php
+/*
+?>
+<?php if (count($this->getGalleryImages()) > 0): ?>
+<div class="more-views" style="display:none">
+    <div class="product-image-thumbs">
+    <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
+        <?php
+if (($filterClass = $this->getGalleryFilterHelper()) && ($filterMethod = $this->getGalleryFilterMethod()) && !Mage::helper($filterClass)->$filterMethod($_product, $_image)):
+continue;
+endif;
+        ?>
+        <div class="slide">
+            <a class="thumb-link" href="#" onclick="mostra('<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->resize(1200); ?>')" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>">
+                <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(75); ?>"
+                     width="75" height="75" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
+            </a>
+        </div>
+    <?php $i++; endforeach; ?>
+
+    </div>
+
+
+</div>
+<?php endif; ?>
+<?php
+*/
+?>
+
+<?php echo $this->getChildHtml('after'); ?>
+
+
+<script>
+    jQuery(function($){
+
+        function setZoom (){
+            $('#fullResImage').smoothZoom({
+                zoom_max: 2000,
+                responsive: true
+            });
+        }
+
+        function closeZoom (){
+            $('#fullResImage').smoothZoom('destroy');
+        }
+
+        //Set your popup window size here (in pixels):
+        var canvasWidth = $(window).width();
+        var canvasHeight = $(window).height();
+
+        $(".product-image-gallery a[rel^='prettyPhoto']").prettyPhoto({
+            default_width: canvasWidth,
+            default_height: canvasHeight,
+            //slideshow:false, /* false OR interval time in ms */
+            autoplay_slideshow: false, /* true/false */
+            opacity: 0.70, /* opacity of background black */
+            theme: 'pp_default', /* light_rounded / dark_rounded / light_square / dark_square / facebook */
+            modal: true, /* If set to true, only the close button will close the window */
+            overlay_gallery: false,
+            changepicturecallback: setZoom,
+            callback: closeZoom,
+            social_tools: false,
+            image_markup: '<div style="width:'+canvasWidth+'px; height:'+canvasHeight+'px;"><img id="fullResImage" src="{path}" /></div>',
+            fixed_size: true,
+
+            /******************************************
+             Enable Responsive settings below if needed.
+             Max width and height values are optional.
+             ******************************************/
+            responsive: true,
+            responsive_maintain_ratio: true,
+            max_WIDTH: '',
+            deeplinking:false,
+            max_HEIGHT: ''
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    function mostra(immagine_big) {
+        jQuery('#image-main').attr("src",immagine_big);
+    }
+</script>
+<script>
+    if (jQuery(window).width()<940) {
+        jQuery('#scroller').iosSlider({
+            desktopClickDrag: true,
+            snapToChildren: true,
+            infiniteSlider: false,
+            navNextSelector: '.more-views-arrow.next',
+            navPrevSelector: '.more-views-arrow.prev'
+        });
+    }
+
+
+</script>

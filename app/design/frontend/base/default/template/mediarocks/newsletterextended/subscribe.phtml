@@ -1,0 +1,22 @@
+<form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+    <div class="newsletter">
+        <div class="newsletter_in">
+            <div class="gend">
+                <div class="gender_div">
+                    <div class="tipo_footer" id="uomo"><?php echo $this->__("UOMO") ?></div>
+                    <div class="tipo_footer" id="donna"><?php echo $this->__("DONNA") ?></div>
+                </div>
+                <input type="hidden" name="gender" id="genere" class="required-entry" />
+            </div>
+            <div class="newsl">
+            <input type="text" name="email" placeholder="<?php echo $this->__("Inserisci la tua email") ?>" id="newsletter" class="input-text required-entry validate-email">
+            </div>
+            <button type="submit" class="button_secondary"><?php echo $this->__("Iscriviti") ?></button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+    //]]>
+</script>

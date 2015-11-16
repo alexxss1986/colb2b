@@ -1,0 +1,320 @@
+<?php
+$_share_config = Mage::getStoreConfig('milanoconfig/share');
+$_use_share = $_share_config['use_share'] == 1;
+$_share_code = $_share_config['share_code'];
+$post = $this->getPost();
+?>
+<div class="titolo_articolo_interno">
+    <div class="testo">
+        <h1><?php echo $post->getTitle(); ?></h1>
+        <p class="sottotitolo"><?php echo strip_tags($post->getShortContent()); ?></p>
+    </div>
+    <?php if($img = $post->getPostImage(420)) { ?>
+        <div class="immagine">
+            <img alt="<?php echo $post->getTitle() ?>" title="<?php echo $post->getTitle() ?>" src="<?php echo Mage::getBaseUrl('media') . $post->getPostImage(); ?>"/>
+        </div>
+    <?php
+    }
+    ?>
+</div>
+<p class="scroll_down" style="opacity: 1;float: left;width: 100%;height:216px;text-align: center">&nbsp;</p>
+<?php
+
+$i=0;
+$arrayP=$this->getProducts($post->getId());
+$arrayProdotto=array();
+foreach ($arrayP as $row){
+    $sku_prodotto=$row["sku_prodotto"];
+    $_product = Mage::getModel('catalog/product');
+    if ($_product->getIdBySku($sku_prodotto)!=null){
+        $_product->load($_product->getIdBySku($sku_prodotto));
+        $stockItem = $_product->getStockItem();
+        if($stockItem->getIsInStock() && $_product->getVisibility()=="4")
+        {
+            $arrayProdotto[$i]=$sku_prodotto;
+            $i=$i+1;
+        }
+    }
+}
+
+shuffle($arrayProdotto);
+?>
+<div class="contenuto_articolo_interno">
+<div class="blocco1 visibile">
+    <div class="block1">
+        <div class="colonna1">
+            <div class="riga1">
+                <?php
+
+                if ($i>0) {
+                    $sku_prodotto = $arrayProdotto[0];
+                    $_product = Mage::getModel('catalog/product');
+                    $_product->load($_product->getIdBySku($sku_prodotto));
+
+
+                    $flag=false;
+                    $img=$_product->load ( 'media_gallery' )->getMediaGalleryImages()->getItemByColumnValue('label', 'back');
+                    if ($img!=null){
+                        $over=$img->getFile();
+                        $flag=true;
+                    }
+                    else {
+                        $img = $_product->load('media_gallery')->getMediaGalleryImages()->getItemByColumnValue('position_default', '2');
+                        if ($img != null) {
+                            $over = $img->getFile();
+                            $flag = true;
+                        }
+                    }
+                    ?>
+
+                    <div class="product">
+                        <a href="<?php echo $_product->getProductUrl() ?>"
+                           title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                           class="product-image">
+                            <?php $_imgSize = 210; ?>
+                            <img
+                                id="product-collection-image-<?php echo $_product->getId(); ?>"
+                                src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image') ?>"
+                                alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                                <?php
+                                if ($flag == true) {
+                                    echo " onmouseover=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image', $over) . "'\"";
+                                    echo " onmouseout=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image') . "'\"";
+                                }
+                                ?>
+                                />
+                        </a>
+
+                        <div class="product-info">
+                            <?php
+                            $categoryModel = Mage::getModel('catalog/category');
+
+                            //Get Array of Category Id's with Last as First (Reversed)
+                            $_categories = array_reverse($_product->getCategoryIds());
+
+                            //Load Category
+                            $_category = $categoryModel->load($_categories[0]);
+                            ?>
+                            <h2 class="product-name brand">
+                                <span><?php echo $_product->getAttributeText("ca_brand") ?></span></h2>
+
+                            <h2 class="product-name name"><?php echo $_category->getName(); ?></h2>
+                            <button type="button"
+                                    onclick="window.location='<?php echo $_product->getProductUrl() ?>'"
+                                    title="Aggiungi al carrello" class="button btn-cart"><span><span>SHOP NOW</span></span>
+                            </button>
+                        </div>
+                    </div>
+                <?php
+                }
+                else {
+                    echo "&nbsp;";
+                }
+                ?>
+            </div>
+            <div class="riga2">
+                <img alt="<?php echo $post->getTitle() ?>" title="<?php echo $post->getTitle() ?>" src="<?php echo Mage::getBaseUrl('media') .  $post->getPostImage1() ?>">
+            </div>
+        </div>
+        <div class="colonna_vuota">
+        </div>
+        <div class="colonna2">
+            <div class="riga1">
+                <?php echo $post->getPostContent(); ?>
+            </div>
+            <div class="riga2">
+                <img alt="<?php echo $post->getTitle() ?>" title="<?php echo $post->getTitle() ?>" src="<?php echo Mage::getBaseUrl('media') .  $post->getPostImage2() ?>">
+            </div>
+        </div>
+        <div class="colonna_vuota">
+        </div>
+        <div class="colonna3">
+            <div class="riga1">
+                <?php
+
+                if ($i>1) {
+                    $sku_prodotto = $arrayProdotto[1];
+                    $_product = Mage::getModel('catalog/product');
+                    $_product->load($_product->getIdBySku($sku_prodotto));
+
+
+                    $flag=false;
+                    $img=$_product->load ( 'media_gallery' )->getMediaGalleryImages()->getItemByColumnValue('label', 'back');
+                    if ($img!=null){
+                        $over=$img->getFile();
+                        $flag=true;
+                    }
+                    else {
+                        $img = $_product->load('media_gallery')->getMediaGalleryImages()->getItemByColumnValue('position_default', '2');
+                        if ($img != null) {
+                            $over = $img->getFile();
+                            $flag = true;
+                        }
+                    }
+                    ?>
+
+                    <div class="product">
+                        <a href="<?php echo $_product->getProductUrl() ?>"
+                           title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                           class="product-image">
+                            <?php $_imgSize = 210; ?>
+                            <img
+                                id="product-collection-image-<?php echo $_product->getId(); ?>"
+                                src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image') ?>"
+                                alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                                <?php
+                                if ($flag == true) {
+                                    echo " onmouseover=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image', $over) . "'\"";
+                                    echo " onmouseout=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image') . "'\"";
+                                }
+                                ?>
+                                />
+                        </a>
+
+                        <div class="product-info" >
+                            <?php
+                            $categoryModel = Mage::getModel('catalog/category');
+
+                            //Get Array of Category Id's with Last as First (Reversed)
+                            $_categories = array_reverse($_product->getCategoryIds());
+
+                            //Load Category
+                            $_category = $categoryModel->load($_categories[0]);
+                            ?>
+                            <h2 class="product-name brand">
+                                <span><?php echo $_product->getAttributeText("ca_brand") ?></span></h2>
+
+                            <h2 class="product-name name"><?php echo $_category->getName(); ?></h2>
+                            <button type="button"
+                                    onclick="window.location='<?php echo $_product->getProductUrl() ?>'"
+                                    title="Aggiungi al carrello" class="button btn-cart"><span><span>SHOP NOW</span></span>
+                            </button>
+                        </div>
+                    </div>
+                <?php
+                }
+                else {
+                    echo "&nbsp;";
+                }
+                ?>
+            </div>
+            <div class="riga2">
+                <img alt="<?php echo $post->getTitle() ?>" title="<?php echo $post->getTitle() ?>" src="<?php echo Mage::getBaseUrl('media') .  $post->getPostImage3() ?>">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blocco4 visibile">
+    <div class="testo">
+        <p><?php echo $post->getPostContent2(); ?></p>
+    </div>
+</div>
+<div class="blocco2 visibile">
+    <div class="block1">
+        <div class="colonna1">
+            &nbsp;
+        </div>
+        <div class="colonna2">
+            <div class="riga1">
+                &nbsp;
+            </div>
+            <div class="riga2">
+                <img alt="<?php echo $post->getTitle() ?>" title="<?php echo $post->getTitle() ?>"  src="<?php echo Mage::getBaseUrl('media') .  $post->getPostImage4() ?>">
+            </div>
+        </div>
+        <div class="colonna3">
+            <img alt="<?php echo $post->getTitle() ?>" title="<?php echo $post->getTitle() ?>"  src="<?php echo Mage::getBaseUrl('media') .  $post->getPostImage5() ?>">
+        </div>
+        <div class="colonna4">
+            &nbsp;
+        </div>
+    </div>
+</div>
+<div class="blocco3 visibile">
+    <div class="block1">
+        <div class="colonna1">
+            &nbsp;
+        </div>
+        <div class="colonna2">
+            &nbsp;
+        </div>
+        <div class="colonna3">
+            <?php
+
+            if ($i>2) {
+                $sku_prodotto = $arrayProdotto[2];
+                $_product = Mage::getModel('catalog/product');
+                $_product->load($_product->getIdBySku($sku_prodotto));
+
+
+                $flag=false;
+                $img=$_product->load ( 'media_gallery' )->getMediaGalleryImages()->getItemByColumnValue('label', 'back');
+                if ($img!=null){
+                    $over=$img->getFile();
+                    $flag=true;
+                }
+                else {
+                    $img = $_product->load('media_gallery')->getMediaGalleryImages()->getItemByColumnValue('position_default', '2');
+                    if ($img != null) {
+                        $over = $img->getFile();
+                        $flag = true;
+                    }
+                }
+                ?>
+
+                <div class="product" >
+                    <a href="<?php echo $_product->getProductUrl() ?>"
+                       title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                       class="product-image">
+                        <?php $_imgSize = 210; ?>
+                        <img style="width:230px"
+                            id="product-collection-image-<?php echo $_product->getId(); ?>"
+                            src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image') ?>"
+                            alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                            <?php
+                            if ($flag == true) {
+                                echo " onmouseover=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image', $over) . "'\"";
+                                echo " onmouseout=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image') . "'\"";
+                            }
+                            ?>
+                            />
+                    </a>
+
+                    <div class="product-info">
+                        <?php
+                        $categoryModel = Mage::getModel('catalog/category');
+
+                        //Get Array of Category Id's with Last as First (Reversed)
+                        $_categories = array_reverse($_product->getCategoryIds());
+
+                        //Load Category
+                        $_category = $categoryModel->load($_categories[0]);
+                        ?>
+                        <h2 class="product-name brand">
+                            <span><?php echo $_product->getAttributeText("ca_brand") ?></span></h2>
+
+                        <h2 class="product-name name"
+                            ><?php echo $_category->getName(); ?></h2>
+                        <button type="button"
+                                onclick="window.location='<?php echo $_product->getProductUrl() ?>'"
+                                title="Aggiungi al carrello" class="button btn-cart"><span><span>SHOP NOW</span></span>
+                        </button>
+                    </div>
+                </div>
+            <?php
+            }
+            else {
+                echo "&nbsp;";
+            }
+            ?>
+        </div>
+        <div class="colonna4">
+            <img alt="<?php echo $post->getTitle() ?>" title="<?php echo $post->getTitle() ?>"  src="<?php echo Mage::getBaseUrl('media') .  $post->getPostImage6() ?>">
+        </div>
+        <div class="colonna5">
+            &nbsp;
+        </div>
+    </div>
+
+</div>
+</div>

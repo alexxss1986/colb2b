@@ -1,0 +1,990 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php
+$_product    = $this->getProduct();
+$_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
+$_jsonConfig = $this->getJsonConfig();
+$_renderers = $this->getChild('attr_renderers')->getSortedChildren();
+?>
+<?php if ($_product->isSaleable() && count($_attributes)):?>
+    <dl>
+    <?php foreach($_attributes as $_attribute): ?>
+        <?php
+        $_rendered = false;
+        foreach ($_renderers as $_rendererName):
+            $_renderer = $this->getChild('attr_renderers')->getChild($_rendererName);
+            if (method_exists($_renderer, 'shouldRender') && $_renderer->shouldRender($_product, $_attribute, $_jsonConfig)):
+                $_renderer->setProduct($_product);
+                $_renderer->setAttributeObj($_attribute);
+                echo $_renderer->toHtml();
+                $_rendered = true;
+                break;
+            endif;
+        endforeach;
+
+        if (!$_rendered):
+        ?>
+        <dt><span><?php echo $this->__($_attribute->getLabel()) ?></span></dt>
+        <dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
+            <div class="input-box">
+                <div class="div_taglie">
+                    <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
+                        <option><?php echo $this->__('Choose an Option...') ?></option>
+                    </select>
+                </div>
+
+                <span class="guida_misure" id="misura_div_link"><?php echo $this->__("Info taglie") ?></span>
+
+            </div>
+        </dd>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    </dl>
+    <script type="text/javascript">
+        var spConfig = new Product.Config(<?php echo $_jsonConfig ?>);
+    </script>
+    <?php echo $this->getChildHtml('after') ?>
+
+
+    <div id="overlay2"></div>
+    <div id="misura_div">
+        <img class="chiudi2" src="<?php echo $this->getSkinUrl("images/close_size.png") ?>" alt="" />
+        <h2 class="titolo_tabella"><?php echo $this->__("Tabella Taglie") ?></h2>
+        <div id="size_container">
+            <select id="sizeChartSel" class="SizeChartSelect" onchange="changeSizeTable(this.value);">
+                <option value="01"><?php echo $this->__("ABBIGLIAMENTO DONNA") ?></option>
+                <option value="04"><?php echo $this->__("CINTURE DONNA") ?></option>
+                <option value="34"><?php echo $this->__("GUANTI DONNA") ?></option>
+                <option value="19"><?php echo $this->__("MONCLER DONNA") ?></option>
+                <option value="29"><?php echo $this->__("SCARPE ADIDAS DONNA") ?></option>
+                <option value="03"><?php echo $this->__("SCARPE DONNA") ?></option>
+                <option value="05"><?php echo $this->__("ABBIGLIAMENTO UOMO") ?></option>
+                <option value="07"><?php echo $this->__("CAMICIE UOMO") ?></option>
+                <option value="09"><?php echo $this->__("CINTURE UOMO") ?></option>
+                <option value="35"><?php echo $this->__("GUANTI UOMO") ?></option>
+                <option value="20"><?php echo $this->__("MONCLER UOMO") ?></option>
+                <option value="30"><?php echo $this->__("SCARPE ADIDAS UOMO") ?></option>
+                <option value="64"><?php echo $this->__("SCARPE NIKE UOMO") ?></option>
+                <option value="08"><?php echo $this->__("SCARPE UOMO") ?></option>
+                <option value="25"><?php echo $this->__("CAPPELLI") ?></option>
+            </select>
+            <div id="size_table_01" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="9" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">I/II/III</td>
+                        <td class="td_gray"></td>
+                        <td class="td_white"></td>
+                        <td class="td_gray"></td>
+                        <td class="td_white">0</td>
+                        <td class="td_gray">1/I</td>
+                        <td class="td_white">2/II</td>
+                        <td class="td_gray">3/III</td>
+                        <td class="td_white">4/IV</td>
+                        <td class="td_gray">5/V</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">S/M/L</td>
+                        <td class="td_gray"></td>
+                        <td class="td_white">XXXS</td>
+                        <td class="td_gray">XXS</td>
+                        <td class="td_white">XS/P</td>
+                        <td class="td_gray">S</td>
+                        <td class="td_white">M</td>
+                        <td class="td_gray">L</td>
+                        <td class="td_white">XL</td>
+                        <td class="td_gray">XXL</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("ITALIA") ?></td>
+                        <td class="td_gray">34</td>
+                        <td class="td_white">36</td>
+                        <td class="td_gray">38</td>
+                        <td class="td_white">40</td>
+                        <td class="td_gray">42</td>
+                        <td class="td_white">44</td>
+                        <td class="td_gray">46</td>
+                        <td class="td_white">48</td>
+                        <td class="td_gray">50</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("FRANCIA") ?></td>
+                        <td class="td_gray">30</td>
+                        <td class="td_white">32</td>
+                        <td class="td_gray">34</td>
+                        <td class="td_white">36</td>
+                        <td class="td_gray">38</td>
+                        <td class="td_white">40</td>
+                        <td class="td_gray">42</td>
+                        <td class="td_white">44</td>
+                        <td class="td_gray">46</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">USA</td>
+                        <td class="td_gray">00</td>
+                        <td class="td_white">0</td>
+                        <td class="td_gray">2</td>
+                        <td class="td_white">4</td>
+                        <td class="td_gray">6</td>
+                        <td class="td_white">8</td>
+                        <td class="td_gray">10</td>
+                        <td class="td_white">12</td>
+                        <td class="td_gray">14</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">UK</td>
+                        <td class="td_gray">2</td>
+                        <td class="td_white">4</td>
+                        <td class="td_gray">6</td>
+                        <td class="td_white">8</td>
+                        <td class="td_gray">10</td>
+                        <td class="td_white">12</td>
+                        <td class="td_gray">14</td>
+                        <td class="td_white">16</td>
+                        <td class="td_gray">18</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GIAPPONE") ?></td>
+                        <td class="td_gray">1</td>
+                        <td class="td_white">3</td>
+                        <td class="td_gray">5</td>
+                        <td class="td_white">7</td>
+                        <td class="td_gray">9</td>
+                        <td class="td_white">11</td>
+                        <td class="td_gray">13</td>
+                        <td class="td_white">15</td>
+                        <td class="td_gray">17</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GERMANIA") ?></td>
+                        <td class="td_gray">30</td>
+                        <td class="td_white">32</td>
+                        <td class="td_gray">34</td>
+                        <td class="td_white">36</td>
+                        <td class="td_gray">38</td>
+                        <td class="td_white">40</td>
+                        <td class="td_gray">42</td>
+                        <td class="td_white">44</td>
+                        <td class="td_gray">46</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("SPAGNA") ?></td>
+                        <td class="td_gray"></td>
+                        <td class="td_white"></td>
+                        <td class="td_gray"></td>
+                        <td class="td_white">34</td>
+                        <td class="td_gray">36</td>
+                        <td class="td_white">38</td>
+                        <td class="td_gray">40</td>
+                        <td class="td_white">42</td>
+                        <td class="td_gray">44</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("DANIMARCA") ?></td>
+                        <td class="td_gray"></td>
+                        <td class="td_white"></td>
+                        <td class="td_gray">32</td>
+                        <td class="td_white">34</td>
+                        <td class="td_gray">36</td>
+                        <td class="td_white">38</td>
+                        <td class="td_gray">40</td>
+                        <td class="td_white">42</td>
+                        <td class="td_gray">44</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("BRASILE") ?></td>
+                        <td class="td_gray">32</td>
+                        <td class="td_white">34</td>
+                        <td class="td_gray">36</td>
+                        <td class="td_white">38</td>
+                        <td class="td_gray">40</td>
+                        <td class="td_white">42</td>
+                        <td class="td_gray">44</td>
+                        <td class="td_white">46</td>
+                        <td class="td_gray">48</td>
+                    </tr>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td>
+                        <td colspan="9" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">JEANS</td>
+                        <td class="td_gray"></td>
+                        <td class="td_white">24/25</td>
+                        <td class="td_gray">25/26</td>
+                        <td class="td_white">27/28</td>
+                        <td class="td_gray">29/30</td>
+                        <td class="td_white">30/31</td>
+                        <td class="td_gray">31/32</td>
+                        <td class="td_white">32/33</td>
+                        <td class="td_gray"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("PANTALONI") ?></td>
+                        <td class="td_gray"></td>
+                        <td class="td_white">23</td>
+                        <td class="td_gray">24</td>
+                        <td class="td_white">25</td>
+                        <td class="td_gray">26</td>
+                        <td class="td_white">27</td>
+                        <td class="td_gray">28</td>
+                        <td class="td_white">29</td>
+                        <td class="td_gray">30</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="size_table_04" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td>
+                        <td colspan="8" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("CINTURE") ?></td>
+                        <td class="td_gray">70</td>
+                        <td class="td_white">75</td>
+                        <td class="td_gray">80</td>
+                        <td class="td_white">85</td>
+                        <td class="td_gray">90</td>
+                        <td class="td_white">95</td>
+                        <td class="td_gray">100</td>
+                        <td class="td_white">105</td>
+                    </tr>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td>
+                        <td colspan="8" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">I/II/III</td>
+                        <td class="td_gray"></td>
+                        <td class="td_white"></td>
+                        <td class="td_gray">0</td>
+                        <td class="td_white">1/I</td>
+                        <td class="td_gray">2/II</td>
+                        <td class="td_white">3/III</td>
+                        <td class="td_gray">4/IV</td>
+                        <td class="td_white">5/V</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">S/M/L</td>
+                        <td class="td_gray">XXXS</td>
+                        <td class="td_white">XXS</td>
+                        <td class="td_gray">XS/P</td>
+                        <td class="td_white">S</td>
+                        <td class="td_gray">M</td>
+                        <td class="td_white">L</td>
+                        <td class="td_gray">XL</td>
+                        <td class="td_white">XXL</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("ITALIA") ?></td>
+                        <td class="td_gray">36</td>
+                        <td class="td_white">38</td>
+                        <td class="td_gray">40</td>
+                        <td class="td_white">42</td>
+                        <td class="td_gray">44</td>
+                        <td class="td_white">46</td>
+                        <td class="td_gray">48</td>
+                        <td class="td_white">50</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("FRANCIA") ?></td>
+                        <td class="td_gray">32</td>
+                        <td class="td_white">34</td>
+                        <td class="td_gray">36</td>
+                        <td class="td_white">38</td>
+                        <td class="td_gray">40</td>
+                        <td class="td_white">42</td>
+                        <td class="td_gray">44</td>
+                        <td class="td_white">46</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">USA</td>
+                        <td class="td_gray">0</td>
+                        <td class="td_white">2</td>
+                        <td class="td_gray">4</td>
+                        <td class="td_white">6</td>
+                        <td class="td_gray">8</td>
+                        <td class="td_white">10</td>
+                        <td class="td_gray">12</td>
+                        <td class="td_white">14</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">UK</td>
+                        <td class="td_gray">4</td>
+                        <td class="td_white">6</td>
+                        <td class="td_gray">8</td>
+                        <td class="td_white">10</td>
+                        <td class="td_gray">12</td>
+                        <td class="td_white">14</td>
+                        <td class="td_gray">16</td>
+                        <td class="td_white">18</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GIAPPONE") ?></td>
+                        <td class="td_gray">3</td>
+                        <td class="td_white">5</td>
+                        <td class="td_gray">7</td>
+                        <td class="td_white">9</td>
+                        <td class="td_gray">11</td>
+                        <td class="td_white">13</td>
+                        <td class="td_gray">15</td>
+                        <td class="td_white">17</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GERMANIA") ?></td>
+                        <td class="td_gray">32</td>
+                        <td class="td_white">34</td>
+                        <td class="td_gray">36</td>
+                        <td class="td_white">38</td>
+                        <td class="td_gray">40</td>
+                        <td class="td_white">42</td>
+                        <td class="td_gray">44</td>
+                        <td class="td_white">46</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("SPAGNA") ?></td>
+                        <td class="td_gray"></td>
+                        <td class="td_white"></td>
+                        <td class="td_gray">34</td>
+                        <td class="td_white">36</td>
+                        <td class="td_gray">38</td>
+                        <td class="td_white">40</td>
+                        <td class="td_gray">42</td>
+                        <td class="td_white">44</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("DANIMARCA") ?></td>
+                        <td class="td_gray"></td>
+                        <td class="td_white">32</td>
+                        <td class="td_gray">34</td>
+                        <td class="td_white">36</td>
+                        <td class="td_gray">38</td>
+                        <td class="td_white">40</td>
+                        <td class="td_gray">42</td>
+                        <td class="td_white">44</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("BRASILE") ?></td>
+                        <td class="td_gray">34</td>
+                        <td class="td_white">36</td>
+                        <td class="td_gray">38</td>
+                        <td class="td_white">40</td>
+                        <td class="td_gray">42</td>
+                        <td class="td_white">44</td>
+                        <td class="td_gray">46</td>
+                        <td class="td_white">48</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="size_table_34" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td>
+                        <td colspan="6" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GUANTI") ?></td>
+                        <td class="td_gray">6.5</td>
+                        <td class="td_white">7</td>
+                        <td class="td_gray">7.5</td>
+                        <td class="td_white">8</td>
+                        <td class="td_gray">8.5</td>
+                        <td class="td_white">9</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("EUROPA") ?></td>
+                        <td class="td_gray">S</td>
+                        <td class="td_white">M</td>
+                        <td class="td_gray">M</td>
+                        <td class="td_white">L</td>
+                        <td class="td_gray">XL</td>
+                        <td class="td_white">XL</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("Centimetri") ?></td>
+                        <td class="td_gray">17.5</td>
+                        <td class="td_white">19</td>
+                        <td class="td_gray">20</td>
+                        <td class="td_white">21.5</td>
+                        <td class="td_gray">23</td>
+                        <td class="td_white">24</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+
+            <div id="size_table_19" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="7" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">MONCLER</td><td class="td_gray">00</td><td class="td_white">0</td><td class="td_gray">1</td><td class="td_white">2</td><td class="td_gray">3</td><td class="td_white">4</td><td class="td_gray">5</td>
+                    </tr>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="7" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">I/II/III</td><td class="td_gray"></td><td class="td_white">0</td><td class="td_gray">1/I</td><td class="td_white">2/II</td><td class="td_gray">3/III</td><td class="td_white">4/IV</td><td class="td_gray">5/V</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">S/M/L</td><td class="td_gray">XXS</td><td class="td_white">XS/P</td><td class="td_gray">S</td><td class="td_white">M</td><td class="td_gray">L</td><td class="td_white">XL</td><td class="td_gray">XXL</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("ITALIA") ?></td><td class="td_gray">38</td><td class="td_white">40</td><td class="td_gray">42</td><td class="td_white">44</td><td class="td_gray">46</td><td class="td_white">48</td><td class="td_gray">50</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("FRANCIA") ?></td><td class="td_gray">34</td><td class="td_white">36</td><td class="td_gray">38</td><td class="td_white">40</td><td class="td_gray">42</td><td class="td_white">44</td><td class="td_gray">46</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">USA</td><td class="td_gray">2</td><td class="td_white">4</td><td class="td_gray">6</td><td class="td_white">8</td><td class="td_gray">10</td><td class="td_white">12</td><td class="td_gray">14</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">UK</td><td class="td_gray">6</td><td class="td_white">8</td><td class="td_gray">10</td><td class="td_white">12</td><td class="td_gray">14</td><td class="td_white">16</td><td class="td_gray">18</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GIAPPONE") ?></td><td class="td_gray">5</td><td class="td_white">7</td><td class="td_gray">9</td><td class="td_white">11</td><td class="td_gray">13</td><td class="td_white">15</td><td class="td_gray">17</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GERMANIA") ?></td><td class="td_gray">34</td><td class="td_white">36</td><td class="td_gray">38</td><td class="td_white">40</td><td class="td_gray">42</td><td class="td_white">44</td><td class="td_gray">46</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("SPAGNA") ?></td><td class="td_gray"></td><td class="td_white">34</td><td class="td_gray">36</td><td class="td_white">38</td><td class="td_gray">40</td><td class="td_white">42</td><td class="td_gray">44</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("DANIMARCA") ?></td><td class="td_gray">32</td><td class="td_white">34</td><td class="td_gray">36</td><td class="td_white">38</td><td class="td_gray">40</td><td class="td_white">42</td><td class="td_gray">44</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="size_table_29" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="12" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">Adidas</td><td class="td_gray">3.5</td><td class="td_white">4</td><td class="td_gray">4.5</td><td class="td_white">5</td><td class="td_gray">5.5</td><td class="td_white">6</td><td class="td_gray">6.5</td><td class="td_white">7</td><td class="td_gray">7.5</td><td class="td_white">8</td><td class="td_gray">8.5</td><td class="td_white">9</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">Adidas UK</td><td class="td_gray">3.5</td><td class="td_white">4</td><td class="td_gray">4.5</td><td class="td_white">5</td><td class="td_gray">5.5</td><td class="td_white">6</td><td class="td_gray">6.5</td><td class="td_white">7</td><td class="td_gray">7.5</td><td class="td_white">8</td><td class="td_gray">8.5</td><td class="td_white">9</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">Adidas <?php echo $this->__("ITALIA") ?></td><td class="td_gray">36</td><td class="td_white">36 2/3</td><td class="td_gray">37 1/3</td><td class="td_white">38</td><td class="td_gray">38 2/3</td><td class="td_white">39 1/3</td><td class="td_gray">40</td><td class="td_white">40 2/3</td><td class="td_gray">41 1/3</td><td class="td_white">42</td><td class="td_gray">42 2/3</td><td class="td_white">43 1/3</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">Adidas USA</td><td class="td_gray">4</td><td class="td_white">4.5</td><td class="td_gray">5</td><td class="td_white">5.5</td><td class="td_gray">6</td><td class="td_white">6.5</td><td class="td_gray">7</td><td class="td_white">7.5</td><td class="td_gray">8</td><td class="td_white">8.5</td><td class="td_gray">9</td><td class="td_white">9.6</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">Adidas <?php echo $this->__("GIAPPONE") ?></td><td class="td_gray">22</td><td class="td_white">22.5</td><td class="td_gray">23</td><td class="td_white">23.5</td><td class="td_gray">24</td><td class="td_white">24.5</td><td class="td_gray">25</td><td class="td_white">25.5</td><td class="td_gray">26</td><td class="td_white">26.5</td><td class="td_gray">27</td><td class="td_white">27.5</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="size_table_03" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="14" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">S/M/L</td><td class="td_gray">S</td><td class="td_white">S</td><td class="td_gray">S</td><td class="td_white">S</td><td class="td_gray">S</td><td class="td_white">S</td><td class="td_gray">M</td><td class="td_white">M</td><td class="td_gray">M</td><td class="td_white">M</td><td class="td_gray">M</td><td class="td_white">M</td><td class="td_gray">L</td><td class="td_white">L</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("ITALIA") ?></td><td class="td_gray">35</td><td class="td_white">35.5</td><td class="td_gray">36</td><td class="td_white">36.5</td><td class="td_gray">37</td><td class="td_white">37.5</td><td class="td_gray">38</td><td class="td_white">38.5</td><td class="td_gray">39</td><td class="td_white">39.5</td><td class="td_gray">40</td><td class="td_white">40.5</td><td class="td_gray">41</td><td class="td_white">41.5</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("FRANCIA") ?></td><td class="td_gray">36</td><td class="td_white">36.5</td><td class="td_gray">37</td><td class="td_white">37.5</td><td class="td_gray">38</td><td class="td_white">38.5</td><td class="td_gray">39</td><td class="td_white">39.5</td><td class="td_gray">40</td><td class="td_white">40.5</td><td class="td_gray">41</td><td class="td_white">41.5</td><td class="td_gray">42</td><td class="td_white">42.5</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">USA</td><td class="td_gray">5</td><td class="td_white">5.5</td><td class="td_gray">6</td><td class="td_white">6.5</td><td class="td_gray">7</td><td class="td_white">7.5</td><td class="td_gray">8</td><td class="td_white">8.5</td><td class="td_gray">9</td><td class="td_white">9.5</td><td class="td_gray">10</td><td class="td_white">10.5</td><td class="td_gray">11</td><td class="td_white">11.5</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">UK</td><td class="td_gray">2</td><td class="td_white">2.5</td><td class="td_gray">3</td><td class="td_white">3.5</td><td class="td_gray">4</td><td class="td_white">4.5</td><td class="td_gray">5</td><td class="td_white">5.5</td><td class="td_gray">6</td><td class="td_white">6.5</td><td class="td_gray">7</td><td class="td_white">7.5</td><td class="td_gray">8</td><td class="td_white">8.5</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GIAPPONE") ?></td><td class="td_gray">22</td><td class="td_white">22.5</td><td class="td_gray">23</td><td class="td_white">23.5</td><td class="td_gray">24</td><td class="td_white">24</td><td class="td_gray">24.5</td><td class="td_white">25</td><td class="td_gray">25.5</td><td class="td_white"></td><td class="td_gray">26</td><td class="td_white"></td><td class="td_gray">26.5</td><td class="td_white"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="size_table_05" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="8" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">I/II/III</td><td class="td_gray">00</td><td class="td_white">0</td><td class="td_gray">1/I</td><td class="td_white">2/II</td><td class="td_gray">3/III</td><td class="td_white">4/IV</td><td class="td_gray">5/V</td><td class="td_white">6/VI</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">S/M/L</td><td class="td_gray">XXS</td><td class="td_white">XS</td><td class="td_gray">S</td><td class="td_white">M</td><td class="td_gray">L</td><td class="td_white">XL</td><td class="td_gray">XXL</td><td class="td_white">XXXL</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("ITALIA") ?></td><td class="td_gray">42</td><td class="td_white">44</td><td class="td_gray">46</td><td class="td_white">48</td><td class="td_gray">50</td><td class="td_white">52</td><td class="td_gray">54</td><td class="td_white">56</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("FRANCIA") ?></td><td class="td_gray">42</td><td class="td_white">44</td><td class="td_gray">46</td><td class="td_white">48</td><td class="td_gray">50</td><td class="td_white">52</td><td class="td_gray">54</td><td class="td_white">56</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">USA</td><td class="td_gray">32</td><td class="td_white">34</td><td class="td_gray">36</td><td class="td_white">38</td><td class="td_gray">40</td><td class="td_white">42</td><td class="td_gray">44</td><td class="td_white">46</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">UK</td><td class="td_gray">32</td><td class="td_white">34</td><td class="td_gray">36</td><td class="td_white">38</td><td class="td_gray">40</td><td class="td_white">42</td><td class="td_gray">44</td><td class="td_white">46</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GIAPPONE") ?></td><td class="td_gray"></td><td class="td_white">1</td><td class="td_gray">2</td><td class="td_white">3</td><td class="td_gray">4</td><td class="td_white">5</td><td class="td_gray">6</td><td class="td_white">7</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("CINA") ?></td><td class="td_gray"></td><td class="td_white">165/84A</td><td class="td_gray">170/88A</td><td class="td_white">175/92A</td><td class="td_gray">180/96A</td><td class="td_white">185/100A</td><td class="td_gray">190/104A</td><td class="td_white">195/108A</td>
+                    </tr>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="8" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">JEANS</td><td class="td_gray">26/27</td><td class="td_white">28/29</td><td class="td_gray">30/31</td><td class="td_white">32/33</td><td class="td_gray">34/35</td><td class="td_white">36/37</td><td class="td_gray">38/39</td><td class="td_white"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("PANTALONI") ?> UK</td><td class="td_gray"></td><td class="td_white">28</td><td class="td_gray">30</td><td class="td_white">32</td><td class="td_gray">34</td><td class="td_white">36</td><td class="td_gray">38</td><td class="td_white">40</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("PANTALONI") ?> FR</td><td class="td_gray"></td><td class="td_white">36</td><td class="td_gray">38</td><td class="td_white">40</td><td class="td_gray">42</td><td class="td_white">44</td><td class="td_gray">46</td><td class="td_white">48</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("PANTALONI") ?> CN</td><td class="td_gray"></td><td class="td_white">22</td><td class="td_gray">23</td><td class="td_white">24</td><td class="td_gray">25</td><td class="td_white">26</td><td class="td_gray">27</td><td class="td_white"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            <div id="size_table_07" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="8" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("COLLO") ?> cm</td><td class="td_gray">37</td><td class="td_white">38</td><td class="td_gray">39</td><td class="td_white">40</td><td class="td_gray">41</td><td class="td_white">42</td><td class="td_gray">43</td><td class="td_white">44</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("COLLO") ?> <?php echo $this->__("Pollici") ?></td><td class="td_gray">14.5</td><td class="td_white">15</td><td class="td_gray">15.5</td><td class="td_white">15 3/4</td><td class="td_gray">16</td><td class="td_white">16.5</td><td class="td_gray">17</td><td class="td_white">17.5</td>
+                    </tr>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="8" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">I/II/III</td><td class="td_gray">0</td><td class="td_white">1/I</td><td class="td_gray">2/II</td><td class="td_white">3/III</td><td class="td_gray">4/IV</td><td class="td_white">5/V</td><td class="td_gray">6/VI</td><td class="td_white"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">S/M/L</td><td class="td_gray">XS</td><td class="td_white">S</td><td class="td_gray">M</td><td class="td_white">L</td><td class="td_gray">XL</td><td class="td_white">XXL</td><td class="td_gray">XXXL</td><td class="td_white"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("ITALIA") ?></td><td class="td_gray">44</td><td class="td_white">46</td><td class="td_gray">48</td><td class="td_white">50</td><td class="td_gray">52</td><td class="td_white">54</td><td class="td_gray">56</td><td class="td_white">58</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("FRANCIA") ?></td><td class="td_gray">44</td><td class="td_white">46</td><td class="td_gray">48</td><td class="td_white">50</td><td class="td_gray">52</td><td class="td_white">54</td><td class="td_gray">56</td><td class="td_white">58</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">USA</td><td class="td_gray">34</td><td class="td_white">36</td><td class="td_gray">38</td><td class="td_white">40</td><td class="td_gray">42</td><td class="td_white">44</td><td class="td_gray">46</td><td class="td_white">48</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">UK</td><td class="td_gray">34</td><td class="td_white">36</td><td class="td_gray">38</td><td class="td_white">40</td><td class="td_gray">42</td><td class="td_white">44</td><td class="td_gray">46</td><td class="td_white">48</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GIAPPONE") ?></td><td class="td_gray">1</td><td class="td_white">2</td><td class="td_gray">3</td><td class="td_white">4</td><td class="td_gray">5</td><td class="td_white">6</td><td class="td_gray">7</td><td class="td_white"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("CINA") ?></td><td class="td_gray">165/84A</td><td class="td_white">170/88A</td><td class="td_gray">175/92A</td><td class="td_white">180/96A</td><td class="td_gray">185/100A</td><td class="td_white">190/104A</td><td class="td_gray">195/108A</td><td class="td_white"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="size_table_09" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="10" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("CINTURE") ?></td><td class="td_gray">70</td><td class="td_white">75</td><td class="td_gray">80</td><td class="td_white">85</td><td class="td_gray">90</td><td class="td_white">95</td><td class="td_gray">100</td><td class="td_white">105</td><td class="td_gray">110</td><td class="td_white">115</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("CINTURE") ?> USA</td><td class="td_gray">28</td><td class="td_white">30</td><td class="td_gray">32</td><td class="td_white">34</td><td class="td_gray">36</td><td class="td_white">38</td><td class="td_gray">40</td><td class="td_white">42</td><td class="td_gray">44</td><td class="td_white">46</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("CINTURE") ?> ARMANI</td><td class="td_gray"></td><td class="td_white">I</td><td class="td_gray">II</td><td class="td_white">III</td><td class="td_gray">IV</td><td class="td_white">V</td><td class="td_gray">VI</td><td class="td_white">VII</td><td class="td_gray"></td><td class="td_white"></td>
+                    </tr>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="10" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">I/II/III</td><td class="td_gray"></td><td class="td_white">0</td><td class="td_gray">1/I</td><td class="td_white">2/II</td><td class="td_gray">3/III</td><td class="td_white">4/IV</td><td class="td_gray">5/V</td><td class="td_white"></td><td class="td_gray"></td><td class="td_white"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">S/M/L</td><td class="td_gray">XXS</td><td class="td_white">XS</td><td class="td_gray">S</td><td class="td_white">M</td><td class="td_gray">L</td><td class="td_white">XL</td><td class="td_gray">XXL</td><td class="td_white">XXXL</td><td class="td_gray"></td><td class="td_white"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("ITALIA") ?></td><td class="td_gray">42</td><td class="td_white">44</td><td class="td_gray">46</td><td class="td_white">48</td><td class="td_gray">50</td><td class="td_white">52</td><td class="td_gray">54</td><td class="td_white">56</td><td class="td_gray">58</td><td class="td_white">60</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("FRANCIA") ?></td><td class="td_gray">42</td><td class="td_white">44</td><td class="td_gray">46</td><td class="td_white">48</td><td class="td_gray">50</td><td class="td_white">52</td><td class="td_gray">54</td><td class="td_white">56</td><td class="td_gray">58</td><td class="td_white">60</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">USA</td><td class="td_gray">32</td><td class="td_white">34</td><td class="td_gray">36</td><td class="td_white">38</td><td class="td_gray">40</td><td class="td_white">42</td><td class="td_gray">44</td><td class="td_white">46</td><td class="td_gray">48</td><td class="td_white">50</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">UK</td><td class="td_gray">32</td><td class="td_white">34</td><td class="td_gray">36</td><td class="td_white">38</td><td class="td_gray">40</td><td class="td_white">42</td><td class="td_gray">44</td><td class="td_white">46</td><td class="td_gray">48</td><td class="td_white"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GIAPPONE") ?></td><td class="td_gray"></td><td class="td_white">1</td><td class="td_gray">2</td><td class="td_white">3</td><td class="td_gray">4</td><td class="td_white">5</td><td class="td_gray">6</td><td class="td_white"></td><td class="td_gray"></td><td class="td_white"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("CINA") ?></td><td class="td_gray"></td><td class="td_white">165/84A</td><td class="td_gray">170/88A</td><td class="td_white">175/92A</td><td class="td_gray">180/96A</td><td class="td_white">185/100A</td><td class="td_gray">190/104A</td><td class="td_white"></td><td class="td_gray"></td><td class="td_white"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="size_table_35" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="6" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GUANTI") ?></td><td class="td_gray">7.5</td><td class="td_white">8</td><td class="td_gray">8.5</td><td class="td_white">9</td><td class="td_gray">9.5</td><td class="td_white">10</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("EUROPA") ?></td><td class="td_gray">S</td><td class="td_white">S</td><td class="td_gray">M</td><td class="td_white">M</td><td class="td_gray">L</td><td class="td_white">L</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("Centimetri") ?></td><td class="td_gray">20</td><td class="td_white">21.5</td><td class="td_gray">23</td><td class="td_white">24</td><td class="td_gray">25.5</td><td class="td_white">27</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="size_table_20" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="8" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">MONCLER</td><td class="td_gray">00</td><td class="td_white">0</td><td class="td_gray">1</td><td class="td_white">2</td><td class="td_gray">3</td><td class="td_white">4</td><td class="td_gray">5</td><td class="td_white">6</td>
+                    </tr>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="8" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">I/II/III</td><td class="td_gray"></td><td class="td_white">0</td><td class="td_gray">1/I</td><td class="td_white">2/II</td><td class="td_gray">3/III</td><td class="td_white">4/IV</td><td class="td_gray">5/V</td><td class="td_white"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">S/M/L</td><td class="td_gray">XXS</td><td class="td_white">XS</td><td class="td_gray">S</td><td class="td_white">M</td><td class="td_gray">L</td><td class="td_white">XL</td><td class="td_gray">XXL</td><td class="td_white">XXXL</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("ITALIA") ?></td><td class="td_gray">42</td><td class="td_white">44</td><td class="td_gray">46</td><td class="td_white">48</td><td class="td_gray">50</td><td class="td_white">52</td><td class="td_gray">54</td><td class="td_white">56</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("FRANCIA") ?></td><td class="td_gray">42</td><td class="td_white">44</td><td class="td_gray">46</td><td class="td_white">48</td><td class="td_gray">50</td><td class="td_white">52</td><td class="td_gray">54</td><td class="td_white">56</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">USA</td><td class="td_gray">32</td><td class="td_white">34</td><td class="td_gray">36</td><td class="td_white">38</td><td class="td_gray">40</td><td class="td_white">42</td><td class="td_gray">44</td><td class="td_white">46</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">UK</td><td class="td_gray">32</td><td class="td_white">34</td><td class="td_gray">36</td><td class="td_white">38</td><td class="td_gray">40</td><td class="td_white">42</td><td class="td_gray">44</td><td class="td_white">46</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GIAPPONE") ?></td><td class="td_gray"></td><td class="td_white">1</td><td class="td_gray">2</td><td class="td_white">3</td><td class="td_gray">4</td><td class="td_white">5</td><td class="td_gray">6</td><td class="td_white"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("CINA") ?></td><td class="td_gray"></td><td class="td_white">165/84A</td><td class="td_gray">170/88A</td><td class="td_white">175/92A</td><td class="td_gray">180/96A</td><td class="td_white">185/100A</td><td class="td_gray">190/104A</td><td class="td_white"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="size_table_30" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="15" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">Adidas</td><td class="td_gray">5.5</td><td class="td_white">6</td><td class="td_gray">6.5</td><td class="td_white">7</td><td class="td_gray">7.5</td><td class="td_white">8</td><td class="td_gray">8.5</td><td class="td_white">9</td><td class="td_gray">9.5</td><td class="td_white">10</td><td class="td_gray">10.5</td><td class="td_white">11</td><td class="td_gray">11.5</td><td class="td_white">12</td><td class="td_gray">12.5</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">Adidas UK</td><td class="td_gray">5.5</td><td class="td_white">6</td><td class="td_gray">6.5</td><td class="td_white">7</td><td class="td_gray">7.5</td><td class="td_white">8</td><td class="td_gray">8.5</td><td class="td_white">9</td><td class="td_gray">9.5</td><td class="td_white">10</td><td class="td_gray">10.5</td><td class="td_white">11</td><td class="td_gray">11.5</td><td class="td_white">12</td><td class="td_gray">12.5</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">Adidas <?php echo $this->__("ITALIA") ?></td><td class="td_gray">38 2/3</td><td class="td_white">39 1/3</td><td class="td_gray">40</td><td class="td_white">40 2/3</td><td class="td_gray">41 1/3</td><td class="td_white">42</td><td class="td_gray">42 2/3</td><td class="td_white">43 1/3</td><td class="td_gray">44</td><td class="td_white">44 2/3</td><td class="td_gray">45 1/3</td><td class="td_white">46</td><td class="td_gray">46 2/3</td><td class="td_white">47 1/3</td><td class="td_gray">48</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">Adidas USA</td><td class="td_gray">6</td><td class="td_white">6.5</td><td class="td_gray">7</td><td class="td_white">7.5</td><td class="td_gray">8</td><td class="td_white">8.5</td><td class="td_gray">9</td><td class="td_white">9.5</td><td class="td_gray">10</td><td class="td_white">10.5</td><td class="td_gray">11</td><td class="td_white">11.5</td><td class="td_gray">12</td><td class="td_white">12.5</td><td class="td_gray">13</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">Adidas <?php echo $this->__("GIAPPONE") ?></td><td class="td_gray">240</td><td class="td_white">245</td><td class="td_gray">250</td><td class="td_white">255</td><td class="td_gray">260</td><td class="td_white">265</td><td class="td_gray">270</td><td class="td_white">275</td><td class="td_gray">280</td><td class="td_white">285</td><td class="td_gray">290</td><td class="td_white">295</td><td class="td_gray">300</td><td class="td_white">305</td><td class="td_gray">310</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="size_table_64" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="14" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">NIKE US</td><td class="td_gray">6</td><td class="td_white">6.5</td><td class="td_gray">7</td><td class="td_white">7.5</td><td class="td_gray">8</td><td class="td_white">8.5</td><td class="td_gray">9</td><td class="td_white">9.5</td><td class="td_gray">10</td><td class="td_white">10.5</td><td class="td_gray">11</td><td class="td_white">11.5</td><td class="td_gray">12</td><td class="td_white">13</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">NIKE EU</td><td class="td_gray">38.5</td><td class="td_white">39</td><td class="td_gray">40</td><td class="td_white">40.5</td><td class="td_gray">41</td><td class="td_white">42</td><td class="td_gray">42.5</td><td class="td_white">43</td><td class="td_gray">44</td><td class="td_white">44.5</td><td class="td_gray">45</td><td class="td_white">45.5</td><td class="td_gray">46</td><td class="td_white">47.5</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">NIKE UK</td><td class="td_gray">5.5</td><td class="td_white">6</td><td class="td_gray">6</td><td class="td_white">6.5</td><td class="td_gray">7</td><td class="td_white">7.5</td><td class="td_gray">8</td><td class="td_white">8.5</td><td class="td_gray">9</td><td class="td_white">9.5</td><td class="td_gray">10</td><td class="td_white">10.5</td><td class="td_gray">11</td><td class="td_white">12</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">NIKE JP</td><td class="td_gray">24</td><td class="td_white">24.5</td><td class="td_gray">25</td><td class="td_white">25.5</td><td class="td_gray">26</td><td class="td_white">26.5</td><td class="td_gray">27</td><td class="td_white">27.5</td><td class="td_gray">28</td><td class="td_white">28.5</td><td class="td_gray">29</td><td class="td_white">29.5</td><td class="td_gray">30</td><td class="td_white">31</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="size_table_08" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="16" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("ITALIA") ?></td><td class="td_gray">39</td><td class="td_white">39.5</td><td class="td_gray">40</td><td class="td_white">40.5</td><td class="td_gray">41</td><td class="td_white">41.5</td><td class="td_gray">42</td><td class="td_white">42.5</td><td class="td_gray">43</td><td class="td_white">43.5</td><td class="td_gray">44</td><td class="td_white">44.5</td><td class="td_gray">45</td><td class="td_white">45.5</td><td class="td_gray">46</td><td class="td_white">46.5</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("FRANCIA") ?></td><td class="td_gray">39</td><td class="td_white">39.5</td><td class="td_gray">40</td><td class="td_white">40.5</td><td class="td_gray">41</td><td class="td_white">41.5</td><td class="td_gray">42</td><td class="td_white">42.5</td><td class="td_gray">43</td><td class="td_white">43.5</td><td class="td_gray">44</td><td class="td_white">44.5</td><td class="td_gray">45</td><td class="td_white">45.5</td><td class="td_gray">46</td><td class="td_white">46.5</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">USA</td><td class="td_gray">6</td><td class="td_white">6.5</td><td class="td_gray">7</td><td class="td_white">7.5</td><td class="td_gray">8</td><td class="td_white">8.5</td><td class="td_gray">9</td><td class="td_white">9.5</td><td class="td_gray">10</td><td class="td_white">10.5</td><td class="td_gray">11</td><td class="td_white">11.5</td><td class="td_gray">12</td><td class="td_white">12.5</td><td class="td_gray">13</td><td class="td_white">13.5</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">UK</td><td class="td_gray">5</td><td class="td_white">5.5</td><td class="td_gray">6</td><td class="td_white">6.5</td><td class="td_gray">7</td><td class="td_white">7.5</td><td class="td_gray">8</td><td class="td_white">8.5</td><td class="td_gray">9</td><td class="td_white">9.5</td><td class="td_gray">10</td><td class="td_white">10.5</td><td class="td_gray">11</td><td class="td_white">11.5</td><td class="td_gray">12</td><td class="td_white">12.5</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("GIAPPONE") ?></td><td class="td_gray"></td><td class="td_white"></td><td class="td_gray">25</td><td class="td_white">25.5</td><td class="td_gray">26</td><td class="td_white"></td><td class="td_gray">26.5</td><td class="td_white">27</td><td class="td_gray">27.5</td><td class="td_white"></td><td class="td_gray">28</td><td class="td_white">28.5</td><td class="td_gray">29</td><td class="td_white"></td><td class="td_gray">29.5</td><td class="td_white"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="size_table_25" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="13" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("CAPPELLI") ?></td><td class="td_gray"></td><td class="td_white"></td><td class="td_gray"></td><td class="td_white"></td><td class="td_gray">I</td><td class="td_white">II</td><td class="td_gray">III</td><td class="td_white">IV</td><td class="td_gray">V</td><td class="td_white">VI</td><td class="td_gray">VII</td><td class="td_white"></td><td class="td_gray"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">S/M/L</td><td class="td_gray"></td><td class="td_white"></td><td class="td_gray">S</td><td class="td_white">S</td><td class="td_gray">M</td><td class="td_white">M</td><td class="td_gray">M/L</td><td class="td_white">L</td><td class="td_gray">L</td><td class="td_white">XL</td><td class="td_gray">XL</td><td class="td_white">XXL</td><td class="td_gray">XXL</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("Centimetri") ?></td><td class="td_gray">52</td><td class="td_white">53</td><td class="td_gray">54</td><td class="td_white">55</td><td class="td_gray">56</td><td class="td_white">57</td><td class="td_gray">58</td><td class="td_white">59</td><td class="td_gray">60</td><td class="td_white">61</td><td class="td_gray">62</td><td class="td_white">63</td><td class="td_gray">64</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">USA</td><td class="td_gray">6 1/2</td><td class="td_white">6 5/8</td><td class="td_gray">6 3/4</td><td class="td_white">6 7/8</td><td class="td_gray">7</td><td class="td_white">7 1/8</td><td class="td_gray">7 1/4</td><td class="td_white">7 3/8</td><td class="td_gray">7 1/2</td><td class="td_white">7 5/8</td><td class="td_gray">7 3/4</td><td class="td_white">7 7/8</td><td class="td_gray">8</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">AUS/UK</td><td class="td_gray">6 3/8</td><td class="td_white">6 1/2</td><td class="td_gray">6 5/8</td><td class="td_white">6 3/4</td><td class="td_gray">6 7/8</td><td class="td_white">7</td><td class="td_gray">7 1/8</td><td class="td_white">7 1/4</td><td class="td_gray">7 3/8</td><td class="td_white">7 1/2</td><td class="td_gray">7 5/8</td><td class="td_white">7 3/4</td><td class="td_gray">7 7/8</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="size_table_27" class="size_table">
+                <table class="sizeChart">
+                    <tbody>
+                    <tr class="tr_head">
+                        <td class="td_headcty"></td><td colspan="11" class="td_headsize"><?php echo $this->__("TAGLIA") ?></td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("ANELLI") ?></td><td class="td_gray">S</td><td class="td_white">S</td><td class="td_gray">S</td><td class="td_white">M</td><td class="td_gray">M</td><td class="td_white">M</td><td class="td_gray">L</td><td class="td_white">L</td><td class="td_gray">L</td><td class="td_white">L</td><td class="td_gray">L</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("EUROPA") ?></td><td class="td_gray">10</td><td class="td_white">11</td><td class="td_gray">12</td><td class="td_white">13</td><td class="td_gray">14</td><td class="td_white">15</td><td class="td_gray">16</td><td class="td_white">17</td><td class="td_gray">18</td><td class="td_white">19</td><td class="td_gray">20</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty">USA</td><td class="td_gray">5 1/2</td><td class="td_white">5 3/4</td><td class="td_gray">6</td><td class="td_white">6 1/2</td><td class="td_gray">6 3/4</td><td class="td_white">7 1/4</td><td class="td_gray">7 1/2</td><td class="td_white">8</td><td class="td_gray">8 1/2</td><td class="td_white">8 3/4</td><td class="td_gray">9</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("Millimetri") ?></td><td class="td_gray">50.6</td><td class="td_white">51.2</td><td class="td_gray">51.99</td><td class="td_white">53.1</td><td class="td_gray">53.8</td><td class="td_white">55.1</td><td class="td_gray">55.7</td><td class="td_white">57</td><td class="td_gray">58.3</td><td class="td_white">58.9</td><td class="td_gray">59.5</td>
+                    </tr>
+                    <tr>
+                        <td class="td_cty"><?php echo $this->__("Pollici") ?></td><td class="td_gray">1.99</td><td class="td_white">2.02</td><td class="td_gray">2.04</td><td class="td_white">2.09</td><td class="td_gray">2.12</td><td class="td_white">2.17</td><td class="td_gray">2.19</td><td class="td_white">2.24</td><td class="td_gray">2.29</td><td class="td_white">2.32</td><td class="td_gray">2.34</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+<?php endif;?>
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function(){
+        jQuery(".chiudi2").click(function(){
+            jQuery('#overlay2').fadeOut('slow');
+            jQuery('#misura_div').hide();
+        });
+        jQuery("#overlay2").click( function(){
+            jQuery(this).fadeOut('slow');
+            jQuery('#misura_div').hide();
+        });
+
+        if (jQuery("#codiceTaglia").val()==""){
+            jQuery("#misura_div_link").hide();
+        }
+
+        jQuery("#misura_div_link").click(function(){
+
+            jQuery('#overlay2').fadeIn('fast');
+
+            jQuery('#misura_div').fadeIn('slow');
+
+            codiceTaglia=jQuery("#codiceTaglia").val();
+            jQuery("#sizeChartSel").val(codiceTaglia);
+
+            changeSizeTable(codiceTaglia);
+
+            jQuery('#misura_div').css("top", Math.max(0, ((jQuery(window).height() - jQuery('#misura_div').outerHeight()) / 2) ) + "px");
+            jQuery('#misura_div').css("left", Math.max(0, ((jQuery(window).width() - jQuery('#misura_div').outerWidth()) / 2) ) + "px");
+        });
+
+    })
+
+    function fireEvent(element,event)
+    {
+        if (document.createEventObject)
+        {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return element.fireEvent('on'+event,evt);
+        }
+        else
+        {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true );
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+    function setDefaultConfigOptions()
+    {
+        if (spConfigIndex >= spConfig.settings.length)
+        {
+            return; // stop
+        }
+
+        spConfig.settings[spConfigIndex].selectedIndex = 1;
+        var obj = spConfig.settings[spConfigIndex];
+
+        ++spConfigIndex;
+        jQuery(".taglia_singola[data-value="+obj.value+"]").addClass('taglia_singola_selected');
+
+        Event.observe(obj,'change',function(){});
+        fireEvent(obj,'change');
+
+        window.setTimeout("setDefaultConfigOptions()", 1); // Add a small delay before moving onto the next option
+    }
+
+    var spConfigIndex = 0;
+    Event.observe(window, 'load', function() {
+        replaceDropDowns();
+        setDefaultConfigOptions();
+    });
+
+    function replaceDropDowns() {
+        jQuery('.taglia_singola').remove();
+        jQuery(".super-attribute-select").each(function() {
+            var drop_down = jQuery(this);
+            drop_down.hide();
+            drop_down.find("option[value!='']").each(function() {
+                var option = jQuery(this);
+                jQuery("<div>", {
+                    text: option.text(),
+                    class: 'taglia_singola',
+                    'data-id': drop_down.attr('id'),
+                    'data-name': drop_down.attr('name'),
+                    'data-value': option.val(),
+                    'data-label': option.text(),
+                    click: function() {
+                        drop_down.val(option.val());
+                        var obj = drop_down.get();
+                        Event.observe(obj[0],'change',function(){});
+                        fireEvent(obj[0],'change');
+                        replaceDropDowns();
+                        jQuery(".super-attribute-select").each(function() {
+                            if(jQuery(this).val()) {
+                                jQuery(".taglia_singola[data-value="+jQuery(this).val()+"]").addClass('taglia_singola_selected');
+
+                            }
+                        });
+
+                        return false;
+                    }
+                }).appendTo(drop_down.parent());
+            })
+        });
+    }
+
+
+    function changeSizeTable(valore){
+        tabelle=jQuery(".size_table");
+        for (i=0; i<tabelle.lenght; i++){
+            jQuery(tabelle[i]).hide();
+        }
+
+        jQuery('.size_table').each(function(){
+            jQuery(this).hide();
+        })
+
+        largh=jQuery("#size_table_"+valore).width();
+        jQuery("#size_table_"+valore).css("width",largh+"px");
+        jQuery(".chiudi2").css("margin-left",largh+"px");
+        largh=largh+30;
+        jQuery("#misura_div").css("width",largh+"px");
+        jQuery("#size_table_"+valore).show();
+    }
+</script>
+
+

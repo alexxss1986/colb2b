@@ -1,0 +1,189 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Onestepcheckout
+ * @version    1.2.7
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><div id="aw-onestepcheckout-container">
+    <div class="aw-onestepcheckout-row">
+        <?php echo $this->getChildHtml('title'); ?>
+    </div>
+    <div class="aw-onestepcheckout-row">
+        <?php echo $this->getChildHtml('auth'); ?>
+    </div>
+    <div class="aw-onestepcheckout-row" id="aw-onestepcheckout-general-container">
+        <form id="aw-onestepcheckout-general-form" method="post" action="#">
+            <div class="aw-onestepchekocut-column aw-onestepchekocut-column-left">
+                <div id="aw-onestepcheckout-address-wrapper">
+                    <?php echo $this->getChildHtml('address'); ?>
+                </div>
+            </div>
+            <div class="aw-onestepchekocut-column aw-onestepchekocut-column-middle">
+                <div id="aw-onestepcheckout-shipping-method-wrapper">
+                    <?php echo $this->getChildHtml('shippingmethod'); ?>
+                </div>
+                <div id="aw-onestepcheckout-payment-method-wrapper">
+                    <?php echo $this->getChildHtml('paymentmethod'); ?>
+                </div>
+            </div>
+            <div class="aw-onestepchekocut-column aw-onestepchekocut-column-right">
+                <div id="aw-onestepcheckout-order-review">
+                    <?php $blockNumberClass = (!is_null($this->getBlockNumber(false)))?"aw-onestepcheckout-number-v":"";?>
+                    <p class="aw-onestepcheckout-number <?php echo $blockNumberClass;?>"><?php echo $this->__('ORDER REVIEW'); ?></p>
+                    <div id="aw-onestepcheckout-order-review-cart-wrapper">
+                        <?php echo $this->getChildHtml('review.cart'); ?>
+                    </div>
+                    <div id="aw-onestepcheckout-order-review-coupon-wrapper">
+                        <?php echo $this->getChildHtml('review.coupon'); ?>
+                    </div>
+                    <div id="aw-onestepcheckout-order-review-enterprise-giftcard-wrapper">
+                        <?php echo $this->getChildHtml('review.enterprise.giftcard'); ?>
+                    </div>
+                    <div id="aw-onestepcheckout-order-review-enterprise-storecredit-wrapper">
+                        <?php echo $this->getChildHtml('review.enterprise.storecredit'); ?>
+                    </div>
+                    <div id="aw-onestepcheckout-order-review-enterprise-points-wrapper">
+                        <?php echo $this->getChildHtml('review.enterprise.points'); ?>
+                    </div>
+                    <div id="aw-onestepcheckout-order-review-points-wrapper">
+                        <?php echo $this->getChildHtml('review.points'); ?>
+                    </div>
+                    <div id="aw-onestepcheckout-order-review-referafriend-wrapper">
+                        <?php echo $this->getChildHtml('review.referafriend'); ?>
+                    </div>
+                    <div id="aw-onestepcheckout-order-review-comments-wrapper">
+                        <?php echo $this->getChildHtml('review.comments'); ?>
+                    </div>
+                    <!--<div id="aw-onestepcheckout-order-review-newsletter-wrapper">
+                        <?php //echo $this->getChildHtml('review.newsletter'); ?>
+                    </div>-->
+                    <div id="aw-onestepcheckout-order-review-terms-wrapper">
+                        <?php echo $this->getChildHtml('review.terms'); ?>
+                    </div>
+                    <div id="aw-onestepcheckout-order-review-extra-wrapper">
+                        <?php echo $this->getChildHtml('review.extra'); ?>
+                    </div>
+                    <div id="aw-onestepcheckout-place-order" style="text-align:center">
+                        <button class="button" type="button" title="<?php echo $this->__('Place Order Now'); ?>" id="aw-onestepcheckout-place-order-button"><?php echo $this->__('Place Order'); ?>
+                            <span class="aw-onestepcheckout-place-order-grand-total" style="display:none">
+                                <span class="aw-onestepcheckout-place-order-label"><?php echo $this->__('Grand Total'); ?></span>
+                                <span class="aw-onestepcheckout-place-order-amount" ><?php echo $this->getGrandTotal(); ?></span>
+                               
+                            </span>
+                            <span style="display:none" class="aw-onestepcheckout-place-order-title"><?php echo $this->__('Place Order'); ?></span>
+                            <span class="aw-onestepcheckout-place-order-process" style="display:none;">
+                                    <img src="<?php echo $this->getSkinUrl('aw_onestepcheckout/images/ajax-loader.gif') ?>" />
+                                </span>
+                             </button>
+                       <p style="font-size:10px;margin-top:10px;float: left;width: 100%;"><?php echo $this->__('Pagamento rapido e sicuro') ?></p>
+                        <img style="display: inline-block;margin-top: 20px;" src="<?php echo $this->getSkinUrl('images/pagamenti_coltortiboutique.png') ?>" />
+                        <div class="aw-onestepcheckout-place-order-please-wait">
+                            <img src="<?php echo $this->getSkinUrl('aw_onestepcheckout/images/ajax-loader.gif') ?>" />
+                            <p><?php echo $this->__('Please wait, processing your order...') ?></p></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div id="aw-onestepcheckout-popup" class="aw-onestepcheckout-popup" style="display:none">
+            <div id="aw-onestepcheckout-popup-content" class="aw-onestepcheckout-popup-content"></div>
+            <div id="aw-onestepcheckout-popup-accept" class="aw-onestepcheckout-popup-accept">
+                <button type="button"><?php echo $this->__('ACCEPT');?></button>
+                <a href="javascript:void(0)"><?php echo $this->__('Close');?></a>
+            </div>
+        </div>
+        <div id="aw-onestepcheckout-overlay" class="aw-onestepcheckout-popup-overlay" style="display:none"></div>
+        <script type="text/javascript">
+            var awOSCForm = new AWOnestepcheckoutForm({
+                formId: 'aw-onestepcheckout-general-form',
+                cartContainerSelector: "#aw-onestepcheckout-order-review-cart-wrapper",
+                // validate shipping and payment
+                shippingMethodName: 'shipping_method',
+                shippingMethodAdvice: '#aw-onestepcheckout-shipping-method .validation-advice',
+                shippingValidationMessage: '<?php echo $this->__('Please specify shipping method.'); ?>',
+                shippingMethodWrapperSelector: '#aw-onestepcheckout-shipping-method .sp-methods',
+                paymentMethodName: 'payment[method]',
+                paymentMethodAdvice: '#aw-onestepcheckout-payment-method dl+.validation-advice',
+                paymentValidationMessage: '<?php echo $this->__('Please specify payment method.'); ?>',
+                paymentMethodWrapperSelector: '#aw-onestepcheckout-payment-method .sp-methods',
+                //place order functionality
+                placeOrderUrl: '<?php echo $this->getPlaceOrderUrl(); ?>',
+                successUrl: '<?php echo $this->getUrl('checkout/onepage/success'); ?>',
+                placeOrderButtonSelector: 'aw-onestepcheckout-place-order-button',
+                granTotalAmountSelector: '.aw-onestepcheckout-place-order-amount',
+                granTotalAmountProcessSelector: '.aw-onestepcheckout-place-order-process',
+                pleaseWaitNoticeSelector: '.aw-onestepcheckout-place-order-please-wait',
+                overlayId: 'aw-onestepcheckout-place-order-overlay',
+                disabledClassName: 'aw-onestepcheckout-place-order-button-disabled',
+                popup: {
+                    overlaySelector: "#aw-onestepcheckout-overlay",
+                    containerSelector: "#aw-onestepcheckout-popup",
+                    contentContainerSelector: "#aw-onestepcheckout-popup-content",
+                    acceptContainerSelector: "#aw-onestepcheckout-popup-accept",
+                    buttons: {
+                        accept:{
+                            selector: "#aw-onestepcheckout-popup-accept button",
+                            enabled: false
+                        },
+                        close:{
+                            selector: "#aw-onestepcheckout-popup-accept a",
+                            enabled: false
+                        }
+                    }
+                }
+				
+				
+            });
+        </script>
+    </div>
+    <div class="aw-onestepcheckout-row">
+        <div id="aw-onestepcheckout-related-wrapper">
+            <?php echo $this->getChildHtml('related'); ?>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    AWOnestepcheckoutCore.updateNumbers();
+    AWOnestepcheckoutCore.updater.setConfig({
+        loaderConfig: {
+            '48px': 'aw-onestepcheckout-overlay aw-onestepcheckout-overlay-48',
+            '24px': 'aw-onestepcheckout-overlay aw-onestepcheckout-overlay-24',
+            '16px': 'aw-onestepcheckout-overlay aw-onestepcheckout-overlay-16'
+        },
+        map: <?php echo Zend_Json::encode($this->getBlockMap());?>,
+        blocks: [
+            ['shipping_method', '#aw-onestepcheckout-shipping-method-wrapper'],
+            ['payment_method', '#aw-onestepcheckout-payment-method-wrapper'],
+            ['review_cart', '#aw-onestepcheckout-order-review-cart-wrapper'],
+            ['review_coupon', '#aw-onestepcheckout-order-review-coupon-wrapper'],
+            ['review_enterprise_giftcard', '#aw-onestepcheckout-order-review-enterprise-giftcard-wrapper'],
+            ['review_enterprise_storecredit', '#aw-onestepcheckout-order-review-enterprise-storecredit-wrapper'],
+            ['review_enterprise_points', '#aw-onestepcheckout-order-review-enterprise-points-wrapper'],
+            ['review_points', '#aw-onestepcheckout-order-review-points-wrapper'],
+            ['review_referafriend', '#aw-onestepcheckout-order-review-referafriend-wrapper']
+        ],
+        loaderToBlockCssClass: 'aw-onestepcheckout-add-loader-into-this-block'
+    });
+	
+	if (document.getElementById('newsletter_simple')!=undefined){
+					document.getElementById('newsletter_simple').checked=true;	
+				}
+</script>

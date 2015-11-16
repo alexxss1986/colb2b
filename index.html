@@ -1,0 +1,276 @@
+<html>
+<head>
+    <title>Coltorti: Boutique online di Abbigliamento ed Accessori di Alta Moda | Coltorti Boutique</title>
+    <link rel="icon" href="http://www.coltortiboutique.com/media/favicon/default/favicon-64.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://www.coltortiboutique.com/media/favicon/default/favicon-64.png" type="image/x-icon" />
+    <style>
+        .container {
+            margin:0 auto;
+            width:1200px;
+        }
+        .contenuto .boutique_index {
+            float:left;
+            width:15.7%;
+        }
+        .contenuto .boutique_index.last {
+            float:left;
+            width:37.2%;
+        }
+        .contenuto .boutique_index .dati h1 {
+            margin-bottom: 0;
+            color: #000;
+        }
+
+        .contenuto .boutique_index .dati p.sottotitolo{
+            text-transform: uppercase;
+            font-size: 12px;
+            color: #000;
+            margin-bottom: 30px;
+            margin-top: 3px;
+        }
+
+        .contenuto .boutique_index .dati p {
+            color: #000;
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .contenuto .countdown h1 {
+            font-family: "Brandon_bld";
+            font-size:16px;
+        }
+
+        .contenuto .countdown {
+            float: left;
+            width: 100%;
+            text-align: center;
+        }
+
+        .contenuto .countdown #clock {
+            width: 50%;
+           margin:0 auto;
+            margin-top:30px;
+        }
+
+
+        .contenuto .countdown #clock div {
+            width: 25%;
+            float: left;
+        }
+
+        .contenuto .countdown #clock div .tit {
+            font-size: 16px;
+        }
+
+
+        .contenuto .countdown #clock div .sotto {
+            font-size: 70px;
+        }
+
+        address {
+            text-align: center;
+            width: 100%;
+            font-size: 10px;
+            margin-top: 5px;
+            padding-bottom: 40px;
+            color: #58585A;
+            font-family: PlayfairDisplay-semibold;
+            padding:0;
+        }
+
+        @media only screen and (max-width: 420px) {
+            .container {
+                width:320px;
+            }
+            .contenuto {
+                margin-top:60px !important;
+            }
+            .contenuto .boutique_index {
+                width:100%;
+                margin-bottom:30px;
+            }
+            .contenuto .boutique_index.last {
+                width:100%;
+                margin-bottom:30px;
+            }
+            .contenuto .countdown #clock {
+                width: 100%;
+            }
+            .contenuto .countdown #clock div {
+                width: 25%;
+            }
+
+            .contenuto .countdown #clock div .tit {
+                font-size: 13px;
+            }
+
+
+            .contenuto .countdown #clock div .sotto {
+                font-size: 60px;
+            }
+        }
+        @media only screen and (min-width:421px) and (max-width: 760px) {
+            .container {
+                width:404px;
+            }
+            .contenuto {
+                margin-top:60px !important;
+            }
+            .contenuto .boutique_index {
+                width:100%;
+                margin-bottom:30px;
+            }
+            .contenuto .boutique_index.last {
+                width:100%;
+                margin-bottom:30px;
+            }
+            .contenuto .countdown #clock {
+                width: 100%;
+            }
+            .contenuto .countdown #clock div {
+                width: 25%;
+            }
+
+            .contenuto .countdown #clock div .tit {
+                font-size: 13px;
+            }
+
+
+            .contenuto .countdown #clock div .sotto {
+                font-size: 60px;
+            }
+
+            .boutiques_div {
+                padding-left:70px !important;
+            }
+        }
+        @media only screen and (min-width:761px) and (max-width: 1200px) {
+            .container {
+                width:744px;
+            }
+            .contenuto {
+                margin-top:60px !important;
+            }
+            .contenuto .boutique_index {
+                width:50%;
+                margin-bottom:30px;
+            }
+            .contenuto .boutique_index.last {
+                width:50%;
+                margin-bottom:30px;
+            }
+            .contenuto .countdown #clock {
+                width: 65%;
+            }
+            .contenuto .countdown #clock div {
+                width: 25%;
+            }
+
+            .contenuto .countdown #clock div .tit {
+                font-size: 13px;
+            }
+
+
+            .contenuto .countdown #clock div .sotto {
+                font-size: 60px;
+            }
+
+            .boutiques_div {
+                padding-left:70px !important;
+            }
+
+            .logo .small {
+                display:none !important;
+            }
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.coltortiboutique.com/skin/frontend/default/coltorti_theme/css/styles.css" media="all">
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+    <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.0.4/dist/jquery.countdown.min.js"></script>
+    <script>
+        jQuery(window).load(function () {
+            height1=jQuery(".boutique_index").height();
+            height2=jQuery(".countdown").height();
+            height=jQuery(window).height();
+            altezza=height-(height1+height2+100+80+80);
+            jQuery(".contenuto").css("margin-top",altezza+"px");
+        });
+    </script>
+</head>
+<body style="background:url('http://www.coltortiboutique.com/coltorti-ancona-background.jpg');  background-size: cover;
+  background-position: 50% 50%;background-repeat:no-repeat;">
+<div class="container">
+    <div id="header-logo">
+        <a class="logo" href="http://www.coltortiboutique.com">
+            <img src="http://www.coltortiboutique.com/skin/frontend/default/coltorti_theme/images/coltorti-logo.svg" alt="Coltorti Boutique" class="large">
+            <img src="http://www.coltortiboutique.com/skin/frontend/default/coltorti_theme/images/coltorti-logo.svg" alt="Coltorti Boutique" class="small">
+        </a>
+    </div>
+    <div class="contenuto">
+        <div class="countdown">
+            <h1>NEW E-SHOP COMING SOON</h1>
+            <div id="clock"></div>
+        </div>
+        <div class="boutiques_div" style="padding-left: 60px;margin-top: 80px;margin-bottom: 50px;  float: left;width: 100%;">
+            <div class="boutique_index">
+                <div class="dati">
+                    <h1>Jesi</h1>
+                    <p class="sottotitolo">Uomo / Donna / Accessori</p>
+                    <p class="indirizzo">P.zza della Repubblica, 1</p>
+                    <p class="indirizzo">60035 Jesi (AN)</p>
+                    <p class="indirizzo">T. +39 0731 207089</p>
+                </div>
+            </div>
+            <div class="boutique_index">
+                <div class="dati">
+                    <h1>Ancona</h1>
+                    <p class="sottotitolo">Uomo / Donna / Accessori</p>
+                    <p class="indirizzo">Corso Stamira, 22</p>
+                    <p class="indirizzo">60122 Ancona</p>
+                    <p class="indirizzo">T. +39 071 202729</p>
+                </div>
+            </div>
+            <div class="boutique_index">
+                <div class="dati">
+                    <h1>Macerata</h1>
+                    <p class="sottotitolo">Uomo / Donna / Accessori</p>
+                    <p class="indirizzo">Corso della Repubblica, 57/65</p>
+                    <p class="indirizzo">62100 Macerata</p>
+                    <p class="indirizzo">T. +39 0733 263419</p>
+                </div>
+            </div>
+            <div class="boutique_index last">
+                <div class="dati">
+                    <h1>San Benedetto Del Tronto</h1>
+                    <p class="sottotitolo">Uomo / Donna / Accessori</p>
+                    <p class="indirizzo">Via Mazzocchi, 30</p>
+                    <p class="indirizzo">63074 San Benedetto del Tronto (AP)</p>
+                    <p class="indirizzo">T. +39 0735 585280</p>
+                </div>
+            </div>
+            <div class="boutique_index">
+                <div class="dati">
+                    <h1>Miami</h1>
+                    <p class="sottotitolo">Uomo / Donna</p>
+                    <p class="indirizzo">1111 Lincoln Road</p>
+                    <p class="indirizzo">33139 Miami Beach Florida</p>
+                    <p class="indirizzo">T. +1 786 517 1330</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <address class="copyright">Coltorti Managed by 3C s.r.l. P.IVA: 08422900962 - REA: MI - 2025018 - Via G. Battista, 22 - Milano - Copyright &copy; 2015    Direction by AWD AGENCY </address>
+</div>
+</body>
+<script>
+    $('#clock').countdown('2015/04/10 20:00', function(event) {
+        var $this = $(this).html(event.strftime(''
+        + '<div><span class="tit">Day</span><br><span class="sotto">%d</span></div>'
+        + '<div><span class="tit">Hours</span><br><span class="sotto">%H</span></div>'
+        + '<div><span class="tit">Minutes</span><br><span class="sotto">%M</span></div>'
+        + '<div><span class="tit">Seconds</span><br><span class="sotto">%S</span></div>'));
+    });
+</script>
+</html>

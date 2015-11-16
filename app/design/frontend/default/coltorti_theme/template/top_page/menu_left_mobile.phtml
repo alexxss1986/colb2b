@@ -1,0 +1,21 @@
+<div id="sidr" class="sidr left">
+    <ul>
+        <li><a href="<?php echo Mage::getBaseUrl() ?>">HOME</a></li>
+        <li><a href="<?php echo Mage::getBaseUrl()."brands" ?>">BRANDS</a></li>
+        <li><a href="<?php echo Mage::getBaseUrl()."boutiques" ?>">BOUTIQUES</a></li>
+        <li><a href="<?php echo Mage::getBaseUrl()."coltorti-video" ?>">VIDEO</a></li>
+        <li><a href="<?php echo Mage::getBaseUrl()."coltorti-life" ?>">COLTORTI LIFE</a></li>
+        <?php if (Mage::app()->getStore()->getStoreId()==1) { ?>
+        <li><a href="<?php echo Mage::getBaseUrl()."contatti" ?>"><?php echo $this->__("CONTATTI") ?></a></li>
+        <?php } else { ?>
+            <li><a href="<?php echo Mage::getBaseUrl()."contacts" ?>"><?php echo $this->__("CONTATTI") ?></a></li>
+        <?php } ?>
+    </ul>
+    <div class="link_menu_left">
+        <p><a href="mailto:support@coltortiboutique.com">support@coltortiboutique.com</a></p>
+        <a href="https://www.facebook.com/pages/Coltorti-Boutique/725729747498241" target="_blank" class="">Facebook</a>
+        <!-- <a href="#">Twitter</a>-->
+        <a href="https://instagram.com/coltortiboutique/" target="_blank">Instagram</a>
+        <!--<a href="#">Pinterest</a>-->
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Onestepcheckout
+ * @version    1.2.7
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php if ($this->canShow()): ?>
+<div id="aw-onestepcheckout-review-enterprise-points">
+    <?php if ($this->isPointsSectionAvailable()): ?>
+        <div class="enterprise-points-message-container" style="overflow:hidden;height:0px;"></div>
+        <?php
+            $summaryForCustomer = $this->getSummaryForCustomer();
+            $pointsLabel = $this->getPointsUnitName();
+        ?>
+        <div class="field-row">
+            <input type="checkbox" name="payment[use_reward_points]" value="1" id="use_reward_points"<?php echo $this->useRewardPoints()?' checked="checked"':'' ?> class="checkbox" />
+            <label for="use_reward_points">
+                <?php echo Mage::helper('enterprise_reward')->__('Use my reward points, %s available', Mage::helper('enterprise_reward')->formatReward($this->getSummaryForCustomer(), $this->getMoneyForPoints())); ?>
+            </label>
+        </div>
+        <script type="text/javascript">
+            var awOSCReviewEnterprisePoints = new AWOnestepcheckoutReviewEnterprisePoints({
+                containerSelector: '#aw-onestepcheckout-review-enterprise-points',
+                msgContainerSelector: '.enterprise-points-message-container',
+                usePointsCheckbox: "use_reward_points",
+                applyPointsUrl: <?php echo Zend_Json::encode($this->getApplyPointsAjaxUrl());?>,
+                successMessageBoxCssClass: 'aw-onestepcheckout-success-msg',
+                errorMessageBoxCssClass: 'aw-onestepcheckout-error-msg',
+                jsErrorMsg: <?php echo Zend_Json::encode($this->__("Oops something's wrong")); ?>,
+                jsSuccessMsg: <?php echo Zend_Json::encode($this->__("Ok")); ?>
+            });
+        </script>
+    <?php endif; ?>
+</div>
+<?php endif; ?>

@@ -1,0 +1,98 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Onestepcheckout
+ * @version    1.2.7
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php if ($this->canShow()): ?>
+<div id="aw-onestepcheckout-review-terms">
+    <ol>
+    <?php foreach($this->getAgreements() as $_a): ?>
+        <li>
+            <input type="checkbox" name="aw_osc_agreement[<?php echo $_a->getId();?>]"
+                   id="aw-onestepcheckout-review-terms-agreement-<?php echo $_a->getId();?>"
+                   class="aw-osc-agreement-checkbox-<?php echo $_a->getId();?>" value="1" class="checkbox" />
+            <?php $label = '<a href="javascript:void(0)" title="' . $this->htmlEscape($_a->getCheckboxText()) . '">' .
+                $this->htmlEscape($_a->getCheckboxText()) . '</a>';
+            ?>
+            <label for="aw-onestepcheckout-review-terms-agreement-<?php echo $_a->getId();?>"><?php echo $this->__('Ho letto e accetto le %s', $label) ?></label>
+            <div class="aw-onestepcheckout-review-terms-description-container">
+                <?php if ($_a->getIsHtml()):?>
+                    <?php echo $_a->getContent() ?>
+                <?php else:?>
+                    <?php echo nl2br($this->htmlEscape($_a->getContent())) ?>
+                <?php endif; ?>
+            </div>
+        </li>
+        <script type="text/javascript">
+            Validation.add(
+                'aw-osc-agreement-checkbox-<?php echo $_a->getId();?>',
+                <?php echo Zend_Json::encode($this->__('You must accept the "%s"', $this->htmlEscape($_a->getCheckboxText()))); ?>,
+                function(v) {
+                    return !Validation.get('IsEmpty').test(v);
+                }
+            );
+        </script>
+    <?php endforeach;?>
+    </ol>
+     <div id="aw-onestepcheckout-review-terms-popup" class="aw-onestepcheckout-popup" style="display:none">
+        <div id="aw-onestepcheckout-review-terms-popup-content" class="aw-onestepcheckout-popup-content"></div>
+        <div id="aw-onestepcheckout-review-terms-popup-accept" class="aw-onestepcheckout-popup-accept">
+            <button type="button" id="accetto_privacy" class="button"><?php echo $this->__('ACCEPT');?></button>
+            <button type="button" id="stampa_privacy" class="button" onClick="printDiv('aw-onestepcheckout-review-terms-popup-content')"><?php echo $this->__('PRINT');?></button>
+            <?php if (Mage::app()->getStore()->getId()==1){ ?>
+            <button type="button" id="inoltra_privacy" class="button" onclick="window.location.href='mailto: ?body=A questo indirizzo puoi visionare le condizioni di vendita&nbsp;&nbsp;&nbsp;&nbsp;http://www.loodlestore.com/it/condizioni-vendita'"><?php echo $this->__('FORWARD BY E-MAIL');?></button>
+            <?php } else if (Mage::app()->getStore()->getId()==1){ ?>
+            <button type="button" id="inoltra_privacy" class="button" onclick="window.location.href='mailto: ?body=At this address you can view sales conditions&nbsp;&nbsp;&nbsp;&nbsp;http://www.loodlestore.com/en/sales-condition'"><?php echo $this->__('FORWARD BY E-MAIL');?></button>
+            <?php } ?>
+            
+            <a href="javascript:void(0)"><?php echo $this->__('Close');?></a>
+        </div>
+    </div>
+    <div id="aw-onestepcheckout-review-terms-overlay" class="aw-onestepcheckout-popup-overlay" style="display:none"></div>
+</div>
+<script type="text/javascript">
+    var awOSCReviewTerms = new AWOnestepcheckoutReviewTerms({
+        containerSelector: "#aw-onestepcheckout-review-terms",
+        itemsSelector: "#aw-onestepcheckout-review-terms ol li",
+        linkFromItemSelector: "label a",
+        checkboxFromItemSelector: "input[type=checkbox]",
+        descriptionContainerFromItemSelector: ".aw-onestepcheckout-review-terms-description-container",
+        popup: {
+            overlaySelector: "#aw-onestepcheckout-review-terms-overlay",
+            containerSelector: "#aw-onestepcheckout-review-terms-popup",
+            contentContainerSelector: "#aw-onestepcheckout-review-terms-popup-content",
+            acceptContainerSelector: "#aw-onestepcheckout-review-terms-popup-accept",
+            buttons: {
+                accept:{
+                    selector: "#aw-onestepcheckout-review-terms-popup-accept button",
+                    enabled: true
+                },
+                close:{
+                    selector: "#aw-onestepcheckout-review-terms-popup-accept a",
+                    enabled: true
+                }
+            }
+        }
+    });
+</script>
+<?php endif;?>

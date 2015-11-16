@@ -1,0 +1,76 @@
+
+                    <!-- DOMESTIC -->
+                    <h4 class="icon-head head-shipping-method"><?php echo $this->__('Spedizione nazionale')?></h4>
+                    <span class="field-row">
+                        <label class="normal" for="wgtntpro[operationaloption]"><?php echo $this->__('Opzioni di consenga')?></label>
+                        <select name="wgtntpro[operationaloption]" id="wgtntpro_operationaloption">
+                        <?php foreach (Mage::helper('wgtntpro')->toOperationalOptionArray() as $opt): ?>
+                            <option value="<?php echo $opt['value'] ?>" ><?php echo $opt['label'] ?></option>
+                        <?php endforeach ?>
+                        </select>
+                    </span>
+                    <span class="field-row" id ="wgtntpro_TNTDepot_span">
+                        <label class="normal" for="wgtntpro[dropoffpoint]"><?php echo $this->__('Codice filiare TNT')?></label>
+                        <input type="text" name="wgtntpro[dropoffpoint]" length="5"/>
+                    </span>
+
+                    <h4 class="icon-head head-shipping-method"><input type="checkbox" name="wgtntpro[cashondelivery]" value="Y" id ="wgtntpro_cashondelivery"/><?php echo $this->__('Contrassengo')?> </h4>
+                    <span class="field-row cashondelivery">
+                        <label class="normal" for="wgtntpro[codcommission]"><?php echo $this->__('Commissioni di contrassegno a carico del')?></label>
+                        <select name="wgtntpro[codcommission]">
+                            <option value="S"><?php echo $this->__('Mittente')?></option>
+                            <option value="R"><?php echo $this->__('Destinatario')?></option>
+                        </select>
+                    </span>
+                    <span class="field-row cashondelivery">
+                        <label class="normal" for="wgtntpro[codfvalue]"><?php echo $this->__('Importo del contrassegno')?></label>
+                        <input type="text" name="wgtntpro[codfvalue]" value="<?php echo $this->virgola($_order->getGrandTotal()) ?>" class="req validate-number my-number" />
+                    </span>
+                    <span class="field-row cashondelivery">
+                        <label class="normal" for="wgtntpro[codfcurrency]"><?php echo $this->__('Valuta Importo del contrassegno')?></label>
+                        <!-- adminhtml/system_config_source_currency -->
+                        <select name="wgtntpro[codfcurrency]">
+                            <?php foreach(Mage::getModel('adminhtml/system_config_source_currency')->toOptionArray(FALSE) as $cur): ?>
+                                <option value="<?php echo $cur['value']?>" <?php if ($cur['value']==$_order->getOrderCurrencyCode()) {echo " SELECTED ";} ?>><?php echo $cur['label']?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </span>
+
+<script type="text/javascript">
+$('wgtntpro_cashondelivery').observe('change', function () {
+    if ($F('wgtntpro_cashondelivery')=='Y') {
+        $$('span.cashondelivery').each( function (ele) {
+                    $(ele).show();
+        });
+        $$('span.cashondelivery input').each( function (ele) {
+                    Form.Element.enable($(ele));
+        });
+        $$('span.cashondelivery select').each( function (ele) {
+                    Form.Element.enable($(ele));
+        });
+    } else {
+        $$('span.cashondelivery').each( function (ele) {
+                    $(ele).hide();
+        });
+        $$('span.cashondelivery input').each( function (ele) {
+                    Form.Element.disable($(ele));
+        });
+        $$('span.cashondelivery select').each( function (ele) {
+                    Form.Element.disable($(ele));
+        });
+    }
+});
+<?php if ( in_array ( $_order->getPayment()->getMethod(), array ('checkmo', 'cashondelivery') ) ): ?>
+$('wgtntpro_cashondelivery').checked = !$('wgtntpro_cashondelivery').checked;
+<?php else: ?>
+$$('span.cashondelivery').each( function (ele) {
+    $(ele).hide();
+});
+$$('span.cashondelivery input').each( function (ele) {
+            Form.Element.disable($(ele));
+});
+$$('span.cashondelivery select').each( function (ele) {
+            Form.Element.disable($(ele));
+});
+<?php endif ?>
+</script>

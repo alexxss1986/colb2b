@@ -1,0 +1,88 @@
+<div class="blocco8 visibile" id="yps">
+    <div id="block81">
+        <div class="yps">
+            <span class="titolo">YOUR PERSONAL STYLIST</span>
+            <span class="sottotitolo"><span>“Quello che indossi dice come ti presenti al mondo, soprattutto oggi che i rapporti sono così frenetici. La moda è un linguaggio immediato.”</span><span class="spanMargin">Miuccia Prada</span></span>
+            <p>Lo stile è un modo del tutto personale di rappresentare la propria identità.<br>
+                Ciò che indossiamo parla di noi e racconta la nostra vita.<br>
+                Non esiste lo stile perfetto, ci sono outfit adeguati ed altri meno adatti a determinati contesti.<br>
+                E’ importante interpretare la moda in base al proprio carattere, per valorizzarne le sfumature.<br>
+                Ecco, quindi, delle proposte suddivise per stile e occasione d’uso da cui trarre ispirazione.
+            </p>
+        </div>
+
+    </div>
+    <div id="block82" class="grid">
+        <figure class="effect-bubba">
+            <img alt="Your Personal Stylist Donna" title="Your Personal Stylist Donna" src="<?php echo $this->getSkinUrl("images/home/your-personal-style-donna.jpg") ?>" id="img_yps_donna">
+            <figcaption>
+                <p class="crea_stile">DONNA</p>
+                <p class="stile_p">CREA IL TUO STILE</p>
+            </figcaption>
+        </figure>
+        <div class="block_uomo">
+            <p class="close">Chiudi X</p>
+            <div class="stile">
+                <span class="selezionaStile">SELEZIONA IL TUO STILE</span>
+                <div class="valori">
+                    <div class="value stile_valore first">Chic</div>
+                    <div class="value big">Minimal</div>
+                    <div class="value stile_valore">Trendy</div>
+                </div>
+            </div>
+            <div class="occasione">
+                <span class="selezionaOccasione">E LA TUA OCCASIONE D’USO</span>
+                <div class="valori">
+                    <div class="value stile_valore first">Lavoro</div>
+                    <div class="value stile_valore">Party</div>
+                    <div class="value big">Free time</div>
+                </div>
+            </div>
+            <form name="form_uomo" method="post" action="<?php echo Mage::getBaseUrl()."your-personal-stylist"; ?>" onsubmit="return controllaUomo()">
+                <input type="hidden" name="stile" id="stile_uomo">
+                <input type="hidden" name="occasione" id="occasione_uomo">
+                <input type="hidden" name="categoria" value="uomo">
+                <div class="bottone">
+                    <button type="submit" name="discover" class="button_third" value="Discover"><?php echo $this->__("Scopri il tuo look") ?></button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div id="block83" class="grid">
+        <figure class="effect-bubba">
+            <img alt="Your Personal Stylist Uomo" title="Your Personal Stylist Uomo" src="<?php echo $this->getSkinUrl("images/home/your-personal-style-uomo.jpg") ?>" id="img_yps_uomo">
+            <figcaption>
+                <p class="crea_stile">UOMO</p>
+                <p class="stile_p">CREA IL TUO STILE</p>
+            </figcaption>
+        </figure>
+        <div class="block_donna">
+            <p class="close">Chiudi X</p>
+            <div class="stile">
+                <span class="selezionaStile">SELEZIONA IL TUO STILE</span>
+                <div class="valori">
+                    <div class="value stile_valore first">Chic</div>
+                    <div class="value big">Minimal</div>
+                    <div class="value stile_valore">Trendy</div>
+                </div>
+            </div>
+            <div class="occasione">
+                <span class="selezionaOccasione">E LA TUA OCCASIONE D’USO</span>
+                <div class="valori">
+                    <div class="value first big">Officewear</div>
+                    <div class="value stile_valore">Party</div>
+                    <div class="value stile_valore">Free time</div>
+                </div>
+            </div>
+            <form name="form_donna" method="post" action="<?php echo Mage::getBaseUrl()."your-personal-stylist"; ?>" onsubmit="return controllaDonna()">
+                <input type="hidden" name="stile" id="stile_donna">
+                <input type="hidden" name="occasione" id="occasione_donna">
+                <input type="hidden" name="categoria" value="donna">
+                <div class="bottone">
+                    <button type="submit" name="discover" class="button_third" value="Discover"><?php echo $this->__("Scopri il tuo look") ?></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

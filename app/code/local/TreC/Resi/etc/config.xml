@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <TreC_Resi>
+            <version>0.1.0</version>
+        </TreC_Resi>
+    </modules>
+    <frontend>
+        <routers>
+            <routerReturns>
+                <use>standard</use>
+                <args>
+                    <module>TreC_Resi</module>
+                    <frontName>trec-resi</frontName>
+                </args>
+            </routerReturns>
+        </routers>
+    </frontend>
+</config>

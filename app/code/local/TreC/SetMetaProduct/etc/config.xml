@@ -1,0 +1,37 @@
+<config>
+    <modules>
+        <TreC_SetMetaProduct>
+            <version>0.1.0</version>
+        </TreC_SetMetaProduct>
+    </modules>
+    <global>
+        <models>
+            <trec_setmetaproduct>
+                <class>TreC_SetMetaProduct_Model</class>
+            </trec_setmetaproduct>
+        </models>
+        <events>
+            <product_save>
+                <observers>
+                    <index>
+                        <type>disabled</type>
+                    </index>
+                </observers>
+            </product_save>
+        </events>
+    </global>
+    <crontab>
+        <jobs>
+            <setmetaproduct_apply_all>
+                <schedule>
+                    <!--<cron_expr>*/5,0-02 12 * * *</cron_expr>-->
+                    <cron_expr>*/5 * * * *</cron_expr>
+                    <!--<cron_expr>30 0 * * *</cron_expr>-->
+                </schedule>
+                <run>
+                    <model>trec_setmetaproduct/observer::meta</model>
+                </run>
+            </setmetaproduct_apply_all>
+        </jobs>
+    </crontab>
+</config>

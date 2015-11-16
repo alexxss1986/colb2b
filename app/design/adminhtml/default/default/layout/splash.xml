@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout>
+	<!--
+	/**
+	 * Splash Page Grid
+	 */
+	 -->
+	<adminhtml_splash_index>
+		<reference name="content">
+			<block type="splash/adminhtml_page" name="splash.page" />
+		</reference>
+	</adminhtml_splash_index>
+	<!--
+	/**
+	 * Splash Page Edit Form
+	 */
+	 -->
+	<adminhtml_splash_edit>
+		<update handle="editor" />
+		<reference name="left">
+			<block type="splash/adminhtml_page_edit_tabs" name="splash.page.tabs" />
+		</reference>
+		<reference name="content">
+			<block type="splash/adminhtml_page_edit" name="splash.page" />
+		</reference>
+		<reference name="before_body_end">
+			<block type="adminhtml/template" name="splash.page.js" template="splash/page/js.phtml" />
+		</reference>
+	</adminhtml_splash_edit>
+</layout>

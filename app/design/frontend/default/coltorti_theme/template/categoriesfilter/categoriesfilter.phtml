@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * Filtraggio categoria
+ */
+?>
+
+
+<?php
+$categoryCurrent=Mage::getSingleton('catalog/layer')->getCurrentCategory();
+$cat=$this->getCategories($categoryCurrent); ?>
+<div class="blocco_categoria">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Categoria') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <ul>
+            <?php for ($i=0; $i<count($cat); $i++) { ?>
+                    <li>
+                        <a href="<?php echo $cat[$i][0]; ?>">
+                            <?php echo "<span>".$cat[$i][1]."</span>"; ?>
+                        </a>
+                    </li>
+            <?php } ?>
+        </ul>
+        <?php
+        $parentId = $categoryCurrent->getParentId();
+        if ($parentId != 2 && $parentId != 1){
+            $categoria=Mage::getModel('catalog/category')->load($parentId);
+            echo "<a class='torna_indietro' href=".$categoria->getUrl().">".$this->__('Torna a')." ".$categoria->getName()."</a>";
+        }
+        ?>
+
+    </div>
+</div>

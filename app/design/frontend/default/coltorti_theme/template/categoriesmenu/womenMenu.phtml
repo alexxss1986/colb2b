@@ -1,0 +1,108 @@
+<div id="menu_women" class="slideup">
+    <div class="spazio_menu">&nbsp;</div>
+    <?php
+
+    $categories=$this->getCategories("3");
+
+    $i=0;
+
+    foreach ($categories as $category)
+    {
+        $id=$category["id"];
+        $nome=$category["nome"];
+        $url=$category["url"];
+        $parent=$category["parent"];
+
+        if ($parent==0 && $i>0){
+            echo "</ul>";
+            echo "</div>";
+        }
+        if ($parent==0){
+            echo '<div class="colonna6"><h5 class="titolo_cat"><a href="' . Mage::getBaseUrl().$url . '">' . $nome . '</a></h5>';
+            echo '<ul class="cat_child" >';
+        }
+        else {
+            echo '<li>
+                            <a href="'.Mage::getBaseUrl().$url.'">'.$nome.'</a>
+                        </li>';
+        }
+        $i=$i+1;
+
+    }
+    echo '</ul>';
+    echo "</div>";
+
+    $designers=$this->getDesigners("3");
+
+    echo '<div class="colonna6"><h5 class="titolo_cat">'.$this->__("Brands").'</h5>';
+    echo '<ul class="cat_child" id="designer_women" >';
+
+    foreach ($designers as $designer)
+    {
+        $id=$designer["id"];
+        $nome=$designer["nome"];;
+        $prodotti=$designer["prodotti"];
+        $sesso_url=$designer["sesso_url"];
+
+        if ($prodotti=="1"){
+            echo '<li>
+                            <a href="'.Mage::getBaseUrl().$sesso_url."?ca_brand=".$id.'">'.$nome.'</a>
+                        </li>';
+
+        }
+        else {
+            echo '<li>
+                            '.$nome.'
+                        </li>';
+
+        }
+    }
+
+    echo '</ul>';
+    echo "</div>";
+    ?>
+    <div class="colonna6 products-grid">
+        <h5 class="titolo_cat" ><?php echo $this->__("New In") ?></h5>
+        <?php
+        $sku_prodotto="152395DKA000002-1000";
+        $_product = Mage::getModel('catalog/product');
+        $_product->load($_product->getIdBySku($sku_prodotto));
+
+        $flag=false;
+        $img=$_product->load ( 'media_gallery' )->getMediaGalleryImages()->getItemByColumnValue('label', 'back');
+        if ($img!=null){
+            $over=$img->getFile();
+            $flag=true;
+        }
+        else {
+            $img = $_product->load('media_gallery')->getMediaGalleryImages()->getItemByColumnValue('position_default', '2');
+            if ($img != null) {
+                $over = $img->getFile();
+                $flag = true;
+            }
+        }
+        ?>
+        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName()) ?>" class="product-image">
+            <?php $_imgSize = 210; ?>
+            <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                 src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image') ?>"
+                 alt="<?php echo $this->stripTags($_product->getName()) ?>"
+                 title="<?php echo $this->stripTags($_product->getName()) ?>"
+                <?php
+                if ($flag==true) {
+                    echo " onmouseover=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image', $over) . "'\"";
+                    echo " onmouseout=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image') . "'\"";
+                }
+                ?>
+                />
+        </a>
+        <div class="product-info" >
+            <h2 class="product-name" ><?php echo $_product->getAttributeText("ca_brand") ?></h2>
+            <button type="button" onclick="window.location='<?php echo $_product->getProductUrl() ?>'" title="Aggiungi al carrello" class="button_secondary"><span><span>SHOP NOW</span></span></button>
+        </div>
+
+
+
+    </div>
+    <div class="spazio_menu">&nbsp;</div>
+</div>

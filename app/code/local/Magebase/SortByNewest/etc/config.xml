@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Magebase_SortByNewest>
+			<version>0.1.0</version>
+		</Magebase_SortByNewest>
+	</modules>
+	<global>
+		<resources>
+			<sortbynewest_setup>
+				<setup>
+					<module>Magebase_SortByNewest</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</sortbynewest_setup>
+		</resources>
+    </global>
+</config>

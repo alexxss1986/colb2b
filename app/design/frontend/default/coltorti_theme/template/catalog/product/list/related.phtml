@@ -1,0 +1,147 @@
+<?php if($this->getItems()->getSize()):
+    ?>
+    <div class="block-related">
+        <h2 class="titolo_mobile"><?php echo $this->__("Prodotti correlati") ?></h2>
+        <div class="block-related-internal">
+
+            <div class="clear"></div>
+            <div id="mycarousel" class="related related-slider">
+                <div class="slider" >
+                    <?php $_i_related = -1; ?>
+                    <?php foreach($this->getItems() as $_item): $_i_related++; ?>
+                        <div class="slide <?php if(($this->getItems()->getSize() == 4 && $_i_related == 3) || ($this->getItems()->getSize() == ($_i_related + 1))) echo 'last' ?>">
+                            <div class="product">
+                                <?php if(!$_item->isComposite() && $_item->isSaleable()): ?>
+                                    <?php if (!$_item->getRequiredOptions()): ?>
+                                        <input type="checkbox" class="checkbox related-checkbox" id="related-checkbox<?php echo $_item->getId() ?>" name="related_products[]" value="<?php echo $_item->getId() ?>" />
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                                <?php
+                                $flag=false;
+                                $img=$_item->load ( 'media_gallery' )->getMediaGalleryImages()->getItemByColumnValue('label', 'back');
+                                if ($img!=null){
+                                    $over=$img->getFile();
+                                    $flag=true;
+                                }
+                                else {
+                                    $img = $_item->load('media_gallery')->getMediaGalleryImages()->getItemByColumnValue('position_default', '2');
+                                    if ($img != null) {
+                                        $over = $img->getFile();
+                                        $flag = true;
+                                    }
+                                }
+
+                                $_category = getLastCategory($_item);
+                                ?>
+                                <a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_item, 'small_image'), null, true) ?>" class="product-image">
+                                    <?php $_imgSize = 210; ?>
+                                    <img id="product-collection-image-<?php echo $_item->getId(); ?>"
+                                         src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image') ?>"
+                                         alt="<?php echo $this->stripTags($this->getImageLabel($_item, 'small_image'), null, true) ?>"
+                                        <?php
+                                        if ($flag==true) {
+                                            echo " onmouseover=\"this.src='" . $this->helper('catalog/image')->init($_item, 'small_image', $over) . "'\"";
+                                            echo " onmouseout=\"this.src='" . $this->helper('catalog/image')->init($_item, 'small_image') . "'\"";
+                                        }
+                                        ?>
+                                        />
+                                </a>
+                                <div class="product-info">
+                                    <h2 class="product-name brand"><?php echo $_item->getAttributeText("ca_brand") ?></h2>
+                                    <h2 class="product-name name"><?php echo $_category->getName(); ?></h2>
+                                </div>
+
+                            </div>
+                        </div>
+                    <?php endforeach ?>
+                </div>
+                <script type="text/javascript">decorateList('mini-products-list', 'none-recursive')</script>
+                <div class="clear"></div>
+            </div>
+            <?php if($this->getItems()->getSize() > 5): ?>
+                <div class="prev">&nbsp;</div>
+                <div class="next">&nbsp;</div>
+                <script type="text/javascript">
+                    if (jQuery(window).width()<1210) {
+                        jQuery('.block-related .prev').addClass('disabled');
+                        jQuery('.related').iosSlider({
+                            desktopClickDrag: true,
+                            snapToChildren: true,
+                            infiniteSlider: false,
+                            navNextSelector: '.block-related .next',
+                            navPrevSelector: '.block-related .prev',
+                            lastSlideOffset: 3,
+                            onFirstSlideComplete: function () {
+                                jQuery('.block-related .prev').addClass('disabled');
+                            },
+                            onLastSlideComplete: function () {
+                                jQuery('.block-related .next').addClass('disabled');
+                            },
+                            onSlideChange: function () {
+                                jQuery('.block-related .prev').removeClass('disabled');
+                                jQuery('.block-related .next').removeClass('disabled');
+                            }
+                        });
+                    }
+                </script>
+            <?php endif; ?>
+            <script type="text/javascript">
+                if (jQuery(window).width()>=1210){
+                    jQuery(".prev").css("display","none");
+                    jQuery(".next").css("display","none");
+                }
+            </script>
+            <script type="text/javascript">
+                //<![CDATA[
+                $$('.related-checkbox').each(function(elem){
+                    Event.observe(elem, 'click', addRelatedToProduct)
+                });
+
+                var relatedProductsCheckFlag = false;
+                function selectAllRelated(txt){
+                    if (relatedProductsCheckFlag == false) {
+                        $$('.related-checkbox').each(function(elem){
+                            elem.checked = true;
+                        });
+                        relatedProductsCheckFlag = true;
+                        txt.innerHTML="<?php echo $this->__('unselect all') ?>";
+                    } else {
+                        $$('.related-checkbox').each(function(elem){
+                            elem.checked = false;
+                        });
+                        relatedProductsCheckFlag = false;
+                        txt.innerHTML="<?php echo $this->__('select all') ?>";
+                    }
+                    addRelatedToProduct();
+                }
+
+                function addRelatedToProduct(){
+                    var checkboxes = $$('.related-checkbox');
+                    var values = [];
+                    for(var i=0;i<checkboxes.length;i++){
+                        if(checkboxes[i].checked) values.push(checkboxes[i].value);
+                    }
+                    if($('related-products-field')){
+                        $('related-products-field').value = values.join(',');
+                    }
+                }
+
+                //]]>
+            </script>
+        </div>
+    </div>
+<?php endif ?>
+
+<?php
+function getLastCategory($product){
+$categoryModel = Mage::getModel( 'catalog/category' );
+
+//Get Array of Category Id's with Last as First (Reversed)
+$_categories = array_reverse( $product->getCategoryIds() );
+
+//Load Category
+$_category = $categoryModel->load($_categories[0]);
+
+return $_category;
+}
+?>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <TreC_Alternate>
+            <active>true</active>
+            <codePool>local</codePool>
+        </TreC_Alternate>
+    </modules>
+</config>

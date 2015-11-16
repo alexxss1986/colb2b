@@ -1,0 +1,59 @@
+<nav id="search_menu" class="panel4">
+
+
+    <form id="search_mini_form" action="<?php echo Mage::helper('catalogsearch')->getResultUrl() ?>" method="get">
+        <div class="form-search">
+            <button type="button" title="<?php echo $this->__('Search') ?>"  class="button search-button" id="btn_search"><span><span><?php echo $this->__('Search') ?></span></span></button>
+            <label for="search"><?php echo $this->__('Search:') ?></label>
+            <input id="search" type="text" placeholder="<?php echo $this->__("CERCA") ?>" name="<?php echo Mage::helper('catalogsearch')->getQueryParamName() ?>" value="<?php echo Mage::helper('catalogsearch')->getEscapedQueryText() ?>"  class="input-text" />
+            <div id="search_autocomplete" class="search-autocomplete"></div>
+
+            <script type="text/javascript">
+                //<![CDATA[
+                var searchForm = new Varien.searchForm('search_mini_form', 'search', '');
+                searchForm.initAutocomplete('<?php echo Mage::helper('searchautocomplete')->getSuggestUrl() ?>', 'search_autocomplete');
+                //]]>
+            </script>
+
+        </div>
+    </form>
+
+    <div class="search_bottom">
+        <div class="blocco">
+            <p class="italic"><?php echo $this->__("I Brand più cercati") ?></p>
+            <ul>
+                <li><a href="<?php echo Mage::getModel("catalog/category")->load(3)->getUrl()."?ca_brand=1030" ?>"><?php echo $this->__("Fendi Donna") ?></a></li>
+                <li><a href="<?php echo Mage::getModel("catalog/category")->load(3)->getUrl()."?ca_brand=1038" ?>"><?php echo $this->__("Saint Laurent Donna") ?></a></li>
+                <li><a href="<?php echo Mage::getModel("catalog/category")->load(3)->getUrl()."?ca_brand=1095" ?>"><?php echo $this->__("Valentino Donna") ?></a></li>
+                <li><a href="<?php echo Mage::getModel("catalog/category")->load(13)->getUrl()."?ca_brand=985" ?>"><?php echo $this->__("Dolce & Gabbana Uomo") ?></a></li>
+                <li><a href="<?php echo Mage::getModel("catalog/category")->load(13)->getUrl()."?ca_brand=993" ?>"><?php echo $this->__("Dsquared2 Uomo") ?></a></li>
+            </ul>
+        </div>
+        <div class="blocco">
+            <p class="italic"><?php echo $this->__("Categorie più cercate") ?></p>
+            <ul>
+                <li><a href="<?php echo Mage::getModel("catalog/category")->load(57)->getUrl(); ?>"><?php echo $this->__("Borse Donna") ?></a></li>
+                <li><a href="<?php echo Mage::getModel("catalog/category")->load(18)->getUrl(); ?>"><?php echo $this->__("Calzature Donna") ?></a></li>
+                <li><a href="<?php echo Mage::getModel("catalog/category")->load(12)->getUrl(); ?>"><?php echo $this->__("Abiti Donna") ?></a></li>
+                <li><a href="<?php echo Mage::getModel("catalog/category")->load(23)->getUrl(); ?>"><?php echo $this->__("Capispalla Uomo") ?></a></li>
+                <li><a href="<?php echo Mage::getModel("catalog/category")->load(46)->getUrl(); ?>"><?php echo $this->__("Jeans Uomo") ?></a></li>
+            </ul>
+        </div>
+        <div class="blocco">
+            <p class="italic"><?php echo $this->__("Gli Articoli più cercati") ?></p>
+            <ul>
+                <li><a href="<?php echo Mage::getModel("catalog/product")->load(53000)->getProductUrl() ?>">Bauletto Piccolo By The Way</a></li>
+                <li><a href="<?php echo Mage::getModel("catalog/product")->load(45777)->getProductUrl() ?>">High-top Sneaker Open</a></li>
+                <li><a href="<?php echo Mage::getModel("catalog/product")->load(38988)->getProductUrl() ?>">Giubbotto Charpal</a></li>
+                <li><a href="<?php echo Mage::getModel("catalog/product")->load(35521)->getProductUrl() ?>">Calzatura Sandalo Timbus</a></li>
+                <li><a href="<?php echo Mage::getModel("catalog/product")->load(49418)->getProductUrl() ?>">Pantalone 5 Tasche</a></li>
+            </ul>
+        </div>
+        <div class="blocco blocco_big">
+            <p class="italic"><?php echo $this->__("Non hai trovato quello che cercavi?") ?></p>
+            <p class="mail_to"><?php echo $this->__("Contatta via mail il servizio clienti all'indirizzo <a href='mailto:support@coltortiboutique.com'>support@coltortiboutique.com</a> o chatta con un nostro operatore") ?></p>
+        </div>
+    </div>
+
+</nav>
+

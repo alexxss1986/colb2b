@@ -1,0 +1,194 @@
+<script>
+
+
+    jQuery(window).load(function () {
+        adatta();
+        jQuery(window).resize(function () {
+            adatta();
+        });
+    });
+
+    function adatta() {
+
+        altezza = jQuery(window).height();
+        alt = altezza - 200;
+        jQuery(".titolo_articolo_interno").css("height", alt + "px");
+
+        // blocco iniziale
+        altezzaWindows=jQuery(window).height();
+        altezzaBlocco=altezzaWindows-200;
+        larghezzaWindows=jQuery(window).width();
+        larghezzaBlocco=larghezzaWindows-120;
+        jQuery("#container").css("height", altezzaBlocco+"px");
+        jQuery("#container").css("width", larghezzaBlocco+"px");
+
+/*
+        //blocco contatta la boutique
+        altezzaC = jQuery(".contenuto_boutique_interno .blocco1 .immagine #img_coltorti").height();
+        jQuery(".contenuto_boutique_interno .blocco1 .testo").css("height", altezzaC);
+        jQuery(".contenuto_boutique_interno .blocco1 .vuoto").css("height", altezzaC);
+        altezzaTesto = jQuery(".contenuto_boutique_interno .blocco1 .testo").height();
+        margine=(altezzaTesto-37)/2;
+        jQuery(".contenuto_boutique_interno .blocco1 .testo #shop").css("margin-top", margine+"px");
+
+        //blocco immagine
+        altezzaC = jQuery(".contenuto_boutique_interno .blocco2 .immagine #img_coltorti").height();
+        jQuery(".contenuto_boutique_interno .blocco2 .vuoto").css("height", altezzaC);
+
+        //blocco dati
+        altezzaC = jQuery(".contenuto_boutique_interno .blocco3 .immagine #img_coltorti").height();
+        jQuery(".contenuto_boutique_interno .blocco3 .testo").css("height", altezzaC);
+        jQuery(".contenuto_boutique_interno .blocco3 .vuoto").css("height", altezzaC);
+        altezzaTesto=jQuery(".contenuto_boutique_interno .blocco3 .testo .dati").height();
+        margine=(altezzaC-altezzaTesto)/2;
+        jQuery(".contenuto_boutique_interno .blocco3 .testo .dati").css("margin-top", margine+"px");
+        larghezzaTesto=jQuery(".contenuto_boutique_interno .blocco3 .testo .dati").width();
+        larghezzaDiv=jQuery(".contenuto_boutique_interno .blocco3 .testo").width();
+        margine=(larghezzaDiv-larghezzaTesto)/2;
+        jQuery(".contenuto_boutique_interno .blocco3 .testo .dati").css("margin-left", margine+"px");
+
+*/
+
+
+    }
+</script>
+
+
+<div class="titolo_articolo_interno">
+    <div class="contenuto">
+        <h1 style="width: 900px;  line-height: 65px;">Colore & fantasie</h1>
+        <p class="sottotitolo">Il tuo guardaroba della Primavera/Estate 2015</p>
+    </div>
+</div>
+
+<div class="contenuto_articolo_interno">
+    <div class="blocco3">
+        <div class="testo">
+            <p>Moda colorata e senza regole, tessuti con stampe floreali e geometriche, abbinamenti audaci con forti rimandi agli anni ’70, quando esplodeva la genialità dei primi stilisti che osavano sperimentare.
+            Spazio ad una creatività geniale che vede gonne ampie a fantasia floreale abbinate a bluse a righe o a pois, è una stagione romantica e anticonvenzionale allo stesso tempo.</p>
+        </div>
+        <div class="testo2">
+            I colori sono chiari, toni accesi per look decisi e sfumature pastello  per outfit più romantici.
+            L’estate 2015 sarà all’insegna dell’eleganza leggera e femminile, per una donna che non rinuncia alla sua libertà ed emancipazione, proprio come le donne degli anni ’70, che hanno saputo osare e anticipare i tempi.
+        </div>
+    </div>
+    <div class="blocco1 visibile">
+        <div class="block1">
+            <div class="colonna1">
+                <div class="riga1">
+                    <?php
+
+                    $sku_prodotto="151481NCX000013-7013T";
+                    $_product = Mage::getModel('catalog/product');
+                    $_product->load($_product->getIdBySku($sku_prodotto));
+
+
+                    $flag=false;
+                    $img=$_product->load ( 'media_gallery' )->getMediaGalleryImages()->getItemByColumnValue('label', 'back');
+                    if ($img!=null){
+                        $over=$img->getFile();
+                        $flag=true;
+                    }
+                    else {
+                        $img = $_product->load('media_gallery')->getMediaGalleryImages()->getItemByColumnValue('position_default', '2');
+                        if ($img != null) {
+                            $over = $img->getFile();
+                            $flag = true;
+                        }
+                    }
+                        ?>
+                        <div class="slide ">
+                            <div class="product">
+                                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+                                    <?php $_imgSize = 210; ?>
+                                    <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                                         src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image') ?>"
+                                         alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                                        <?php
+                                        if ($flag==true) {
+                                            echo "onmouseover=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image', $over) . "'\"";
+                                            echo "onmouseout=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image') . "'\"";
+                                        }
+                                        ?>
+                                        />
+                                </a>
+                                <div class="product-info" style="min-height: 61px;">
+                                    <?php
+                                    $_category = $this->getLastCategory($_product);
+                                    ?>
+                                    <h2 class="product-name" style="font-family: Brandon_bld"><span><?php echo $_product->getAttributeText("ca_brand") ?></span></h2>
+                                    <h2 class="product-name" style="font-size:12px;text-transform: capitalize"><?php echo $_category->getName(); ?></h2>
+                                    <button type="button" style="margin-top:10px" onclick="window.location='<?php echo $_product->getProductUrl() ?>'" title="Aggiungi al carrello" class="button btn-cart"><span><span>SHOP NOW</span></span></button>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="riga2">
+
+                </div>
+            </div>
+            <div class="colonna2">
+                <div class="riga1">
+
+                </div>
+                <div class="riga2">
+
+                </div>
+            </div>
+            <div class="colonna3">
+                <div class="riga1">
+
+                </div>
+                <div class="riga2">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="blocco2 visibile">
+        <div class="block1">
+            <div class="colonna1">
+                &nbsp;
+            </div>
+            <div class="colonna2">
+                <div class="riga1">
+                    &nbsp;
+                </div>
+                <div class="riga2">
+                    <img id="img_coltorti" src="<?php echo $this->getSkinUrl("images/boutiques/ancona/boutique-ancona-coltorti-vetrina-top.jpg") ?>" />
+                </div>
+            </div>
+            <div class="colonna3">
+                <img id="img_coltorti" src="<?php echo $this->getSkinUrl("images/boutiques/ancona/boutique-ancona-vetrina-top.jpg") ?>" />
+            </div>
+            <div class="colonna4">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="blocco3 visibile">
+        <div class="block1">
+            <div class="colonna1">
+                &nbsp;
+            </div>
+            <div class="colonna2">
+                &nbsp;
+            </div>
+            <div class="colonna3">
+                <img id="img_coltorti" src="<?php echo $this->getSkinUrl("images/boutiques/ancona/boutique-ancona-vetrina-bottom.jpg") ?>" />
+            </div>
+            <div class="colonna4">
+                <img id="img_coltorti" src="<?php echo $this->getSkinUrl("images/boutiques/ancona/boutique-ancona-coltorti-vetrina-bottom.jpg") ?>" />
+            </div>
+            <div class="colonna5">
+                &nbsp;
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+

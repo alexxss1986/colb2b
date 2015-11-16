@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+
+<layout version="0.1.0">
+
+    <default>
+        <reference name="head">
+            <!-- And these are the fancybox files -->
+            <action method="addItem"><type>skin_js</type><name>fancybox/jquery.fancybox.pack.js</name></action>
+            <action method="addItem"><type>skin_css</type><name>fancybox/jquery.fancybox.css</name></action>
+        </reference>
+
+        <!-- This line adds our newsletter template at the end of your site's body, remember to replace 'val' to match your folder path -->
+        <reference name="before_body_end">
+            <block type="trecpopupwindow/popup" name="newsletter_popup" as="newsletter_popup" template="trec/window-popup.phtml" />
+        </reference>
+    </default>
+
+</layout>

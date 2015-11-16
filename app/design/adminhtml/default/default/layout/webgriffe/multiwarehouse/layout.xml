@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+        <reference name="head">
+            <action method="addCss">
+                <name>webgriffe_multiwarehouse.css</name>
+            </action>
+        </reference>
+    </default>
+
+    <adminhtml_catalog_product_simple>
+        <block type="wgmulti/adminhtml_qty"
+               name="wgmulti_adminhtml_qty"
+               template="webgriffe/multiwarehouse/qty.phtml"
+               output="toHtml" />
+    </adminhtml_catalog_product_simple>
+
+    <adminhtml_sales_order_view>
+        <block type="wgmulti/adminhtml_order"
+               name="wgmulti_adminhtml_order"
+               template="webgriffe/multiwarehouse/order.phtml"
+               output="toHtml" />
+    </adminhtml_sales_order_view>
+</layout>

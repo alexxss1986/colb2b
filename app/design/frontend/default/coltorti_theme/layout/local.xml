@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <catalog_category_default>
+        <reference name="product_list_toolbar">
+            <action method="setDefaultDirection"><dir>desc</dir></action>
+        </reference>
+    </catalog_category_default>
+    <catalog_category_layered>
+        <reference name="product_list_toolbar">
+            <action method="setDefaultDirection"><dir>desc</dir></action>
+        </reference>
+    </catalog_category_layered>
+    <splash_page_view>
+        <reference name="product_list_toolbar">
+            <action method="setDefaultDirection"><dir>desc</dir></action>
+        </reference>
+    </splash_page_view>
+    <catalogsearch_result_index>
+        <reference name="product_list_toolbar">
+            <action method="setDefaultDirection"><dir>desc</dir></action>
+        </reference>
+    </catalogsearch_result_index>
+    <STORE_it translate="label" module="persistent">
+
+        <catalog_category_layered>
+            <reference name="product_list_toolbar">
+                <action method="setDefaultDirection"><dir>desc</dir></action>
+            </reference>
+        </catalog_category_layered>
+        <customer_account_login translate="label">
+            <reference name="breadcrumbs">
+                <action method="addCrumb" translate="crumbInfo.label crumbInfo.title">
+                    <crumbName>home</crumbName>
+                    <crumbInfo><label>Home</label><title>Home</title><link>/</link></crumbInfo>
+                </action>
+                <action method="addCrumb" translate="crumbInfo.label crumbInfo.title">
+                    <crumbName>Customer Login</crumbName>
+                    <crumbInfo><label>Customer Login</label><title>Customer Login</title></crumbInfo>
+                </action>
+            </reference>
+        </customer_account_login>
+        <customer_account_create translate="label">
+            <reference name="breadcrumbs">
+                <action method="addCrumb" translate="crumbInfo.label crumbInfo.title">
+                    <crumbName>home</crumbName>
+                    <crumbInfo><label>Home</label><title>Home</title><link>/it</link></crumbInfo>
+                </action>
+                <action method="addCrumb" translate="crumbInfo.label crumbInfo.title">
+                    <crumbName>Customer Login</crumbName>
+                    <crumbInfo><label>Customer Login</label><title>Customer Login</title><link>/it/customer/account</link></crumbInfo>
+                </action>
+                <action method="addCrumb" translate="crumbInfo.label crumbInfo.title">
+                    <crumbName>Create New Customer Account</crumbName>
+                    <crumbInfo><label>Create New Customer Account</label><title>Create New Customer Account</title></crumbInfo>
+                </action>
+            </reference>
+        </customer_account_create>
+    </STORE_it>
+</layout>

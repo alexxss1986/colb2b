@@ -1,0 +1,204 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<!-- INIZIO del codice HTML dell'affiliato zanox -->
+<!-- ( Il codice HTML non deve essere modificato per evitare malfunzionamenti) -->
+<!-- FINE del codice HTML dell'affiliato zanox -->
+<?php
+$filename = "success";
+$logFileName = $filename . '.log';
+Mage::log("ENTRATO SUCCESS",null,$logFileName);
+
+$info=$this->getInformation();
+$totale=$info[0];
+$customerName=$info[1];
+$tax=$info[8];
+if ($tax!=0){
+    $totaleZanox=($totale*100)/(100+$tax);
+}
+else {
+    $totaleZanox=$totale;
+}
+
+$zanpid=Mage::getSingleton('core/session')->getZanpid();
+if (!isset($zanpid)) {
+    $zanpid="xxx";
+}
+?>
+<script type="text/javascript" src="https://ad.zanox.com/pps/?17234C149684632&mode=[[1]]&CustomerID=[[<?php echo $info[7] ?>]]&OrderID=[[<?php echo $info[2] ?>]]&CurrencySymbol=[[EUR]]&TotalPrice=[[<?php echo number_format($totaleZanox,2,",","") ?>]]&PartnerID=[[<?php echo $zanpid ?>]]">
+</script>
+<noscript>
+    <IMG src="https://ad.zanox.com/pps/?17234C149684632&mode=[[2]]&CustomerID=[[<?php echo $info[7] ?>]]&OrderID=[[<?php echo $info[2] ?>]]&CurrencySymbol=[[EUR]]&TotalPrice=[[<?php echo number_format($totaleZanox,2,",","") ?>]]&PartnerID=[[<?php echo $zanpid ?>]]" width="1" height="1">
+</noscript>
+<script>
+
+
+    var google_conversion_id = 950640395;
+    var google_conversion_language = "en";
+    var google_conversion_format = "3";
+    var google_conversion_color = "ffffff";
+    var google_conversion_label = "q2lhCJym010Qi76mxQM"; var google_conversion_value = <?php echo $totale ?>; var google_conversion_currency = "EUR"; var google_remarketing_only = false;
+
+</script>
+<script type="text/javascript"
+        src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+    <div style="display:inline;">
+        <img height="1" width="1" style="border-style:none;" alt=""
+             src="//www.googleadservices.com/pagead/conversion/950640395/?value=400.00&amp;currency_code=EUR&amp;label=q2lhCJym010Qi76mxQM&amp;guid=ON&amp;script=0"/>
+    </div>
+</noscript>
+
+<script type="text/javascript">
+adroll_conversion_value = <?php echo $totale ?>;
+adroll_currency = "EUR"
+adroll_custom_data = {"ORDER_ID": "<?php echo $this->__($this->escapeHtml($this->getOrderId())) ?>"};
+</script>
+
+    <div class="page-title">
+        <h1><?php echo $this->__("Grazie")." ".$customerName."!" ?></h1>
+    </div>
+
+
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+<h2 class="sub-title" style="text-transform: none"><?php echo $this->__('Your order has been received.') ?></h2>
+<p class="num_ord"><?php echo $this->__("numero ordine:"). " <span class='ord'>#".$this->getOrderId()."</span>" ?></p>
+<?php if ($this->getOrderId()):?>
+    <?php /*if ($this->getCanViewOrder()) :?>
+        <p><?php echo $this->__('Your order # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
+    <?php  else :?>
+        <p><?php echo $this->__('Your order # is: %s.', $this->escapeHtml($this->getOrderId())) ?></p>
+    <?php endif;*/?>
+    <p><?php echo $this->__('Riceverai una email di conferma con il riepilogo del tuo acquisto.') ?></p>
+    <p><?php echo $this->__("Puoi visualizzare il tuo ordine direttamente dalla pagina 'i miei ordini' del tuo account.") ?></p>
+    <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()) :?>
+        <p>
+            <?php echo $this->__('Click <a href="%s" onclick="this.target=\'_blank\'">here to print</a> a copy of your order confirmation.', $this->getPrintUrl()) ?>
+            <?php echo $this->getChildHtml() ?>
+        </p>
+    <?php endif;?>
+<?php endif;?>
+
+<?php if ($this->getAgreementRefId()): ?>
+    <p><?php echo $this->__('Your billing agreement # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getAgreementUrl()), $this->escapeHtml($this->getAgreementRefId())))?></p>
+<?php endif;?>
+
+<?php if ($profiles = $this->getRecurringProfiles()):?>
+    <p><?php echo $this->__('Your recurring payment profiles:'); ?></p>
+    <ul class="disc">
+        <?php foreach($profiles as $profile):?>
+            <?php $profileIdHtml = ($this->getCanViewProfiles() ? sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getProfileUrl($profile)), $this->escapeHtml($this->getObjectData($profile, 'reference_id'))) : $this->escapeHtml($this->getObjectData($profile, 'reference_id')));?>
+            <li><?php echo $this->__('Payment profile # %s: "%s".', $profileIdHtml, $this->escapeHtml($this->getObjectData($profile, 'schedule_description')))?></li>
+        <?php endforeach;?>
+    </ul>
+<?php endif;?>
+
+<div class="riepilogo">
+    <h4><?php echo $this->__("Riepilogo Ordine:") ?></h4>
+    <table class="table_riepilogo">
+    <?php
+
+    $prodotti=$this->getProducts();
+    for ($i=0; $i<count($prodotti); $i++) {
+        ?>
+
+        <tr>
+        <td class="image_checkout">
+            <img src="<?php echo Mage::helper('catalog/image')->init($prodotti[$i][3], 'thumbnail')->resize(180) ?>" alt="<?php echo $prodotti[$i][2] ?>">
+        </div>
+
+        <td class="info_checkout">
+
+            <span class="brand_name"><?php echo $prodotti[$i][1] ?></span>
+            <h2 class="product-name"><?php echo strtolower($prodotti[$i][2]) ?></h2>
+
+            <div class="product-cart-info" style="margin-bottom:0">
+                <span class="label"><?php echo $this->__("quantità") ?>: </span><?php echo $prodotti[$i][5] ?>
+            </div>
+
+            <div class="product-cart-info" style="margin-bottom:0">
+                <span class="label"><?php echo $this->__("misura") ?>: </span><?php echo $prodotti[$i][4] ?>
+            </div>
+
+            <div class="product-cart-info">
+                <span class="label">SKU: </span><?php echo $prodotti[$i][0] ?>
+            </div>
+
+        </td>
+    </tr>
+    <?php
+    }
+    ?>
+</table>
+</div>
+
+<div class="buttons-set">
+    <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+</div>
+
+<?php
+
+
+    $arrayProdotti = array();
+    for ($i=0; $i<count($prodotti); $i++) {
+        $arrayProdotti[] = array(
+            "name" => $prodotti[$i][2],
+            "sku" => $prodotti[$i][0],
+            "price" => $prodotti[$i][6],
+            "brand" => $prodotti[$i][1],
+            "category" => $prodotti[$i][7],
+            "variant" => $prodotti[$i][4],
+            "quantity" => $prodotti[$i][5]
+        );
+    }
+
+    $fields = array(
+        'transactionId'=> $info[2],                         // Transaction ID. Required for purchases and refunds.
+        'transactionAffiliation'=> 'Coltorti Boutique',
+        'transactionTotal'=> $info[3],                     // Total transaction value (incl. tax and shipping)
+        'transactionTax'=>$info[4],
+        'transactionShipping'=> $info[5],
+        'transactionProducts' => $arrayProdotti,
+        'event'=> 'GTMTransaction'
+
+    );
+
+
+    $fields_string = json_encode($fields);
+Mage::log($fields_string,null,$logFileName);
+?>
+
+<script>
+    // Send transaction data with a pageview if available
+    // when the page loads. Otherwise, use an event when the transaction
+    // data becomes available.
+    dataLayer.push(<?php echo $fields_string ?>);
+</script>
+<?php
+
+Mage::log("FINE SUCCESS",null,$logFileName);?>
+

@@ -1,0 +1,23 @@
+<a href="#search_menu" class="menu-search">
+    <div id="search-nav" class="skip-link">
+        <img alt="Search Icon" title="Search Icon" src="<?php echo $this->getSkinUrl('images/search.png') ?>" />
+    </div>
+</a>
+<div class="search_mobile">
+<form id="search_mini_form_mobile" action="<?php echo $this->helper('catalogsearch')->getResultUrl() ?>" method="get">
+    <div class="form-search">
+        <label for="search_mobile"><?php echo $this->__('Search:') ?></label>
+        <input id="search_mobile" type="text" name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" value="<?php echo $this->helper('catalogsearch')->getEscapedQueryText() ?>" placeholder="<?php echo $this->__("Search") ?>"  class="input-text" />
+        <button type="button" title="<?php echo $this->__('Search') ?>"  class="button search-button" id="btn_search_mobile"><span><span><?php echo $this->__('Search') ?></span></span></button>
+        <!--<div id="search_autocomplete" class="search-autocomplete"></div>-->
+
+        <script type="text/javascript">
+        //<![CDATA[
+            var searchForm = new Varien.searchForm('search_mini_form_mobile', 'search_mobile', '');
+        //]]>
+        </script>
+
+    </div>
+</form>
+</div>
+

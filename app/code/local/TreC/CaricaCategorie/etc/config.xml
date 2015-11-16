@@ -1,0 +1,39 @@
+<config>
+    <modules>
+        <TreC_CaricaCategorie>
+            <version>0.0.1</version>
+        </TreC_CaricaCategorie>
+    </modules>
+    <global>
+        <helpers>
+            <trec_caricacategorie>
+                <class>TreC_CaricaCategorie_Helper</class>
+            </trec_caricacategorie>
+        </helpers>
+        <models>
+            <trec_caricacategorie>
+                <class>TreC_CaricaCategorie_Model</class>
+            </trec_caricacategorie>
+        </models>
+        <resources>
+            <trec_caricacategorie_setup>
+                <setup>
+                    <module>TreC_CaricaCategorie</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+            </trec_caricacategorie_setup>
+        </resources>
+    </global>
+    <crontab>
+        <jobs>
+            <caricacategorie_apply_all>
+                <schedule>
+                    <cron_expr>30 0 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>trec_caricacategorie/observer::load</model>
+                </run>
+            </caricacategorie_apply_all>
+        </jobs>
+    </crontab>
+</config>

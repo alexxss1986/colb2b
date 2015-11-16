@@ -1,0 +1,50 @@
+<config>
+    <modules>
+        <TreC_ImportCatalogo>
+            <version>0.1.0</version>
+        </TreC_ImportCatalogo>
+    </modules>
+    <global>
+        <models>
+            <trec_importcatalogo>
+                <class>TreC_ImportCatalogo_Model</class>
+            </trec_importcatalogo>
+        </models>
+        <helpers>
+            <trec_importcatalogo>
+                <class>TreC_ImportCatalogo_Helper</class>
+            </trec_importcatalogo>
+        </helpers>
+        <resources>
+            <trec_importcatalogo_setup>
+                <setup>
+                    <module>TreC_ImportCatalogo</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+            </trec_importcatalogo_setup>
+        </resources>
+        <events>
+            <product_save>
+                <observers>
+                    <index>
+                        <type>disabled</type>
+                    </index>
+                </observers>
+            </product_save>
+        </events>
+    </global>
+    <crontab>
+        <jobs>
+            <importcatalogo_apply_all>
+                <schedule>
+                    <!--<cron_expr>*/5,0-02 12 * * *</cron_expr>-->
+                    <cron_expr>*/5 * * * *</cron_expr>
+                    <!--<cron_expr>30 0 * * *</cron_expr>-->
+                </schedule>
+                <run>
+                    <model>trec_importcatalogo/observer::import</model>
+                </run>
+            </importcatalogo_apply_all>
+        </jobs>
+    </crontab>
+</config>

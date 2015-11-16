@@ -1,0 +1,13 @@
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <mexbs_urlrewrite translate="title" module="mexbs_urlrewrite">
+                        <title>Mass Url Rewrite Deletion</title>
+                    </mexbs_urlrewrite>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

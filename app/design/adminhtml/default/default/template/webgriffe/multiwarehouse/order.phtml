@@ -1,0 +1,43 @@
+<?php
+/** @var Webgriffe_Multiwarehouse_Block_Adminhtml_Order $this */
+
+/** @var Mage_Sales_Model_Order $_order */
+$_order = $this->getOrder();
+$_warehouses = $this->getWarehouseFlatArray();
+?>
+<div id="wgmulti_warehouse">
+    <br/>
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-products"><?php echo $this->__('Warehouse details') ?></h4>
+        </div>
+    </div>
+    <div class="grid np">
+        <div class="hor-scroll">
+            <table cellspacing="0" class="data order-tables">
+                <thead>
+                    <tr class="headings">
+                        <th><?php echo $this->__('Product') ?></th>
+                        <?php foreach ($_warehouses as $_warehouse): ?>
+                            <th class="a-center"><a href="<?php echo $this->getUrl('wgmulti/adminhtml_warehouse/edit', array('id' => $_warehouse['id'])) ?>"><?php echo $_warehouse['code'] ?></a></th>
+                        <?php endforeach ?>
+                    </tr>
+                </thead>
+                <?php $_items = $this->getItemsCollection() ?>
+                <?php $i=0;foreach ($_items as $_item):?>
+                    <?php if ($_item->getParentItem()) continue; else $i++;?>
+                    <tbody class="<?php echo $i%2?'even':'odd' ?>">
+                        <?php echo $this->getItemHtml($_item) ?>
+                    </tbody>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.observe('dom:loaded', function() {
+        var wgElementToMove = $('wgmulti_warehouse');
+        var wgSiblingElement = $$('#sales_order_view_tabs_order_info_content div div.grid.np');
+        wgSiblingElement.first().insert({after: wgElementToMove});
+    });
+</script>

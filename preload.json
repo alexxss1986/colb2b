@@ -1,0 +1,14 @@
+{
+    "files": [
+
+        {
+            "type":"VIDEO",
+            "sources": {
+                "h264":{
+                    "source":"http://www.coltortiboutique.com/intro_coltorti.mp4",
+                    "size":87185281
+                }
+            }
+        }
+    ]
+}

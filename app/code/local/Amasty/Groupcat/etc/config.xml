@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Groupcat
+ */
+-->
+<config>
+    <modules>
+        <Amasty_Groupcat>
+            <version>2.0.15</version>
+        </Amasty_Groupcat>
+    </modules>
+
+    <admin>
+        <routers>
+            <amgroupcat>
+                <use>admin</use>
+                <args>
+                    <module>Amasty_Groupcat</module>
+                    <frontName>amgroupcat</frontName>
+                </args>
+            </amgroupcat>
+        </routers>
+    </admin> 
+    
+    <global>
+        <models>
+            <amgroupcat>
+                <class>Amasty_Groupcat_Model</class>
+                <resourceModel>amgroupcat_mysql4</resourceModel>
+            </amgroupcat>
+            
+            <amgroupcat_mysql4>
+                <class>Amasty_Groupcat_Model_Mysql4</class>
+                <entities>
+                    <rules>
+                        <table>am_groupcat_rules</table>
+                    </rules>
+                    <product>
+                        <table>am_groupcat_product</table>
+                    </product>
+                </entities>
+            </amgroupcat_mysql4>   
+        </models>    
+         
+        <resources>
+            <amgroupcat_setup>
+                <setup>
+                    <module>Amasty_Groupcat</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </amgroupcat_setup>
+            
+            <amgroupcat_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </amgroupcat_write>
+            
+            <amgroupcat_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </amgroupcat_read>
+        </resources>
+        
+        <blocks>
+            <amgroupcat>
+                <class>Amasty_Groupcat_Block</class>
+            </amgroupcat>
+        </blocks>
+
+
+        <helpers>
+            <amgroupcat>
+                <class>Amasty_Groupcat_Helper</class>
+            </amgroupcat>
+        </helpers>
+    </global>
+	
+    <frontend>
+        <layout>
+            <updates>
+                <amgroupcat>
+                    <file>amasty/amgroupcat.xml</file>
+                </amgroupcat>
+            </updates>
+        </layout>
+        <events>
+
+        <!-- category restrictions checks -->
+            <page_block_html_topmenu_gethtml_before>
+                <observers>
+                    <amgroupcat>
+                        <class>amgroupcat/observerCategory</class>
+                        <method>topMenuCategoryLinksHide</method>
+                    </amgroupcat>
+                </observers>
+            </page_block_html_topmenu_gethtml_before>
+
+            <controller_action_predispatch_catalog_category_view>
+                <observers>
+                    <amgroupcat>
+                        <class>amgroupcat/observerCategory</class>
+                        <method>checkCategoryRestrictions</method>
+                    </amgroupcat>
+                </observers>
+            </controller_action_predispatch_catalog_category_view>
+
+            <catalog_category_collection_load_before>
+                <observers>
+                    <amgroupcat>
+                        <class>amgroupcat/observerCategory</class>
+                        <method>hideCategoriesFromNavigation</method>
+                    </amgroupcat>
+                </observers>
+            </catalog_category_collection_load_before>
+
+
+
+        <!--product restrictions check -->
+            <catalog_product_collection_apply_limitations_after>
+                <observers>
+                    <amgroupcat>
+                        <class>amgroupcat/observerProduct</class>
+                        <method>hideProducts</method>
+                    </amgroupcat>
+                </observers>
+            </catalog_product_collection_apply_limitations_after>
+
+            <controller_action_predispatch_catalog_product_view>
+                <observers>
+                    <amgroupcat>
+                        <class>amgroupcat/observerProduct</class>
+                        <method>checkProductRestrictions</method>
+                    </amgroupcat>
+                </observers>
+            </controller_action_predispatch_catalog_product_view>
+
+        <!-- product price hiding rules -->
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <amgroupcat>
+                        <class>amgroupcat/observerProductPrice</class>
+                        <method>hideProductsPrice</method>
+                    </amgroupcat>
+                </observers>
+            </core_block_abstract_to_html_after>
+
+        </events>
+    </frontend>  
+	
+    <adminhtml>
+        <menu>
+            <catalog>
+                <children>
+                    <amgroupcat translate="title" module="amgroupcat">
+                        <title>Customer Group Catalog </title>
+                        <sort_order>750</sort_order>
+                        <children>
+                            <amgroupcat_rules translate="title" module="amgroupcat">
+                                <title>Rules</title>
+                                <action>amgroupcat/adminhtml_rules</action>
+                                <sort_order>10</sort_order>
+                            </amgroupcat_rules>
+                        </children>
+                    </amgroupcat>
+                </children>
+            </catalog>
+        </menu>   
+	    <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                         <catalog>
+                            <children>
+                                <amgroupcat translate="title" module="amgroupcat">
+                                    <title>Customer Group Catalog</title>
+                                    <sort_order>750</sort_order>
+                                    <children>
+                                        <amgroupcat_rules translate="title" module="amgroupcat">
+                                            <title>Rules</title>
+                                            <sort_order>10</sort_order>
+                                        </amgroupcat_rules>
+                                    </children>
+                                </amgroupcat>
+                            </children>
+                        </catalog>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <amgroupcat translate="title" module="amgroupcat">
+                                            <title>Customer Group Catalog</title>
+                                        </amgroupcat>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin> 
+            </resources>
+	    </acl>
+        <translate>
+            <modules>
+                <Amasty_Groupcat>
+                    <files>
+                        <default>Amasty_Groupcat.csv</default>
+                    </files>
+                </Amasty_Groupcat>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <amgroupcat module="Amasty_Groupcat">
+                    <file>amasty/amgroupcat.xml</file>
+                </amgroupcat>
+            </updates>
+        </layout>		
+    </adminhtml>
+    <default>
+        <amgroupcat>
+           <general>
+                <disable>0</disable>
+           </general>
+        </amgroupcat>
+    </default>
+</config>

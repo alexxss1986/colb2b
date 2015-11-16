@@ -1,0 +1,36 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package    Fishpig_AttributeSplashPro
+ * @license      http://fishpig.co.uk/license.txt
+ * @author       Ben Tideswell <ben@fishpig.co.uk>
+ */
+?>
+<script type="text/javascript">
+//<![CDATA[
+	(function() {
+		function __fp_asp_hide_operator(elem) {
+			var tr = elem.up('tr').next('tr');
+
+			if (!elem.value) {
+				tr.hide();
+			}
+			else {
+				tr.show();
+			}
+		}
+		
+		$$('#anchor-content select.multiselect').each(function(elem, ind) {
+			if (elem.id !== 'splash_store_id' && elem.readAttribute('size') > elem.length) {
+				elem.writeAttribute('size', elem.length);
+				
+				__fp_asp_hide_operator(elem);
+				
+				elem.observe('change', function(event) {
+					__fp_asp_hide_operator(Event.element(event));
+				});
+			}
+		});
+	})();
+//]]>
+</script>

@@ -1,0 +1,118 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2011 Riskified (http://www.riskified.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+
+<?php
+$all_active_methods = Mage::getModel('payment/config')->getActiveMethods();
+?>
+
+<style type="text/css">
+    .riskified-botton {
+        font-family: Helvetica Neue;
+        font-size: 23px;
+        line-height: 25px;
+        color: #FFF;
+        background-color: #9bc47f;
+        background: #9bc47f;
+        padding: 5px 10px;
+        border: 1px solid #828282;
+        display: inline-block;
+        text-decoration: none;
+        width: 294px;
+        text-align: center;
+        font-weight: 300;
+        letter-spacing: 0.05em;
+        margin-bottom: 20px;
+    }
+
+    .riskified-botton:hover{
+        background-color: #edd364;
+        background: #edd364;
+        text-decoration: none;
+        color: #FFF;
+    }
+
+    .step-inner {
+        display: inline-block;
+        vertical-align: top;
+        float: right;
+    }
+
+    .step-action {
+        display: inline-block;
+        float: right;
+    }
+
+    .step-wrapper {
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 1px solid #dedede;
+        display: block;
+        width: 800px;
+        clear: both;
+    }
+
+</style>
+
+<script type="text/javascript">
+    //<![CDATA[
+
+    document.observe("dom:loaded", function() {
+        var rhtml = '';
+        rhtml += '<span id="riskified-logo" style="margin-top: 12px; margin-bottom: 19px;  display:block">';
+        rhtml += '  <img width="204px" height="53px" src="<?php echo $this->getSkinUrl('images/riskified/logo.jpg'); ?>"/>';
+        rhtml += '</span>';
+        rhtml += '<div id="riskified-header" style="font-family:Helvetica Neue; font-size: 19px; line-height: 23px; color: #393536;">';
+        rhtml += 'The Riskified extension has been installed.<br>To activate the extension please connect it to your Riskified account';
+        rhtml += '</div>';
+
+        var authToken = '<?php echo Mage::helper('full')->getAuthToken()?>';
+        var shopDomain= '<?php echo Mage::helper('full')->getShopDomain()?>';
+
+        var section = $$("#fullsection_full")[0];
+
+        if (authToken.trim() || shopDomain.trim()) {
+            rhtml = '<span id="riskified-logo" style="margin-top: 12px; margin-bottom: 19px;  display:block">  <img width="204px" height="53px" src="<?php echo $this->getSkinUrl('images/riskified/logo.jpg'); ?>"></span>';
+            rhtml += '<div id="riskified-header" style="font-family:Helvetica Neue; font-size: 19px; line-height: 23px; color: #393536;margin-bottom: 25px;">The extension is connected to your Riskified account</div>';
+            rhtml += '<a class="riskified-botton" style="margin-bottom:30px" href="//<?php echo Mage::helper('full/order')->getRiskifiedApp()?>" target="_blank">Go to Riskified App</a>';
+        }else{
+            rhtml += '<span class="step-wrapper">';
+            rhtml += '    <div class="step-title"  style="font-family:Helvetica Neue; font-size: 25px; line-height: 30px; color: #393536; display:inline-block">';
+            rhtml += '    Create Your Account';
+            rhtml += '        <span  style="margin-left: 20px;font-family:Helvetica Neue; font-size: 14px; line-height: 17px; color: #828282; padding: 5px; display:block">';
+            rhtml += '             Already have an account? Fill the Shop Domain and Auth Token fields. ';
+            rhtml += '        </span>';
+            rhtml += '    </div>';
+            rhtml += '    <span class="step-inner">';
+            rhtml += '        <span class="step-action">';
+            rhtml += '            <a class="riskified-botton" style="margin-top:13px"  href="http://www.riskified.com/?platform=magento#install-section" target="_blank">Create an account</a>';
+            rhtml += '        </span>';
+            rhtml += '    </span>';
+            rhtml += '</span>';
+            //$$(".entry-edit-head.collapseable")[0].style.display = "none";
+        }
+        htmlBody = rhtml;
+
+        section.up().insert({top:htmlBody});
+    });
+
+    //]]>
+</script>
+

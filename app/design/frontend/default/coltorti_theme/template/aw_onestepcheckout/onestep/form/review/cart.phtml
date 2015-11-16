@@ -1,0 +1,62 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Onestepcheckout
+ * @version    1.2.7
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><div id="aw-onestepcheckout-review-cart">
+    <div id="aw-onestepcheckout-review-table-cart-wrapper">
+        <?php echo $this->getHelperTimerBlockHtml();?>
+        <table class="aw-onestepcheckout-cart-table">
+            <col />
+            <col width="1" />
+            <col width="1" />
+            <thead>
+                <tr>
+                    <th class="name"><?php echo $this->__('Product Name') ?></th>
+                    <th class="qty"><?php echo $this->__('Qty') ?></th>
+                    <th class="total"><?php echo $this->__('Subtotal') ?></th>
+                </tr>
+            </thead>
+            <?php echo $this->getChildHtml('totals'); ?>
+            <tbody>
+                <?php foreach($this->getItems() as $_item): ?>
+                    <?php echo $this->getItemHtml($_item)?>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    var awOSCReviewCartBlock = new AWOnestepcheckoutReviewCart({
+        containerSelector: "#aw-onestepcheckout-review-cart",
+        relatedBlockContainerSelector: "#aw-onestepcheckout-related",
+        useForShippingCheckboxContainerSelector: "#aw-onestepcheckout-billing-use-for-shipping",
+        removeLinkSelector: ".aw-onestepcheckout-cart-table a.btn-remove2",
+        urlToUpdateBlocksAfterACP: <?php echo Zend_Json::encode($this->getUrlToUpdateBlocksAfterACP()); ?>,
+        overlayConfig: {
+            '48px': 'aw-onestepcheckout-overlay aw-onestepcheckout-overlay-48',
+            '24px': 'aw-onestepcheckout-overlay aw-onestepcheckout-overlay-24',
+            '16px': 'aw-onestepcheckout-overlay aw-onestepcheckout-overlay-16'
+        }
+    });
+</script>

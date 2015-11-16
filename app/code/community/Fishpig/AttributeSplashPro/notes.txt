@@ -1,0 +1,68 @@
+##
+# FishPig's Attribute Splash Pro
+# http://fishpig.co.uk/attribute-splash-pro.html
+##
+
+22/04/2014 - 1.2.3.0
+- Temporarily disabled the SeoSuiteUltimate integration
+
+19/03/2014 - 1.2.2.0
+- Fixed issue when filtering by multiple categories and using the AND operator
+
+10/03/2014 - 1.2.1.0
+- Small fix that stops layered navigation from disappearing
+
+04/03/2014 - 1.2.0.0
+- Added option to hide/show filtered attribute in layered navigation. Defaults to hide
+- Added option to apply filter to associated simple products or parent products (default).
+
+21/01/2014 - 1.1.7.0
+- Added addStatusFilter method to page collection
+
+20/01/2014 - 1.1.6.0
+- Fixed price filter error
+- Fixed error that stopped filters from displaying correctly for some splash pages
+
+26/07/2013 - 1.1.4.0
+- Fixed the no products problem when using a category filter that isn't available in all scopes
+
+24/07/2013 - 1.1.3.0
+- Fixed problem with images not appearing in description and short description
+
+24/07/2013 - 1.1.2.0
+- Fixed the no products problem when using a category filter that isn't available in all scopes
+
+22/07/2013 - 1.1.1.1
+- Fixed trailing slash URL suffix 404 error
+
+13/07/2013 - 1.1.1.0
+- Fixed single store Adminhtml issue
+
+18/06/2013 - 1.1.0.2
+- Added category breadcrumbs when using a single category filter
+
+18/06/2013 - 1.1.0.1
+- Fixes title suffix issue
+
+13/06/2013 - 1.1.0.0
+- Fixed flat catalog issue
+
+23/05/2013 - 1.0.0.19
+- Added new feature that set used_in_product_listing to 1 for attributes used in Splash pages
+
+23/05/2013 - 1.0.0.18
+- Added Adminhtml fix for multistore
+
+21/05/2013 - 1.0.0.16
+- Remove attributes from layered navigation that are used in the Splash Page
+
+10/05/2013 - 1.0.0.15
+- Added new feature that stops Amasty_Shopby breaking Splash Pro Pages
+
+07/05/2013 - 1.0.0.14
+- Add layout_update_xml field. This allows you to customise the layout from the Magento Admin for each Splash Pro Page
+
+29/04/2013 - 1.0.0.12
+- Added support for multiselect attributes
+- Added support for Magento 1.5.1.0 and earlier
+- Added support for session messages

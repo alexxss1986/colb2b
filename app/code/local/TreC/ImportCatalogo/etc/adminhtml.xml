@@ -1,0 +1,22 @@
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <config_ws_sezione module="trec_importcatalogo">
+                                        <title>Impostazioni generali</title>
+                                        <sort_order>100</sort_order>
+                                    </config_ws_sezione>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

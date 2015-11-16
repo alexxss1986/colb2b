@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Mexbs_Urlrewrite>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Mexbs_Urlrewrite>
+    </modules>
+</config>

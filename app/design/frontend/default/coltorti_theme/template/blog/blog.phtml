@@ -1,0 +1,68 @@
+<?php
+$posts = $this->getPosts();
+$_pinterest = Mage::getStoreConfig('blog/blog/pinterest') == 1;
+?>
+<div id="messages_product_view">
+    <?php Mage::app()->getLayout()->getMessagesBlock()->setMessages(Mage::getSingleton('customer/session')->getMessages(true)); ?>
+    <?php echo Mage::app()->getLayout()->getMessagesBlock()->getGroupedHtml(); ?>
+</div>
+<?php // echo $this->getChildHtml('blog_comments_toolbar'); ?>
+<div id="blogPostsWrapper"<?php if($_pinterest): ?> class="blogPostsPinterest"<?php endif; ?>>
+<h1>Coltorti life</h1>
+<?php $k=1 ?>
+<?php foreach ($posts as $post): ?>
+    <div class="postWrapper">
+        <?php if($img = $post->getPostImage()): ?>
+            <div class="postImage grid">
+                <figure class="effect-bubba">
+                    <img src="<?php echo Mage::getBaseUrl('media').$img; ?>" />
+                    <figcaption>
+                        <a href="<?php echo $post->getAddress(); ?>" >&nbsp;</a>
+                    </figcaption>
+                </figure>
+            </div>
+        <?php endif; ?>
+        <div class="postContentWrapper">
+            <div class="postTitle">
+                <h2><?php echo $post->getTitle(); ?></h2>
+                <?php echo $post->getShortContent(); ?>
+                <?php if(!$_pinterest): ?>
+                    <h7 class="postDetails"><?php echo Mage::helper('blog')->__('Posted on'); ?> <span class="postDate"><?php echo $post->getCreatedTime(); ?></span>
+                        <?php $postCats = $post->getCats(); ?>
+                        <?php if (!empty($postCats)): ?>
+                            <?php echo Mage::helper('blog')->__('in'); ?>
+                            <?php foreach ($postCats as $title => $url): ?>
+                                <a href="<?php echo $url; ?>"><?php echo $title; ?></a>
+                            <?php endforeach; ?>
+                        <?php endif; ?><?php echo $this->__("by"); ?> <span class="poster"><?php echo $post->getUser(); ?></span>
+                    </h7>
+                <?php endif; ?>
+            </div>
+            <div class="postReadmoreComments">
+                <?php if ($this->getCommentsEnabled()): ?>
+                    <?php echo $post->getCommentCount(); ?> <a href="<?php echo $post->getAddress(); ?>#commentBox" >Comments</a> | <a class="blog-read-more" href="<?php echo $post->getAddress(); ?>">Read Full Post</a>
+                <?php endif; ?>
+            </div>
+            <a href='<?php echo $post->getAddress(); ?>'>Discover</a>
+        </div>
+    </div>
+    <?php
+        if ($k%3==0) {
+            echo "<div class='clearDiv'></div>";
+        }
+    $k=$k+1;
+    ?>
+<?php endforeach; ?>
+</div>
+<?php echo $this->getChildHtml('blog_comments_toolbar'); ?>
+<script type="text/javascript">
+    <?php if($_pinterest): ?>
+    var $totalPages = <?php echo $posts->getLastPageNumber(); ?>;
+    var $currentPage = 1;
+    var $finishedMsg = '<?php echo Mage::helper('blog')->__('No more posts to load.'); ?>';
+    var $msgText = '<?php echo Mage::helper('blog')->__('Loading more posts...'); ?>';
+    var $loadingImg = '<?php echo $this->getSkinUrl('images/loading.gif')?>';
+    <?php else: ?>
+    jQuery(function(){ jQuery('.toolbar').jqTransform({imgPath:'<?php echo $this->getSkinUrl('images/jqforms/'); ?>'}); });
+    <?php endif; ?>
+</script>

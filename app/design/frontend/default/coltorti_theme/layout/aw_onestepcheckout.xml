@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <aw_onestepcheckout_index_index translate="label">
+        <update handle="MAP_popup" />
+        <label>AW One Step Checkout</label>
+        <remove name="left"/>
+        <remove name="right"/>
+
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="head">
+            <action method="addJs"><script>aw_onestepcheckout/onestepcheckout.js</script></action>
+            <action method="addJs"><script>aw_onestepcheckout/login.js</script></action>
+            <action method="addJs"><script>aw_onestepcheckout/address.js</script></action>
+            <action method="addJs"><script>aw_onestepcheckout/shipment.js</script></action>
+            <action method="addJs"><script>aw_onestepcheckout/payment.js</script></action>
+            <action method="addJs"><script>aw_onestepcheckout/review.js</script></action>
+            <action method="addJs"><script>aw_onestepcheckout/form.js</script></action>
+            <action method="addJs"><script>aw_onestepcheckout/relatedproduct.js</script></action>
+            <action method="addItem"><type>skin_css</type><name>aw_onestepcheckout/css/style.css</name></action>
+
+            <!--DDAN Calendar -->
+            <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar.js</name></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name></action>
+        </reference>
+        <reference name="content">
+            <block type="aw_onestepcheckout/onestep" name="aw_onestepcheckout.onestep" template="aw_onestepcheckout/onestep.phtml">
+                <!-- ROWS -->
+                <block type="aw_onestepcheckout/onestep_title" name="aw_onestepcheckout.onestep.title"
+                       as="title" template="aw_onestepcheckout/onestep/title.phtml"/>
+                <block type="aw_onestepcheckout/onestep_authentification" name="aw_onestepcheckout.onestep.auth"
+                       as="auth" template="aw_onestepcheckout/onestep/authentification.phtml">
+                    <action method="addFBIButton"/><!--  <~~~ THIS is a Facebook Button| -->
+                </block>
+                <block type="aw_onestepcheckout/onestep_related" name="aw_onestepcheckout.onestep.related"
+                       as="related" template="aw_onestepcheckout/onestep/related.phtml">
+                    <!-- Magento native checkout crossel block !-->
+                    <block type="aw_onestepcheckout/onestep_related_crosssell" name="aw_onestepcheckout.onestep.related.crosssell"
+                           as="crosssell" template="aw_onestepcheckout/onestep/related/block.phtml"/>
+                    <!-- ARP2 related block !-->
+                    <block type="aw_onestepcheckout/onestep_related_arp2" name="aw_onestepcheckout.onestep.related.arp2"
+                           as="arp2" template="aw_onestepcheckout/onestep/related/block.phtml"/>
+                </block>
+
+                <!-- LEFT COLUMN -->
+                <block type="aw_onestepcheckout/onestep_form_address" name="aw_onestepcheckout.onestep.form.address"
+                       as="address" template="aw_onestepcheckout/onestep/form/address.phtml">
+                    <block type="aw_onestepcheckout/onestep_form_address_billing" name="aw_onestepcheckout.onestep.form.address.billing"
+                           as="billing" template="aw_onestepcheckout/onestep/form/address/billing.phtml">
+                        <block type="core/text_list" name="aw_onestepcheckout.onestep.form.address.billing.extra" as="extra"/>
+                    </block>
+                    <block type="aw_onestepcheckout/onestep_form_address_shipping" name="aw_onestepcheckout.onestep.form.address.shipping"
+                           as="shipping" template="aw_onestepcheckout/onestep/form/address/shipping.phtml">
+                        <block type="core/text_list" name="aw_onestepcheckout.onestep.form.address.shipping.extra" as="extra"/>
+                    </block>
+                </block>
+
+
+                <!-- MIDDLE COLUMN -->
+                <block type="aw_onestepcheckout/onestep_form_shippingmethod" name="aw_onestepcheckout.onestep.form.shippingmethod"
+                       as="shippingmethod" template="aw_onestepcheckout/onestep/form/shipping_method.phtml">
+                    <block type="core/text_list" name="aw_onestepcheckout.onestep.form.shippingmethod.extra" as="extra"/>
+                </block>
+                <block type="aw_onestepcheckout/onestep_form_paymentmethod" name="aw_onestepcheckout.onestep.form.paymentmethod"
+                       as="paymentmethod" template="aw_onestepcheckout/onestep/form/payment_method.phtml">
+                    <block type="core/text_list" name="aw_onestepcheckout.onestep.form.paymentmethod.extra" as="extra"/>
+                </block>
+
+                <!-- RIGHT COLUMN -->
+                <block type="aw_onestepcheckout/onestep_form_review_cart" name="aw_onestepcheckout.onestep.form.review.cart"
+                       as="review.cart" template="aw_onestepcheckout/onestep/form/review/cart.phtml">
+                    <action method="addItemRender">
+                        <type>default</type>
+                        <block>checkout/cart_item_renderer</block>
+                        <template>aw_onestepcheckout/onestep/form/review/cart/renderer/item.phtml</template>
+                    </action>
+                    <action method="addItemRender">
+                        <type>grouped</type>
+                        <block>checkout/cart_item_renderer_grouped</block>
+                        <template>aw_onestepcheckout/onestep/form/review/cart/renderer/item.phtml</template>
+                    </action>
+                    <action method="addItemRender">
+                        <type>configurable</type>
+                        <block>checkout/cart_item_renderer_configurable</block>
+                        <template>aw_onestepcheckout/onestep/form/review/cart/renderer/item.phtml</template>
+                    </action>
+                    <action method="addItemRender">
+                        <type>bundle</type>
+                        <block>bundle/checkout_cart_item_renderer</block>
+                        <template>aw_onestepcheckout/onestep/form/review/cart/renderer/item.phtml</template>
+                    </action>
+                    <action method="addItemRender">
+                        <type>downloadable</type>
+                        <block>downloadable/checkout_cart_item_renderer</block>
+                        <template>aw_onestepcheckout/onestep/form/review/cart/renderer/downloadable.phtml</template>
+                    </action>
+                    <!-- For compatibility with AW_SARP-->
+                    <action method="addItemRender">
+                        <type>subscription_simple</type>
+                        <block>sarp/checkout_cart_item_renderer_simple</block>
+                        <template>aw_onestepcheckout/onestep/form/review/cart/renderer/item.phtml</template>
+                    </action>
+                    <action method="addItemRender">
+                        <type>subscription_configurable</type>
+                        <block>sarp/checkout_cart_item_renderer_configurable</block>
+                        <template>aw_onestepcheckout/onestep/form/review/cart/renderer/item.phtml</template>
+                    </action>
+                    <action method="addItemRender">
+                        <type>subscription_downloadable</type>
+                        <block>sarp/checkout_cart_item_renderer_downloadable</block>
+                        <template>aw_onestepcheckout/onestep/form/review/cart/renderer/downloadable.phtml</template>
+                    </action>
+                    <action method="addItemRender">
+                        <type>subscription_grouped</type>
+                        <block>sarp/checkout_cart_item_renderer_grouped</block>
+                        <template>aw_onestepcheckout/onestep/form/review/cart/renderer/item.phtml</template>
+                    </action>
+                    <action method="addItemRender">
+                        <type>subscription_virtual</type>
+                        <block>sarp/checkout_cart_item_renderer_virtual</block>
+                        <template>aw_onestepcheckout/onestep/form/review/cart/renderer/item.phtml</template>
+                    </action>
+                    <action method="addItemRender">
+                        <type>giftcard</type>
+                        <block>enterprise_giftcard/checkout_cart_item_renderer</block>
+                        <template>aw_onestepcheckout/onestep/form/review/cart/renderer/item.phtml</template>
+                    </action>
+                    <!-- /For compatibility with AW_SARP-->
+                    <!-- For compatibility with AW_Booking-->
+                    <action method="addItemRender">
+                        <type>bookable</type>
+                        <block>booking/checkout_cart_item_renderer</block>
+                        <template>aw_onestepcheckout/onestep/form/review/cart/renderer/item.phtml</template>
+                    </action>
+                    <!-- /For compatibility with AW_Booking-->
+                    <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals"
+                           as="totals" template="aw_onestepcheckout/onestep/form/review/cart/totals.phtml"/>
+                </block>
+                <block type="aw_onestepcheckout/onestep_form_review_coupon" name="aw_onestepcheckout.onestep.form.review.coupon"
+                       as="review.coupon" template="aw_onestepcheckout/onestep/form/review/coupon.phtml"/>
+                <block type="aw_onestepcheckout/onestep_form_review_enterprise_giftcard" name="aw_onestepcheckout.onestep.form.review.enterprise.giftcard"
+                       as="review.enterprise.giftcard" template="aw_onestepcheckout/onestep/form/review/enterprise/giftcard.phtml"/>
+                <block type="aw_onestepcheckout/onestep_form_review_enterprise_storecredit" name="aw_onestepcheckout.onestep.form.review.enterprise.storecredit"
+                       as="review.enterprise.storecredit" template="aw_onestepcheckout/onestep/form/review/enterprise/storecredit.phtml"/>
+                <block type="aw_onestepcheckout/onestep_form_review_enterprise_points" name="aw_onestepcheckout.onestep.form.review.enterprise.points"
+                       as="review.enterprise.points" template="aw_onestepcheckout/onestep/form/review/enterprise/points.phtml"/>
+                <block type="aw_onestepcheckout/onestep_form_review_points" name="aw_onestepcheckout.onestep.form.review.points"
+                       as="review.points" template="aw_onestepcheckout/onestep/form/review/points.phtml"/>
+                <block type="aw_onestepcheckout/onestep_form_review_referafriend" name="aw_onestepcheckout.onestep.form.review.referafriend"
+                       as="review.referafriend" template="aw_onestepcheckout/onestep/form/review/referafriend.phtml"/>
+                <block type="aw_onestepcheckout/onestep_form_review_comments" name="aw_onestepcheckout.onestep.form.review.comments"
+                       as="review.comments" template="aw_onestepcheckout/onestep/form/review/comments.phtml">
+                    <!-- Simple comments block !-->
+                    <block type="aw_onestepcheckout/onestep_form_review_comments_simple" name="aw_onestepcheckout.onestep.form.review.comments.simple"
+                           as="simple" template="aw_onestepcheckout/onestep/form/review/comments/simple.phtml"/>
+                    <!-- DDAN block !-->
+                    <block type="aw_onestepcheckout/onestep_form_review_comments_ddan" name="aw_onestepcheckout.onestep.form.review.comments.ddan"
+                           as="ddan" template="aw_onestepcheckout/onestep/form/review/comments/ddan.phtml">
+                        <!-- DDAN block calendar!-->
+                        <block type="core/html_calendar" name="aw_onestepcheckout.onestep.form.review.comments.ddan.calendar"
+                               as="calendar" template="page/js/calendar.phtml"/>
+                    </block>
+                </block>
+                <block type="aw_onestepcheckout/onestep_form_review_newsletter" name="aw_onestepcheckout.onestep.form.review.newsletter"
+                       as="review.newsletter" template="aw_onestepcheckout/onestep/form/review/newsletter.phtml">
+                    <!-- Native Magento newsletter !-->
+                    <block type="aw_onestepcheckout/onestep_form_review_newsletter_simple" name="aw_onestepcheckout.onestep.form.review.newsletter.simple"
+                           as="mage.newsletter" template="aw_onestepcheckout/onestep/form/review/newsletter/simple.phtml"/>
+                    <!-- Advanced Newsletter from AW !-->
+                    <block type="aw_onestepcheckout/onestep_form_review_newsletter_advancednewsletter" name="aw_onestepcheckout.onestep.form.review.newsletter.advancednewsletter"
+                           as="aw.advanced.newsletter" template="aw_onestepcheckout/onestep/form/review/newsletter/advancednewsletter.phtml"/>
+                </block>
+                <block type="aw_onestepcheckout/onestep_form_review_terms" name="aw_onestepcheckout.onestep.form.review.terms"
+                       as="review.terms" template="aw_onestepcheckout/onestep/form/review/terms.phtml"/>
+                <block type="core/text_list" name="aw_onestepcheckout.onestep.form.review.extra" as="review.extra"/>
+            </block>
+        </reference>
+    </aw_onestepcheckout_index_index>
+</layout>

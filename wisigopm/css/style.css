@@ -1,0 +1,53 @@
+
+
+/* taglia-colore */
+#riga_attr {
+	float:left;
+	margin-top:20px;
+}
+
+.select_attr{
+	float: left;
+	width: 150px;
+	height: 26px;
+	margin:0;
+}
+
+.img_delete:hover {
+	cursor:pointer;
+}
+
+#tabella_prodotti td {
+	vertical-align:top;
+}
+
+/* tabella_taglia_colore.php */
+#si_no {
+	float: left;
+	margin-top: 30px;
+	margin-left: 30px;
+}
+
+#si,#no {
+	float:left;
+	display:none;
+	margin-top:30px;
+	width:100%;
+}
+
+.label2 {
+	font-weight:normal;
+}
+
+.tabella_tc tbody td {
+	border-top:none !important;
+}
+
+.tabella_tc {
+	margin-bottom:0 !important;
+}
+
+.qty_mag {
+    width:50px;
+    text-align: center;
+}

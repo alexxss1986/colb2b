@@ -1,0 +1,28 @@
+<config>
+    <modules>
+        <TreC_ImportCatalogoEng>
+            <version>0.1.0</version>
+        </TreC_ImportCatalogoEng>
+    </modules>
+    <global>
+        <models>
+            <trec_importcatalogoeng>
+                <class>TreC_ImportCatalogoEng_Model</class>
+            </trec_importcatalogoeng>
+        </models>
+    </global>
+    <crontab>
+        <jobs>
+            <importcatalogoeng_apply_all>
+                <schedule>
+                    <!--<cron_expr>*/5,0-02 12 * * *</cron_expr>-->
+                    <cron_expr>*/5 * * * *</cron_expr>
+                    <!--<cron_expr>30 0 * * *</cron_expr>-->
+                </schedule>
+                <run>
+                    <model>trec_importcatalogoeng/observer::import</model>
+                </run>
+            </importcatalogoeng_apply_all>
+        </jobs>
+    </crontab>
+</config>

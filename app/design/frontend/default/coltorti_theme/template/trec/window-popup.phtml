@@ -1,0 +1,67 @@
+<?php
+
+$result=$this->getResult();
+if ($result!=false){
+    $country_code=$result;
+?>
+    <script type="text/javascript">
+
+        /*jQuery(document).ready(function() {
+            var check_cookie = "<?php echo Mage::getModel('core/cookie')->get('popup-shown'); ?>";
+
+            if(!check_cookie) {
+                beginNewsletterForm();
+                <?php Mage::getModel('core/cookie')->set('popup-shown', 'true', 5);?>
+            }
+
+            function beginNewsletterForm () {
+                jQuery.fancybox({
+                    'closeBtn': false,
+                    helpers   : {
+                        overlay : {closeClick: false} // prevents closing when clicking OUTSIDE fancybox
+                    },
+                    'href': '#shipping-popup'
+                });
+
+            }
+        });*/
+
+
+    </script>
+<?php
+}
+else {
+    $country_code="";
+}
+
+?>
+
+<div class="ship_div">
+    <div id="shipping-popup" class="container">
+        <table>
+            <tbody>
+            <tr>
+                <td><img class="logo_popup" alt="popup" title="popup" src="<?php echo $this->getSkinUrl("images/coltorti-logo.svg") ?>"></td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <?php if ($country_code=="IT") {?>
+            <h1><img src="<?php echo $this->getSkinUrl("images/it.png") ?>" width="28">
+                We have a store in Italia</h1>
+            <hr>
+            <br>
+            <p class="informative">It seems you are connecting from Italia. Would you like to switch to the local store?
+            </p>
+            <br><br>
+            <table>
+                <tbody>
+                <tr>
+                    <td><a class="button" href="javascript:void(0)" onclick="window.location='https://www.coltortiboutique.com/it'" id="yes_store_switch">Yes</a></td>
+                    <td><a class="button" href="javascript:parent.jQuery.fancybox.close();" id="no_store_switch">No</a></td>
+                </tr>
+                </tbody>
+            </table>
+        <?php } ?>
+    </div>
+</div>

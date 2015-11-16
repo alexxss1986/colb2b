@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_system_config_edit>
+        <reference name="content">
+            <block type="core/template" name="full_jsinit"  template="full/jsinit.phtml"></block>
+        </reference>
+    </adminhtml_system_config_edit>
+</layout>

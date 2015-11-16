@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Turnkeye_Autorelated>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Turnkeye_Autorelated>
+    </modules>
+</config>

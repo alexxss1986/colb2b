@@ -1,0 +1,14 @@
+<config>
+    <modules>
+        <TreC_CategoriesFilter>
+            <version>0.1.0</version>
+        </TreC_CategoriesFilter>
+    </modules>
+    <global>
+        <blocks>
+            <treccategoriesfilter>
+                <class>TreC_CategoriesFilter_Block</class>
+            </treccategoriesfilter>
+        </blocks>
+    </global>
+</config>

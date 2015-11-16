@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Turnkeye_Autorelated>
+            <version>0.0.1</version>
+        </Turnkeye_Autorelated>
+    </modules>
+ 
+    <global>
+        <blocks>
+            <turnkeye_autorelated>
+                <class>Turnkeye_Autorelated_Block</class>
+            </turnkeye_autorelated>
+        </blocks>
+    </global>
+</config>

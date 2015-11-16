@@ -1,0 +1,182 @@
+<div id="container"  class="int_boutique">
+    <video poster="<?php echo $this->getSkinUrl("images/poster.jpg") ?>" muted id="video_boutiques" loop    class="video-js vjs-default-skin" preload="auto" autoplay="autoplay">
+        <source src="<?php echo $this->getSkinUrl("video/jesi-boutique-top.mp4") ?>" type="video/mp4" />
+    </video>
+</div>
+
+<div class="titolo_boutique_interno">
+    <div class="contenuto">
+        <h1>Jesi</h1>
+        <p class="sottotitolo"><?php echo $this->__("uomo") ?> / <span><?php echo $this->__("donna") ?></span></p>
+    </div>
+</div>
+<p class="scroll_down" style="opacity: 1;float: left;width: 100%;margin-top:15px;text-align: center"></p>
+<div class="contenuto_boutique_interno">
+    <div class="blocco_init visibile">
+        <div class="immagine_boutique_interno">
+            <img  alt="Boutique Jesi" title="Boutique Jesi"  src="<?php echo $this->getSkinUrl("images/boutiques/jesi/boutique-jesi-alta-top.jpg") ?>" />
+        </div>
+        <div class="testo_boutique_interno">
+            <h3>Brands</h3>
+            <ul class="lista_brand_b">
+                <?php
+                $brands=$this->getListaBrands("Jesi");
+
+                for ($i=0; $i<count($brands); $i++){
+                    $nome_brands=$brands[$i][1];
+                    $slug_brands=$brands[$i][2];
+                    $sale=$brands[$i][3];
+
+
+                    if ($sale=="1"){
+                        echo "<li><a href='".Mage::getBaseUrl()."".$slug_brands.".html'>".$nome_brands."</a></li>";
+                    }
+                    else {
+                        echo "<li>$nome_brands</li>";
+                    }
+
+                }
+
+                ?>
+
+<!--
+                <li><a href="#">Sveva</a></li>-->
+            </ul>
+        </div>
+    </div>
+    <div class="blocco1 visibile">
+        <div class="vuoto">
+            &nbsp;
+        </div>
+        <div class="testo">
+            <button type="button" name="shop" id="shop" class="shop" onclick="window.location = 'mailto:support@coltortiboutique.com';"><?php echo $this->__("contatta la boutique") ?></button>
+        </div>
+        <div class="immagine">
+            <img  alt="Boutique Jesi" title="Boutique Jesi"  src="<?php echo $this->getSkinUrl("images/boutiques/jesi/boutique-jesi-lunga.jpg") ?>" />
+        </div>
+    </div>
+    <div class="blocco2 visibile">
+        <div class="immagine">
+            <img alt="Boutique Jesi" title="Boutique Jesi"  src="<?php echo $this->getSkinUrl("images/boutiques/jesi/boutique-coltorti-jesi-lunga.jpg") ?>" />
+        </div>
+        <div class="vuoto">
+            &nbsp;
+        </div>
+    </div>
+    <div class="blocco3 visibile">
+        <div class="testo">
+            <div class="dati">
+                <h1>Jesi</h1>
+                <p class="sottotitolo"><?php echo $this->__("Uomo / Donna") ?></p>
+                <p class="indirizzo">P.zza della Repubblica, 1</p>
+                <p class="indirizzo">60035 Jesi (AN)</p>
+                <p class="indirizzo">T. +39 0731 207089</p>
+            </div>
+        </div>
+        <div class="immagine">
+            <img alt="Boutique Jesi" title="Boutique Jesi"  src="<?php echo $this->getSkinUrl("images/boutiques/jesi/boutique-jesi-coltorti-lunga.jpg") ?>" />
+        </div>
+        <div class="vuoto">
+            &nbsp;
+        </div>
+    </div>
+    <div class="blocco4 visibile">
+        <div class="testo_boutique_interno">
+            <div class="cont_testo">
+                <p class="titolo"><?php echo $this->__("Orari di apertura") ?></p>
+                <table>
+                    <tr>
+                        <td>L.</td><td></td><td>16.30 - 20:00</td>
+                    </tr>
+                    <tr>
+                        <td>M.</td><td>09.30 - 13.00</td><td>16.30 - 20:00</td>
+                    </tr>
+                    <tr>
+                        <td>M.</td><td>09.30 - 13.00</td><td>16.30 - 20:00</td>
+                    </tr>
+                    <tr>
+                        <td>G.</td><td>09.30 - 13.00</td><td>16.30 - 20:00</td>
+                    </tr>
+                    <tr>
+                        <td>V.</td><td>09.30 - 13.00</td><td>16.30 - 20:00</td>
+                    </tr>
+                    <tr>
+                        <td>S.</td><td>09.30 - 13.00</td><td>16.30 - 20:00</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="immagine_boutique_interno">
+            <img alt="Boutique Jesi" title="Boutique Jesi"  src="<?php echo $this->getSkinUrl("images/boutiques/jesi/boutique-jesi-alta-bottom.jpg") ?>" />
+        </div>
+    </div>
+    <div class="blocco5 visibile">
+        <div class="immagine">
+            <div id="container_jesi" class="cont_boutique">
+                <video poster="<?php echo $this->getSkinUrl("images/poster.jpg") ?>" muted id="video_jesi_bottom" loop    class="video-js vjs-default-skin" preload="auto" autoplay="autoplay">
+                    <source src="<?php echo $this->getSkinUrl("video/jesi-boutique-bottom.mp4") ?>" type="video/mp4" />
+                </video>
+            </div>
+        </div>
+    </div>
+    <div class="blocco6 visibile">
+        <div class="block1">
+            <div class="colonna1">
+                &nbsp;
+            </div>
+            <div class="colonna2">
+                <div class="riga1">
+                    &nbsp;
+                </div>
+                <div class="riga2">
+                    <img alt="Boutique Jesi" title="Boutique Jesi"  src="<?php echo $this->getSkinUrl("images/boutiques/jesi/boutique-jesi-coltorti-vetrina-top.jpg") ?>" />
+                </div>
+            </div>
+            <div class="colonna3">
+                <img alt="Boutique Jesi" title="Boutique Jesi"  src="<?php echo $this->getSkinUrl("images/boutiques/jesi/boutique-jesi-vetrina-top.jpg") ?>" />
+            </div>
+            <div class="colonna4">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="blocco8 visibile">
+        <div class="block1">
+            <div class="colonna1">
+                &nbsp;
+            </div>
+            <div class="colonna2">
+                &nbsp;
+            </div>
+            <div class="colonna3">
+                <img alt="Boutique Jesi" title="Boutique Jesi"  src="<?php echo $this->getSkinUrl("images/boutiques/jesi/boutique-jesi-vetrina-bottom.jpg") ?>" />
+            </div>
+            <div class="colonna4">
+                <img alt="Boutique Jesi" title="Boutique Jesi"  src="<?php echo $this->getSkinUrl("images/boutiques/jesi/boutique-jesi-coltorti-vetrina-bottom.jpg") ?>" />
+            </div>
+            <div class="colonna5">
+                &nbsp;
+            </div>
+        </div>
+
+    </div>
+    <div class="blocco9 visibile">
+        <div class="immagine">
+            <img alt="Boutique Jesi" title="Boutique Jesi"  src="<?php echo $this->getSkinUrl("images/boutiques/jesi/boutique-jesi-bottom.jpg") ?>" />
+        </div>
+    </div>
+    <div class="blocco7 visibile">
+        <div class="testo">
+            <div class="link_boutique_social">
+                <a href="#" class="first">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">Pinterest</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

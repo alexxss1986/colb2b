@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+  <global>
+    <models>
+        <inchooadminthemecontroller>
+             <class>Inchoo_Admintheme_Controller</class>
+        </inchooadminthemecontroller>
+    </models>
+    <events>
+      <adminhtml_controller_action_predispatch_start>
+        <observers>
+          <inchoo_themeoverride_observer>
+            <type>singleton</type>
+            <!-- inchooadminthemecontroller/observer  -->
+            <class>Inchoo_Admintheme_Controller_Observer</class>
+            <method>overrideTheme</method>
+          </inchoo_themeoverride_observer>
+        </observers>
+      </adminhtml_controller_action_predispatch_start>      
+    </events>
+  </global>
+  
+</config>

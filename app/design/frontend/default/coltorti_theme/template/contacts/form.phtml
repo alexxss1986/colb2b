@@ -1,0 +1,126 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="page-title">
+    <h1><?php echo Mage::helper('contacts')->__('Contact Us') ?></h1>
+</div>
+<div class="contact_esterno help_contact">
+    <a href="/en-us/customer-service/contact-us">
+        <h2>Help</h2>
+    </a>
+    <ul class="nav nav--stacked">
+        <li class="">
+            <a href="<?php echo Mage::getBaseUrl()."/brands" ?>">Brands</a>
+        </li>
+        <li class="">
+            <a href="<?php echo Mage::getBaseUrl()."/boutiques" ?>">Boutiques</a>
+        </li>
+        <li class="">
+            <a href="<?php echo Mage::getBaseUrl()."/coltorti-life" ?>">Coltorti Life</a>
+        </li>
+        <li class="">
+            <a href="#"><?php echo $this->__("Domande Frequenti") ?></a>
+        </li>
+    </ul>
+</div>
+<div class="form_cont">
+<form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post" class="scaffold-form">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo Mage::helper('contacts')->__('Contact Information') ?></h2>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <div class="input-box">
+                        <input name="name" id="name" placeholder="<?php echo Mage::helper('contacts')->__('Name') ?> *" title="<?php echo Mage::helper('contacts')->__('Name') ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="input-box">
+                        <input name="email" id="email" placeholder="<?php echo Mage::helper('contacts')->__('Email') ?> *" title="<?php echo Mage::helper('contacts')->__('Email') ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserEmail()) ?>" class="input-text required-entry validate-email" type="email" autocapitalize="off" autocorrect="off" spellcheck="false" />
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="input-box">
+                    <input name="telephone" id="telephone" placeholder="<?php echo Mage::helper('contacts')->__('Telephone') ?>" title="<?php echo Mage::helper('contacts')->__('Telephone') ?>" value="" class="input-text" type="tel" />
+                </div>
+            </li>
+            <li>
+                <div class="field clearfix">
+                    <div class="input-box">
+                        <select name="motivo" id="motivo" title="<?php echo Mage::helper('contacts')->__('Per cosa ci stai contattando') ?>" class="input-text required-entry" onchange="attivaCampo(this.value)" >
+                            <option value=""><?php echo Mage::helper('contacts')->__('Per cosa ci stai contattando')." *" ?></option>
+                            <option value="<?php echo Mage::helper('contacts')->__('Informazioni generali') ?>"><?php echo Mage::helper('contacts')->__('Informazioni generali') ?></option>
+                            <option value="<?php echo Mage::helper('contacts')->__('Informazioni sul prodotto') ?>"><?php echo Mage::helper('contacts')->__('Informazioni sul prodotto') ?></option>
+                            <option value="<?php echo Mage::helper('contacts')->__('Informazioni sui pagamenti') ?>"><?php echo Mage::helper('contacts')->__('Informazioni sui pagamenti') ?></option>
+                            <option value="<?php echo Mage::helper('contacts')->__('Informazioni sulle spedizioni') ?>"><?php echo Mage::helper('contacts')->__('Informazioni sulle spedizioni') ?></option>
+                            <option value="<?php echo Mage::helper('contacts')->__('Altro') ?>"><?php echo Mage::helper('contacts')->__('Altro') ?></option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <div class="field clearfix" id="codice_p" style="display:none">
+                <div class="input-box">
+                    <input name="codice_prodotto" placeholder="<?php echo Mage::helper('contacts')->__('Codice prodotto') ?> *" id="codice_prodotto" title="<?php echo Mage::helper('contacts')->__('Codice prodotto') ?>" value="" class="input-text required-entry" type="text" />
+                </div>
+            </div>
+            <li class="wide">
+                <div class="input-box">
+                    <textarea name="comment" placeholder="<?php echo Mage::helper('contacts')->__('Comment') ?> *" id="comment" title="<?php echo Mage::helper('contacts')->__('Comment') ?>" class="required-entry input-text" cols="5" rows="3" style="height:100px"></textarea>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+        <input type="hidden" name="negozio" value="<?php echo Mage::app()->getStore()->getName() ?>" style="visibility:hidden" />
+        <button style="float:none" type="submit" title="<?php echo Mage::helper('contacts')->__('Submit Request') ?>" class="button button_secondary"><span><span><?php echo Mage::helper('contacts')->__('Submit Request') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var contactForm = new VarienForm('contactForm', true);
+    //]]>
+    function attivaCampo(valore) {
+        if (valore=="Informazioni sul prodotto" || valore=="Product information") {
+            document.getElementById('codice_p').style.display='block';
+        }
+        else {
+            document.getElementById('codice_p').style.display='none';
+        }
+    }
+</script>
+</div>
+<div class="contact_esterno customer_care_contact">
+    <div class="contact-us">
+        <h2><?php echo $this->__("Servizio Clienti") ?></h2>
+        <p><?php echo $this->__("Hai bisogno di informazioni sulle spedizioni, i metodi di pagamento, gli articoli in vendita, gli ordini effettuati o devi procedere con un reso?") ?></p>
+        <p><?php echo $this->__("Chatta direttamente con un nostro operatore o scrivi una email a") ?> <a href="mailto:support@coltortiboutique.com">support@coltortiboutique.com</a><br><br>
+<?php echo $this->__("I servizi sono attivi dalle 09:00 alle 18:30  (Central European Time Zone UTC +1) dal Lunedì al Venerdì") ?>
+
+    </div>
+</div>

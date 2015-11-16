@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Mexbs_Urlrewrite>
+            <version>1.0.0</version>
+        </Mexbs_Urlrewrite>
+    </modules>
+    <global>
+        <blocks>
+            <mexbs_urlrewrite>
+                <class>Mexbs_Urlrewrite_Block</class>
+            </mexbs_urlrewrite>
+            <adminhtml>
+                <rewrite>
+                    <urlrewrite_grid>Mexbs_Urlrewrite_Block_Grid</urlrewrite_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <mexbs_urlrewrite>
+                <class>Mexbs_Urlrewrite_Helper</class>
+            </mexbs_urlrewrite>
+        </helpers>
+    </global>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mexbs_Urlrewrite>
+                    <files>
+                        <default>Mexbs_Urlrewrite.csv</default>
+                    </files>
+                </Mexbs_Urlrewrite>
+            </modules>
+        </translate>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <mexbs_urlrewrite before="Mage_Adminhtml">Mexbs_Urlrewrite_Adminhtml</mexbs_urlrewrite>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

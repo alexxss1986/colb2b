@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<modules>
+ 		<Webgriffe_Tntpro>
+			<active>true</active>
+			<codePool>local</codePool>
+		</Webgriffe_Tntpro>
+	</modules>
+</config>

@@ -1,0 +1,30 @@
+<div id="menu_man" class="slideup">
+    <?php
+    /* Load category by id*/
+    $cat = Mage::getModel('catalog/category')->load("13");
+
+
+    /*Returns comma separated ids*/
+    $subcats = $cat->getChildren();
+
+    //Print out categories string
+    #print_r($subcats);
+
+    foreach(explode(',',$subcats) as $subCatid)
+    {
+        $_category = Mage::getModel('catalog/category')->load($subCatid);
+
+            echo '<h5 class="designer"><a style="color: #1D1C1C;font: 14px/1.35 EB Garamond;margin-bottom: 10px;" href="'.$_category->getURL().'">'.$_category->getName().'</a></h5>';
+            /*<ul id="abbigliamento_bambina" style="float:left">
+                <?php foreach($categories as $name => $url): ?>
+                    <li style="float:left;width:100%;text-transform:none">
+                        <a style="padding:0;font-size:12px" href="<?php echo $url; ?>"><?php echo $name; ?></a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>*/
+
+    }
+?>
+
+
+</div>

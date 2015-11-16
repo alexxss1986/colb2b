@@ -1,0 +1,65 @@
+<div class="blocco2 visibile">
+    <div id="block21">
+        <div class="boutique"><a href="<?php echo Mage::getBaseUrl()."boutiques" ?>">BOUTIQUES</a></div>
+
+    </div>
+    <div id="block22">
+        <img alt="Boutiques Coltorti" title="Boutiques Coltorti" src="<?php echo $this->getSkinUrl("images/home/headquarter-filosofia-coltorti.jpg") ?>" id="img_coltorti">
+    </div>
+    <div id="block23" class="products-grid">
+        <div class="product_home">
+            <h5 class="titolo_cat"><?php echo $this->__("The Weekly Must Have") ?></h5>
+            <?php
+            $sku_prodotto="152001ABS000042-G69";
+            $_product = Mage::getModel('catalog/product');
+            $_product->load($_product->getIdBySku($sku_prodotto));
+            $flag=false;
+            $img=$_product->load ( 'media_gallery' )->getMediaGalleryImages()->getItemByColumnValue('label', 'back');
+            if ($img!=null){
+                $over=$img->getFile();
+                $flag=true;
+            }
+            else {
+                $img = $_product->load('media_gallery')->getMediaGalleryImages()->getItemByColumnValue('position_default', '2');
+                if ($img != null) {
+                    $over = $img->getFile();
+                    $flag = true;
+                }
+            }
+            $_category = getLastCategory($_product);
+            ?>
+            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+                <?php $_imgSize = 210; ?>
+                <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                     src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image') ?>"
+                     alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                    <?php
+                    if ($flag==true) {
+                        echo " onmouseover=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image', $over) . "'\"";
+                        echo " onmouseout=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image') . "'\"";
+                    }
+                    ?>
+                    />
+            </a>
+            <div class="product-info">
+                <h2 class="product-name brand"><?php echo $_product->getAttributeText("ca_brand") ?></h2>
+                <h2 class="product-name"><?php echo $_category->getName(); ?></h2>
+                <button type="button" onclick="window.location='<?php echo $_product->getProductUrl() ?>'" title="Aggiungi al carrello" class="button_secondary"><span><span>SHOP NOW</span></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+function getLastCategory($product){
+    $categoryModel = Mage::getModel( 'catalog/category' );
+
+//Get Array of Category Id's with Last as First (Reversed)
+    $_categories = array_reverse( $product->getCategoryIds() );
+
+//Load Category
+    $_category = $categoryModel->load($_categories[0]);
+
+    return $_category;
+}
+?>

@@ -1,0 +1,54 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Onestepcheckout
+ * @version    1.2.7
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php if ($this->canShow()): ?>
+<div id="aw-onestepcheckout-review-enterprise-storecredit">
+    <?php if ($this->isStoreCreditSectionAvailable()): ?>
+        <div class="enterprise-storecredit-message-container" style="overflow:hidden;height:0px;"></div>
+        <?php
+            $storeCreditBalance = $this->getBalance();
+        ?>
+        <div class="field-row">
+            <input type="checkbox" name="payment[use_customer_balance]" value="1" id="use_customer_balance"<?php echo $this->isCustomerBalanceUsed()?' checked="checked"':'' ?> class="checkbox" />
+            <label for="use_customer_balance">
+                <?php echo Mage::helper('enterprise_customerbalance')->__('Use Store Credit (%s available)', $this->formatPrice($this->getBalance())); ?>
+            </label>
+        </div>
+
+        <script type="text/javascript">
+            var awOSCReviewEnterpriseStorecredit = new AWOnestepcheckoutReviewEnterpriseStorecredit({
+                containerSelector: '#aw-onestepcheckout-review-enterprise-storecredit',
+                msgContainerSelector: '.enterprise-storecredit-message-container',
+                useStorecreditCheckbox: "use_customer_balance",
+                applyStorecreditUrl: <?php echo Zend_Json::encode($this->getApplyStorecreditAjaxUrl());?>,
+                successMessageBoxCssClass: 'aw-onestepcheckout-success-msg',
+                errorMessageBoxCssClass: 'aw-onestepcheckout-error-msg',
+                jsErrorMsg: <?php echo Zend_Json::encode($this->__("Oops something's wrong")); ?>,
+                jsSuccessMsg: <?php echo Zend_Json::encode($this->__("Ok")); ?>
+            });
+        </script>
+    <?php endif; ?>
+</div>
+<?php endif; ?>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+
+<config>
+    <modules>
+        <TreC_AjaxCartMenu>
+            <version>0.1.0</version>
+        </TreC_AjaxCartMenu>
+    </modules>
+        <frontend>
+            <routers>
+                <checkout>
+                    <args>
+                        <modules>
+                            <tre_ajaxcartmenu before="Mage_Checkout">TreC_AjaxCartMenu</tre_ajaxcartmenu>
+                        </modules>
+                    </args>
+                </checkout>
+            </routers>
+        </frontend>
+</config>

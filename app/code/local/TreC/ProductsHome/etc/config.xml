@@ -1,0 +1,14 @@
+<config>
+    <modules>
+        <TreC_ProductsHome>
+            <version>0.1.0</version>
+        </TreC_ProductsHome>
+    </modules>
+    <global>
+        <blocks>
+            <trecproductshome>
+                <class>TreC_ProductsHome_Block</class>
+            </trecproductshome>
+        </blocks>
+    </global>
+</config>

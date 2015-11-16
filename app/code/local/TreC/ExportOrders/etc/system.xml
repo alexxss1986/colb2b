@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<config>
+<tabs>
+    <config_cliente module="trec_exportorders" translate="label">
+        <label>Esportazione Esolver</label>
+        <sort_order>100</sort_order>
+    </config_cliente>
+</tabs>
+<sections>
+    <config_cliente_sezione module="trec_exportorders" translate="label">
+        <label>Configurazione Cliente</label>
+        <sort_order>200</sort_order>
+        <show_in_default>1</show_in_default>
+        <show_in_website>1</show_in_website>
+        <show_in_store>1</show_in_store>
+        <tab>config_cliente</tab>
+        <groups>
+            <gruppo_cliente translate="label">
+                <label>Impostazioni generali</label>
+                <sort_order>10</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>1</show_in_website>
+                <show_in_store>1</show_in_store>
+                <fields>
+                    <codice_cliente translate="label tooltip comment">
+                        <label>Codice cliente</label>
+                        <sort_order>1</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </codice_cliente>
+                    <codice_fornitore translate="label tooltip comment">
+                        <label>Codice fornitore</label>
+                        <sort_order>2</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </codice_fornitore>
+                    <codice_commessa translate="label tooltip comment">
+                        <label>Codice commessa</label>
+                        <sort_order>3</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </codice_commessa>
+                    <limite_inferiore translate="label tooltip comment">
+                        <label>Limite inferiore sconto</label>
+                        <sort_order>4</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </limite_inferiore>
+                    <limite_superiore translate="label tooltip comment">
+                        <label>Limite superiore sconto</label>
+                        <sort_order>5</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </limite_superiore>
+                    <percentuale_prezzo_pieno translate="label tooltip comment">
+                        <label>Percentuale prezzo pieno</label>
+                        <sort_order>6</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </percentuale_prezzo_pieno>
+                    <percentuale_sconto1 translate="label tooltip comment">
+                        <label>Percentuale sconto 1</label>
+                        <sort_order>7</sort_order>
+                        <tooltip>Percentuale di sconto inferiore all'importo specificato</tooltip>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </percentuale_sconto1>
+                    <percentuale_sconto2 translate="label tooltip comment">
+                        <label>Percentuale sconto 2</label>
+                        <sort_order>8</sort_order>
+                        <tooltip>Percentuale di sconto superiore all'importo specificato</tooltip>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </percentuale_sconto2>
+                    <percentuale_marketplace translate="label tooltip comment">
+                        <label>Percentuale sconto marketplace</label>
+                        <sort_order>9</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </percentuale_marketplace>
+                    <banca_carta_eur translate="label tooltip comment">
+                        <label>Percentuale spese carta di credito EUR</label>
+                        <sort_order>10</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </banca_carta_eur>
+                    <banca_carta_noeur translate="label tooltip comment">
+                        <label>Percentuale spese carta di credito NO EUR</label>
+                        <sort_order>11</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </banca_carta_noeur>
+                    <spese_carta translate="label tooltip comment">
+                        <label>Tariffa carta di credito</label>
+                        <sort_order>12</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </spese_carta>
+                    <banca_paypal translate="label tooltip comment">
+                        <label>Percentuale spese paypal</label>
+                        <sort_order>13</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </banca_paypal>
+                    <spese_paypal translate="label tooltip comment">
+                        <label>Tariffa paypal</label>
+                        <sort_order>14</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <frontend_type>text</frontend_type>
+                    </spese_paypal>
+                </fields>
+            </gruppo_cliente>
+        </groups>
+    </config_cliente_sezione>
+</sections>
+</config>

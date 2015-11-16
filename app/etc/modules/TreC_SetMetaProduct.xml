@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <TreC_SetMetaProduct>
+            <active>true</active>
+            <codePool>local</codePool>
+        </TreC_SetMetaProduct>
+    </modules>
+</config>

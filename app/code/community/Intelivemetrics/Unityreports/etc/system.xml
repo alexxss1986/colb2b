@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <unityreports_config translate="label" module="unityreports">
+            <label>Intelive Metrics</label>
+            <sort_order>100</sort_order>
+        </unityreports_config>
+    </tabs>
+    <sections>
+        <unityreports translate="label" module="unityreports">                    
+            <label>Unity Reports</label>
+            <tab>unityreports_config</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>0</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>            
+            <groups>
+                <general translate="label comment"> 
+                    <label>General</label>
+                    <comment><![CDATA[The bellow credentials should have been given to you during the registration procedure. If you don't have them, <a href='https://app.unityreports.com' target='_blank'><b>log in</b></a> into your account and retrieve them from the "Profiles" section.<br> 
+                            If you don't have an account yet, you must <a href='https://app.unityreports.com/account/create' target='_blank'><b>create one</b></a> before using this module.<br><BR>
+                            If you are experiencing problems with this extension please run the self diagnosing test by clicking the button below.<br>
+                            For any questions or help please visit us at <a href='http://unityreports.com/contacts' target='_blank'>Unityreports.com</a>.<br><br>]]></comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <status translate="label">
+                            <label>Status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>unityreports/admin_status_active</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Activate/deactivate scheduled synchronization</comment>
+                        </status>
+                        <license_serial_number translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </license_serial_number>
+                        <api_key translate="label">
+                            <label>API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </api_key>
+                        <api_secret translate="label">
+                            <label>API Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </api_secret>
+                        <ws_endpoint translate="label">
+                            <label>Remote Server Endpoint</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Address pointing to remote web service</comment>
+                        </ws_endpoint>
+                        <test translate="label comment">
+                            <comment>This test will validate your setup.</comment>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>Intelivemetrics_Unityreports_Block_Adminhtml_Button_Test</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </test>
+                    </fields>
+                </general>
+                
+                <status>
+                    <label>Status</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <cron_sync_status translate="label">
+                            <label>Cron sync status</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>unityreports/adminhtml_label_renderer</frontend_model>
+                            <source_model>unityreports/admin_status_cron_sync</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </cron_sync_status>
+                        <cron_stat_status translate="label">
+                            <label>Cron stat status</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>unityreports/adminhtml_label_renderer</frontend_model>
+                            <source_model>unityreports/admin_status_cron_stat</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </cron_stat_status>
+                        <!--
+                        <cron_count_status translate="label">
+                            <label>Cron count status</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>unityreports/adminhtml_label_renderer</frontend_model>
+                            <source_model>unityreports/admin_status_cron_count</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </cron_count_status>
+                        <cron_global_counters_status translate="label">
+                            <label>Cron global counters status</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>unityreports/adminhtml_label_renderer</frontend_model>
+                            <source_model>unityreports/admin_status_cron_globalCounters</source_model>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </cron_global_counters_status>
+                        <cron_mage_status translate="label">
+                            <label>Cron mage status</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>unityreports/adminhtml_label_renderer</frontend_model>
+                            <source_model>unityreports/admin_status_cron_mage</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </cron_mage_status>
+                        -->
+                    </fields>
+                </status>
+                
+                <advanced translate="label"> 
+                    <label>Advanced</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <debug_status translate="label">
+                            <label>Debug</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>unityreports/admin_status_active</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Activate debug logging</comment>
+                        </debug_status>
+                    </fields>
+                </advanced>
+            </groups>
+        </unityreports>
+    </sections>
+</config>

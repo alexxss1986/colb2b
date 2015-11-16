@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <config_ws module="trec_importcatalogo" translate="label">
+            <label>Casali Computers</label>
+            <sort_order>100</sort_order>
+        </config_ws>
+    </tabs>
+    <sections>
+        <config_ws_sezione module="trec_importcatalogo" translate="label">
+            <label>Configurazione</label>
+            <sort_order>200</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <tab>config_ws</tab>
+            <groups>
+                <gruppo_cliente translate="label">
+                    <label>Impostazioni generali</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <endpoint translate="label tooltip comment">
+                            <label>Endpoint Web Service</label>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </endpoint>
+                        <username translate="label tooltip comment">
+                            <label>Username</label>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </username>
+                        <password translate="label tooltip comment">
+                            <label>Password</label>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>password</frontend_type>
+                        </password>
+                    </fields>
+                </gruppo_cliente>
+            </groups>
+        </config_ws_sezione>
+    </sections>
+</config>

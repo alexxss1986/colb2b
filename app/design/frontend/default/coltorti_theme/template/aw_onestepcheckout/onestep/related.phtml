@@ -1,0 +1,61 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Onestepcheckout
+ * @version    1.2.7
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php if ($this->canShow()): ?>
+<div id="aw-onestepcheckout-related">
+    <?php echo $this->getHelperTimerBlockHtml();?>
+    <?php if ($this->isARP2Installed()): ?>
+        <?php echo $this->getChildHtml('arp2');?>
+    <?php else: ?>
+        <?php echo $this->getChildHtml('crosssell');?>
+    <?php endif; ?>
+</div>
+<script type="text/javascript">
+    var awOSCRelatedBlock = new AWOnestepcheckoutRelated({
+        containerSelector: "#aw-onestepcheckout-related",
+        productContainerSelector: "#aw-onestepcheckout-related-block",
+        useForShippingCheckboxContainerSelector: "#aw-onestepcheckout-billing-use-for-shipping",
+        timer: {
+            blockSelector: "#<?php echo $this->_timerConfig['block_html_id'];?>",
+            timerClockElSelector: "#<?php echo $this->_timerConfig['timer_clock_html_id'];?>",
+            redirectActionElSelector: "#<?php echo $this->_timerConfig['redirect_now_action_html_id'];?>",
+            cancelActionElSelector: "#<?php echo $this->_timerConfig['cancel_action_html_id'];?>",
+            startTimerFrom: 5 //in sec
+        },
+        urlToAddProductToWishlist: <?php echo Zend_Json::encode($this->getUrlToAddProductToWishlist()); ?>,
+        urlToAddProductToCompareList: <?php echo Zend_Json::encode($this->getUrlToAddProductToCompareList()); ?>,
+        urlToUpdateBlocksAfterACP: <?php echo Zend_Json::encode($this->getUrlToUpdateBlocksAfterACP()); ?>,
+        successMessageBoxCssClass: 'aw-onestepcheckout-success-msg ',
+        errorMessageBoxCssClass: 'aw-onestepcheckout-error-msg ',
+        overlayConfig: {
+            '48px': 'aw-onestepcheckout-overlay aw-onestepcheckout-overlay-48',
+            '24px': 'aw-onestepcheckout-overlay aw-onestepcheckout-overlay-24',
+            '16px': 'aw-onestepcheckout-overlay aw-onestepcheckout-overlay-16'
+        },
+        jsErrorMsg: <?php echo Zend_Json::encode($this->__("Oops something's wrong")); ?>,
+        errorOnAddToCartMsg: <?php echo Zend_Json::encode($this->__("Product has not been added")); ?>
+    });
+</script>
+<?php endif;?>

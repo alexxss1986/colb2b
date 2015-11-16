@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Shine Software
+ * @package    Epositivity
+ * @copyright  Copyright (c) 2008 Shine Software (http://www.shinesoftware.com)
+ */
+-->
+<config>
+   <sections>
+        <payment>
+            <groups>
+                <epositivity_cc translate="label" module="epositivity">
+                    <label>Gruppo BNL (Epositivity)</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <order_status translate="label">
+                            <label>New order status</label>
+                            <comment>Status impostato all'ordine dopo la transazione.</comment>                            
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_order_status</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </order_status>
+                        <sort_order translate="label">                            
+                            <label>Sort order</label>
+                            <comment>Posizione dell'opzione di pagamento nella scheda di checkout dell'ordine.</comment>                            
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sort_order>                        
+                        <title translate="label">
+                            <label>Title</label>
+                            <comment>Etichetta pubblica identificativa del metodo di pagamento.</comment>                            
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </title>                    
+                        <allowspecific translate="label">
+                            <label>Payment to applicable countries</label>
+                            <frontend_type>allowspecific</frontend_type>
+                            <sort_order>5</sort_order>
+                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowspecific>
+                        <specificcountry translate="label">
+                            <label>Payment to Specific countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>6</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </specificcountry>						
+                        <terminalid translate="label">
+                          <label>Terminal ID</label>
+                          <comment>Codice identificativo dell'account fornito dalla banca.</comment>                          
+                          <frontend_type>text</frontend_type>
+                          <sort_order>7</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>0</show_in_store>
+                        </terminalid>
+                        <ksig>
+                          <label>KSig</label>
+                          <comment>Codice Ksig fornito dalla banca.</comment> 
+                          <frontend_type>text</frontend_type>
+                          <sort_order>8</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>0</show_in_store>
+                        </ksig>
+                        
+                        <transaction translate="label">
+                          <label>Transaction Mode</label>
+                          <frontend_type>select</frontend_type>
+                          <source_model>epositivity/source_transactionMode</source_model>
+                          <comment>Modalità della transazione. Impostare Purchase se si desidera "catturare" l'importo indicato nell'ordine immediatamente dopo la transazione.</comment>
+                          <sort_order>10</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>0</show_in_store>
+                        </transaction>
+                        
+                        <placeholders translate="label">
+                          <label>Transaction Description</label>
+                          <frontend_type>text</frontend_type>
+                          <comment>Testo presentato come descrizione della transazione. Utilizzare il seguente segnaposto per inserire il codice dell'ordine: {orderid}</comment>
+                          <sort_order>900</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>0</show_in_store>
+                        </placeholders>
+                        
+                        
+                        <addinfo1 translate="label">
+                          <label>Additional Info 1</label>
+                          <frontend_type>select</frontend_type>
+                          <source_model>epositivity/source_addinfo</source_model>
+                          <comment>Parametro personalizzabile per l'invio di informazioni alla banca.</comment>
+                          <sort_order>1001</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>0</show_in_store>
+                        </addinfo1>
+                        
+                        <addinfo2 translate="label">
+                          <label>Additional Info 2</label>
+                          <frontend_type>select</frontend_type>
+                          <source_model>epositivity/source_addinfo</source_model>
+                          <comment>Parametro personalizzabile per l'invio di informazioni alla banca.</comment>
+                          <sort_order>1002</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>0</show_in_store>
+                        </addinfo2>
+                        
+                        <addinfo3 translate="label">
+                          <label>Additional Info 3</label>
+                          <frontend_type>select</frontend_type>
+                          <source_model>epositivity/source_addinfo</source_model>
+                          <comment>Parametro personalizzabile per l'invio di informazioni alla banca.</comment>
+                          <sort_order>1003</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>0</show_in_store>
+                        </addinfo3> 
+                        
+                        <addinfo4 translate="label">
+                          <label>Additional Info 4</label>
+                          <frontend_type>select</frontend_type>
+                          <source_model>epositivity/source_addinfo</source_model>
+                          <comment>Parametro personalizzabile per l'invio di informazioni alla banca.</comment>
+                          <sort_order>1004</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>0</show_in_store>
+                        </addinfo4> 
+                        
+                        <addinfo5 translate="label">
+                          <label>Additional Info 5</label>
+                          <frontend_type>select</frontend_type>
+                          <source_model>epositivity/source_addinfo</source_model>
+                          <comment>Parametro personalizzabile per l'invio di informazioni alla banca.</comment>
+                          <sort_order>1005</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>0</show_in_store>
+                        </addinfo5>
+                        
+                     	<status translate="label">
+                          <label>Status</label> 
+                          <comment>Modalità della transazione. E' possibile indicare TEST per effettuare delle prove di acquisto. Attenzione nella fase di test nessuna CALLBACK da parte della banca verrà inviata al vostro sito internet. Solamente durante la modalità LIVE la banca invierà la conferma (CALLBACK) di controllo della Transazione.</comment> 
+                          <frontend_type>select</frontend_type>
+                          <source_model>epositivity/source_status</source_model>
+                          <sort_order>11</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>0</show_in_store>
+                        </status>
+                        
+                     	<information>
+                          <label>Copyright</label>
+                          <frontend_type>label</frontend_type>
+                          <sort_order>1009</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>0</show_in_store>
+                        </information>
+                        
+                        <url translate="label">
+                            <label></label>
+                            <frontend_type>link</frontend_type>
+                            <sort_order>1010</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </url>   
+                    </fields>
+                </epositivity_cc>
+            </groups>
+        </payment>
+    </sections>
+</config>

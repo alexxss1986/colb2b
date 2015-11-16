@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="header">
+            <block type="treccategoriesmenu/categories" name="categoriesMenuMan" as="categoriesMenuMan" template="categoriesmenu/manMenu.phtml" />
+            <block type="treccategoriesmenu/categories" name="categoriesMenuWomen" as="categoriesMenuWomen" template="categoriesmenu/womenMenu.phtml" />
+        </reference>
+    </default>
+</layout>

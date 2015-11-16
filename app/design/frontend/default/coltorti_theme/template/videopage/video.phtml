@@ -1,0 +1,125 @@
+<div class="video_page">
+    <h1>Video</h1>
+    <div class="postWrapper grid">
+        <span id='ajax_loader_videofw' class="loader" style='display:none'><img alt="Loader" title="Loader" src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></span>
+
+        <figure class="effect-bubba" id="video_campaignfw_figure">
+
+            <video poster="<?php echo $this->getSkinUrl("video/anteprime/coltorti-campaign-fw1516.jpg") ?>" id="video_campaignfw"   style="width:100%;float:left" class="video-js vjs-default-skin" preload="auto">
+                <source src="<?php echo $this->getSkinUrl("video/coltorti-campaign-fw1516.mp4") ?>" type="video/mp4" />
+            </video>
+
+            <figcaption id="fig_video_campaignfw">
+
+            </figcaption>
+        </figure>
+
+        <div class="postContentWrapper">
+            <div class="postTitle">
+                <h2>Campaign FW1516</h2>
+                <span>Video advertising</span>
+            </div>
+            <a href='javascript:void(0)' id="play_campaignfw" onclick="playVideoCampaignFW()">Play</a>
+            <a href='javascript:void(0)' id="stop_campaignfw" style="display: none" onclick="playVideoCampaignFW()">Stop</a>
+        </div>
+    </div>
+    <div class="postWrapper grid">
+        <span id='ajax_loader_video2' class="loader" style='display:none'><img alt="Loader2" title="Loader2" src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></span>
+
+        <figure class="effect-bubba" id="video_campaign_figure">
+
+            <video poster="<?php echo $this->getSkinUrl("video/anteprime/intro_coltorti.jpg") ?>" id="video_campaign"   style="width:100%;float:left" class="video-js vjs-default-skin" preload="auto">
+                <source src="<?php echo $this->getSkinUrl("video/intro_coltorti.mp4") ?>" type="video/mp4" />
+            </video>
+
+            <figcaption id="fig_video_campaign">
+
+            </figcaption>
+        </figure>
+
+        <div class="postContentWrapper">
+            <div class="postTitle">
+                <h2>Campaign SS15</h2>
+                <span>Video advertising</span>
+            </div>
+            <a href='javascript:void(0)' id="play_campaign" onclick="playVideoCampaign()">Play</a>
+            <a href='javascript:void(0)' id="stop_campaign" style="display: none" onclick="playVideoCampaign()">Stop</a>
+        </div>
+    </div>
+    <div class="postWrapper grid">
+        <figure class="effect-bubba">
+            <video poster="<?php echo $this->getSkinUrl("video/anteprime/ancona-boutique-top.jpg") ?>" muted id="video_ancona"   style="width:100%;float:left" class="video-js vjs-default-skin" preload="auto">
+                <source src="<?php echo $this->getSkinUrl("video/ancona-boutique-top.mp4") ?>" type="video/mp4" />
+            </video>
+
+            <figcaption id="fig_video_ancona">
+
+            </figcaption>
+        </figure>
+
+        <div class="postContentWrapper">
+            <div class="postTitle">
+                <h2>Ancona</h2>
+                <span><?php echo $this->__("Boutique Uomo/Donna") ?></span>
+            </div>
+            <a href='javascript:void(0)' id="play_ancona" onclick="video = document.getElementById('video_ancona');video.play();jQuery('#play_ancona').hide();jQuery('#stop_ancona').show();">Play</a>
+            <a href='javascript:void(0)' id="stop_ancona" style="display: none" onclick="video = document.getElementById('video_ancona');video.pause();jQuery('#stop_ancona').hide();jQuery('#play_ancona').show();">Stop</a>
+        </div>
+    </div>
+    <div class="postWrapper grid">
+        <figure class="effect-bubba">
+            <video poster="<?php echo $this->getSkinUrl("video/anteprime/jesi-boutique-top.jpg") ?>" muted id="video_jesi"   style="width:100%;float:left" class="video-js vjs-default-skin" preload="auto">
+                <source src="<?php echo $this->getSkinUrl("video/jesi-boutique-top.mp4") ?>" type="video/mp4" />
+            </video>
+            <figcaption id="fig_video_jesi">
+
+            </figcaption>
+        </figure>
+        <div class="postContentWrapper">
+            <div class="postTitle">
+                <h2>Jesi</h2>
+                <span><?php echo $this->__("Boutique Uomo/Donna") ?></span>
+            </div>
+            <a href='javascript:void(0)' id="play_jesi" onclick="video = document.getElementById('video_jesi');video.play();jQuery('#play_jesi').hide();jQuery('#stop_jesi').show();">Play</a>
+            <a href='javascript:void(0)' id="stop_jesi" style="display: none" onclick="video = document.getElementById('video_jesi');video.pause();jQuery('#stop_jesi').hide();jQuery('#play_jesi').show();">Stop</a>
+        </div>
+    </div>
+    <div class="postWrapper grid">
+        <figure class="effect-bubba">
+            <video poster="<?php echo $this->getSkinUrl("video/anteprime/macerata-boutique-top.jpg") ?>" muted id="video_macerata"   style="width:100%;float:left" class="video-js vjs-default-skin" preload="auto">
+                <source src="<?php echo $this->getSkinUrl("video/macerata-boutique-top.mp4") ?>" type="video/mp4" />
+            </video>
+            <figcaption id="fig_video_macerata">
+
+            </figcaption>
+        </figure>
+        <div class="postContentWrapper">
+            <div class="postTitle">
+                <h2>Macerata</h2>
+                <span><?php echo $this->__("Boutique Uomo/Donna") ?></span>
+            </div>
+            <a href='javascript:void(0)' id="play_macerata" onclick="video = document.getElementById('video_macerata');video.play();jQuery('#play_macerata').hide();jQuery('#stop_macerata').show();">Play</a>
+            <a href='javascript:void(0)' id="stop_macerata" style="display: none" onclick="video = document.getElementById('video_macerata');video.pause();jQuery('#stop_macerata').hide();jQuery('#play_macerata').show();">Stop</a>
+        </div>
+    </div>
+    <div class="postWrapper grid">
+        <figure class="effect-bubba">
+            <video poster="<?php echo $this->getSkinUrl("video/anteprime/san-benedetto-boutique-top.jpg") ?>" muted id="video_sanbenedetto"   style="width:100%;float:left" class="video-js vjs-default-skin" preload="auto">
+                <source src="<?php echo $this->getSkinUrl("video/san-benedetto-boutique-top.mp4") ?>" type="video/mp4" />
+            </video>
+            <figcaption id="fig_video_sanbenedetto">
+
+            </figcaption>
+        </figure>
+        <div class="postContentWrapper">
+            <div class="postTitle">
+                <h2>San Benedetto del Tronto</h2>
+                <span><?php echo $this->__("Boutique Uomo/Donna") ?></span>
+            </div>
+            <a href='javascript:void(0)' id="play_sanbenedetto" onclick="video = document.getElementById('video_sanbenedetto');video.play();jQuery('#play_sanbenedetto').hide();jQuery('#stop_sanbenedetto').show();">Play</a>
+            <a href='javascript:void(0)' id="stop_sanbenedetto" style="display: none" onclick="video = document.getElementById('video_sanbenedetto');video.pause();jQuery('#stop_sanbenedetto').hide();jQuery('#play_sanbenedetto').show();">Stop</a>
+        </div>
+    </div>
+
+
+</div>

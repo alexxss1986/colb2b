@@ -1,0 +1,56 @@
+<?php
+$posts = $this->getPosts();
+$_pinterest = Mage::getStoreConfig('blog/blog/pinterest') == 1;
+
+if (count($posts)): ?>
+<?php // echo $this->getChildHtml('blog_comments_toolbar'); ?>
+<div id="blogPostsWrapper"<?php if($_pinterest): ?> class="blogPostsPinterest"<?php endif; ?>">
+<?php foreach ($posts as $post): ?>
+    <div class="postWrapper">
+		<?php if($img = $post->getPostImage($_pinterest?292:120)): ?>
+        <div class="postImage">
+        	<a href="<?php echo $post->getAddress(); ?>" ><img src="<?php echo Mage::getBaseUrl('media').$img; ?>" width="<?php echo $_pinterest?"292":"120"; ?>" /></a>
+        </div>
+        <?php endif; ?>
+        <div class="postContentWrapper">
+            <div class="postTitle">
+                <h2><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></h2>
+                <?php if(!$_pinterest): ?>
+                    <h7 class="postDetails"><?php echo Mage::helper('blog')->__('Posted on'); ?> <span class="postDate"><?php echo $post->getCreatedTime(); ?></span>
+                        <?php $postCats = $post->getCats(); ?>
+                        <?php if (!empty($postCats)): ?>
+                            <?php echo Mage::helper('blog')->__('in'); ?>
+                            <?php foreach ($postCats as $title => $url): ?>
+                                <a href="<?php echo $url; ?>"><?php echo $title; ?></a>
+                            <?php endforeach; ?>
+                        <?php endif; ?><?php echo $this->__("by"); ?> <span class="poster"><?php echo $post->getUser(); ?></span>
+                    </h7>
+                <?php endif; ?>
+            </div>
+            <?php if(!$_pinterest || empty($img)): ?>
+            	<div class="postContent"><?php echo $post->getPostContent(); ?></div>
+            <?php endif; ?>
+            <div class="postReadmoreComments">
+			<?php if ($this->getCommentsEnabled()): ?>
+            	<?php echo $post->getCommentCount(); ?> <a href="<?php echo $post->getAddress(); ?>#commentBox" >Comments</a> | <a class="blog-read-more" href="<?php echo $post->getAddress(); ?>">Read Full Post</a>
+            <?php endif; ?>
+            </div>
+    	</div>
+    </div>
+<?php endforeach; ?>
+</div>
+<?php echo $this->getChildHtml('blog_comments_toolbar'); ?>
+<script type="text/javascript">
+<? if($_pinterest): ?>
+	var $totalPages = <?php echo $posts->getLastPageNumber(); ?>;
+	var $currentPage = 1;
+	var $finishedMsg = '<?php echo Mage::helper('blog')->__('No more posts to load.'); ?>';
+    var $msgText = '<?php echo Mage::helper('blog')->__('Loading more posts...'); ?>';
+    var $loadingImg = '<?php echo $this->getSkinUrl('images/loading.gif')?>';
+<?php else: ?>
+	jQuery(function(){ jQuery('.toolbar').jqTransform({imgPath:'<?php echo $this->getSkinUrl('images/jqforms/'); ?>'}); });
+<?php endif; ?>
+</script>
+<?php else: ?>
+    <?php echo Mage::helper('blog')->__('No Posts in this Category.'); ?>
+<?php endif; ?>

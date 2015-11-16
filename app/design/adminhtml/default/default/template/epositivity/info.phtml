@@ -1,0 +1,24 @@
+<p>Transazione effettuata con <b><?php echo $this->getMethod()->getTitle() ?></b><br>
+
+<?php $data = $this->getMethod()->getInfo(); ?>
+
+<?php if(!empty($data['response'])): ?>
+
+	<table>
+	<?php foreach($data['response'] as $key=>$value): ?>
+	    <?php if(!empty($key) && !empty($value)): ?>
+		<tr/>
+			<td><?php echo $key ?></td>
+			<td><?php echo $value ?></td>
+		<tr/>
+		<?php endif; ?>
+	<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+
+<?php if(!empty($data['refund'])): ?>
+	<br/>
+	<h5>Nota di Credito</h5>
+	<p>Risposta a seguito della richiesta di storno dalla banca: </p>
+	<p><?php echo $data['refund'] ?></p>
+<?php endif; ?>

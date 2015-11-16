@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!--
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Shine Software
+ * @package    Epositivity
+ * @copyright  Copyright (c) 2008 Shine Software (http://www.shinesoftware.com)
+ */
+-->
+<config>
+    <modules>
+        <ShineSoftware_Epositivity>
+            <version>1.2</version>
+        </ShineSoftware_Epositivity>
+    </modules>
+    <global>
+        <models>
+            <epositivity>
+                <class>ShineSoftware_Epositivity_Model</class>
+            </epositivity>
+        </models>
+        <helpers>
+	      <epositivity>
+            <class>ShineSoftware_Epositivity_Helper</class>
+		  </epositivity>
+	    </helpers>
+        <resources>
+            <epositivity_setup>
+                <setup>
+                    <module>ShineSoftware_Epositivity</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </epositivity_setup>
+            <epositivity_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </epositivity_write>
+            <epositivity_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </epositivity_read>
+        </resources>
+        <blocks>
+            <epositivity><class>ShineSoftware_Epositivity_Block</class></epositivity>
+        </blocks>
+    </global>
+    <frontend>
+        <routers>
+            <epositivity>
+                <use>standard</use>
+                <args>
+                    <module>ShineSoftware_Epositivity</module>
+                    <frontName>epositivity</frontName>
+                </args>
+            </epositivity>
+        </routers>
+        <translate>
+            <modules>
+                <ShineSoftware_Epositivity>
+                    <files>
+                        <default>ShineSoftware_Epositivity.csv</default>
+                    </files>
+                </ShineSoftware_Epositivity>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <epositivity>
+                    <file>epositivity.xml</file>
+                </epositivity>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <ShineSoftware_Epositivity>
+                    <files>
+                        <default>ShineSoftware_Epositivity.csv</default>
+                    </files>
+                </ShineSoftware_Epositivity>
+            </modules>
+        </translate>
+    </adminhtml>
+	<default>
+        <payment>        
+            <epositivity_cc>
+                <active>0</active>
+                <model>epositivity/cc</model>
+                <addinfo1>orderid</addinfo1>
+                <placeholders>Ordine nr. {orderid}</placeholders>
+                <order_status>1</order_status>
+                <title>Epositivity (Gruppo BNL)</title>
+                <allowspecific>0</allowspecific>
+                <action>4</action>
+                <transaction_mode>test</transaction_mode>
+                <discount>0</discount>
+                <information>BNL e-POSitivity module has been created by the Shine Software. Please contact us at http://www.shinesoftware.com.</information>
+                <url>http://www.shinesoftware.com</url>
+            </epositivity_cc>
+
+        </payment>
+    </default> 
+</config>

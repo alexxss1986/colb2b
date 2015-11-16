@@ -1,0 +1,17 @@
+
+                    <!-- INTERNATIONAL -->
+                    <h4 class="icon-head head-shipping-method"><?php echo $this->__('Spedizione internazionale')?></h4>
+                    <span class="field-row">
+                        <label class="normal" for="wgtntpro[articles][tarif]"><?php echo $this->__('Codice Doganale')?></label>
+                        <input type="text" name="wgtntpro[articles][tarif]" length="5"/>
+                    </span>
+                    <?php foreach (Mage::helper('wgtntpro')->toInternationalOptionArray() as $k=>$v): ?>
+                    <span class="field-row">
+                        <input type="checkbox" name="wgtntpro[options][<?php echo $k ?>]" id="wgtntpro_hazardous" value="<?php echo $v['value'] ?>" /><?php echo $v['label'] ?>
+                    </span>
+                    <?php endforeach ?>
+                    <?php if (in_array ( $_order->getPayment()->getMethod(), array ('checkmo', 'cashondelivery') )): ?>
+                        <span class="field-row warning-msg" style="height: 2.5em; padding-left: 3em; padding-top: 1em;">
+                            <?php echo $this->__('WARNING: checkmoney not avaiable on crosscountry shipment'); ?></span>
+                    <?php endif; ?>
+

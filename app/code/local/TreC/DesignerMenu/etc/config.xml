@@ -1,0 +1,23 @@
+<config>
+    <modules>
+        <TreC_DesignerMenu>
+            <version>0.1.0</version>
+        </TreC_DesignerMenu>
+    </modules>
+    <frontend>
+        <layout>
+            <updates>
+                <trecdesigner module="TreC_DesignerMenu">
+                    <file>trecdesignermenu.xml</file>
+                </trecdesigner>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <blocks>
+            <trecdesigner>
+                <class>TreC_DesignerMenu_Block</class>
+            </trecdesigner>
+        </blocks>
+    </global>
+</config>

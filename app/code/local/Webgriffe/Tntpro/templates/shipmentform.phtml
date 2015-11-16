@@ -1,0 +1,264 @@
+<?php
+$_order = $this->getOrder();
+$_shippingAddress = $_order->getShippingAddress();
+$_countryTo = $_shippingAddress->getCountryId();
+if ($this->inDebug()) { print get_class($this); }
+?>
+<div class="entry-edit">
+    <div class="entry-edit wgtntpro">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-shipping-method">Tnt Pro Module</h4>
+        </div>
+        <fieldset>
+            <input type="hidden" name="wgtntpro[packagetype]" value="C" />
+
+            <span class="field-row">
+                <input type="checkbox" name="wgtntpro[usalo]" id="wgtntpro_usalo" value="1" <?php echo $this->getChecked() ?> /><?php echo $this->__('Usa TNT Pro') ?>
+            </span>
+            <div id="wgtntprodiv">
+            <div class="box-left">
+            <span class="field-row">
+                <label class="normal" for="wgtntpro[totalpackages]"><?php echo $this->__('Colli')?></label>
+                <input type="text" name="wgtntpro[totalpackages]" value="1" class="req validate-digits" />
+            </span>
+            <span class="field-row">
+                <label class="normal" for="wgtntpro[actualweight]"><?php echo $this->__('Peso Totale Colli (Kg)')?></label>
+                <input type="text" name="wgtntpro[actualweight]" value="<?php echo $this->virgola($_order->getWeight()) ?>" class="req validate-number my-number" />
+            </span>
+            <span class="field-row">
+                <label class="normal" for="wgtntpro[actualvolume]"><?php echo $this->__('Volume Totale Colli (m<sup>3</sup>)')?></label>
+                <input type="text" name="wgtntpro[actualvolume]" value="<?php echo $this->virgola($_order->getWeight()/100.0) ?>" class="req validate-number my-number" />
+            </span>
+            <span class="field-row">
+                <label class="normal" for="wgtntpro[goodsdesc]"><?php echo $this->__('Descrizione')?></label>
+                <input type="text" name="wgtntpro[goodsdesc]" />
+            </span>
+            <span class="field-row">
+                <label class="normal" for="wgtntpro[reference]"><?php echo $this->__('Sender Reference')?></label>
+                <input type="text" name="wgtntpro[reference]" value="<?php echo $_order->getIncrementId() ?>"/>
+            </span>
+            <span class="field-row">
+                <label class="normal" for="wgtntpro[collectiondate]"><?php echo $this->__('Collection Date (YYYYMMDD)')?></label>
+                <input type="text" name="wgtntpro[collectiondate]" value="<?php echo date("Ymd", time()+86400); ?>"/>
+            </span>
+            <span class="field-row">
+                <label class="normal" for="wgtntpro[magazzino]"><?php echo $this->__('Magazzino di partenza')?></label>
+                <select name="wgtntpro[magazzino]" id="wgtntpro_magazzino">
+                    <?php foreach (Mage::getModel('wgtntpro/magazzini')->toOptionArray() as $mag): ?>
+                        <option value="<?php echo $mag['value'] ?>" <?php echo $mag['extra'] ?> ><?php echo $mag['label'] ?></option>
+                    <?php endforeach ?>
+                </select>
+            </span>
+            <span class="field-row">
+                <label class="normal" for="wgtntpro[product]"><?php echo $this->__('Servizio')?></label>
+                <select name="wgtntpro[product]">
+                    <?php foreach (Mage::helper('wgtntpro')->toServiceOptionArray('C') as $mag): ?>
+                        <option value="<?php echo $mag['value'] ?>" <?php echo $mag['extra'] ?> class="<?php echo $mag['class'] ?>"><?php echo $mag['label'] ?></option>
+                    <?php endforeach ?>
+                </select>
+            </span>
+
+            <span class="field-row">
+                <label class="normal" for="wgtntpro[termsofpayment]"><?php echo $this->__('Spedizione a carico di')?></label>
+                <select name="wgtntpro[termsofpayment]">
+                    <option value="S"><?php echo $this->__('Mittente')?></option>
+                    <option value="R"><?php echo $this->__('Destinatario')?></option>
+                </select>
+            </span>
+            <span class="field-row">
+                <label class="normal" for="wgtntpro[specialinstructions]"><?php echo $this->__('Istruzioni')?></label>
+                <input type="text" name="wgtntpro[specialinstructions]" length="60"/>
+            </span>
+            <!-- SPUNTE -->
+            <span class="field-row">
+                <input type="checkbox" name="wgtntpro[PrintInstrDocs]" id="wgtntpro_PrintInstrDocs" value="Y" checked="checked" /><?php echo $this->__('Full documents') ?>
+            </span>
+            <span class="field-row">
+                <input type="checkbox" name="wgtntpro[hazardous]" id="wgtntpro_hazardous" value="Y" /><?php echo $this->__('Hazardous') ?>
+            </span>
+            <span class="field-row">
+                <input type="checkbox" name="wgtntpro[highvalue]" id="wgtntpro_highvalue" value="Y" /><?php echo $this->__('Highvalue') ?>
+            </span>
+            <span class="field-row">
+                <input type="checkbox" name="wgtntpro[specialgoods]" id="wgtntpro_specialgoods" value="Y" /><?php echo $this->__('Special Goods') ?>
+            </span>
+
+            <!-- INSURANCE -->
+            <span class="field-row">
+                <input type="checkbox" name="wgtntpro[insurance]" id="wgtntpro_insurance" value="Y" /><?php echo $this->__('Imposta valore assicurato') ?>
+            </span>
+            <span class="field-row insurance">
+                <label class="normal" for="wgtntpro[insurancevalue]"><?php echo $this->__('Importo Assicurato')?></label>
+                <input type="text" name="wgtntpro[insurancevalue]" value="<?php echo $this->virgola($_order->getGrandTotal()) ?>" class="validate-number my-number" />
+            </span>
+            <span class="field-row insurance">
+                <label class="normal" for="wgtntpro[insurancecurrency]"><?php echo $this->__('Valuta Importo Assicurato')?></label>
+                <!-- adminhtml/system_config_source_currency -->
+                <select name="wgtntpro[insurancecurrency]">
+                    <?php foreach(Mage::getModel('adminhtml/system_config_source_currency')->toOptionArray(FALSE) as $cur): ?>
+                        <option value="<?php echo $cur['value']?>" <?php if ($cur['value']==$_order->getOrderCurrencyCode()) {echo " SELECTED ";} ?>><?php echo $cur['label']?></option>
+                    <?php endforeach ?>
+                </select>
+            </span>
+            <span class="field-row insurance">
+                <label class="normal" for="wgtntpro[insurancecommission]"><?php echo $this->__('Assic. a carico di')?></label>
+                <select name="wgtntpro[insurancecommission]">
+                    <option value="S"><?php echo $this->__('Mittente')?></option>
+                    <option value="R"><?php echo $this->__('Destinatario')?></option>
+                </select>
+            </span>
+
+            <!-- INVOICE -->
+            <span class="field-row">
+                <input type="checkbox" name="wgtntpro[invoice]" id="wgtntpro_invoice" value="Y" /><?php echo $this->__('Imposta valore fattura') ?>
+            </span>
+            <span class="field-row invoice">
+                <label class="normal" for="wgtntpro[invoicevalue]"><?php echo $this->__('Importo fattura')?></label>
+                <input type="text" name="wgtntpro[invoicevalue]" value="<?php echo $this->virgola($_order->getGrandTotal()) ?>" class="validate-number my-number" />
+            </span>
+            <span class="field-row invoice">
+                <label class="normal" for="wgtntpro[invoicecurrency]"><?php echo $this->__('Valuta importo fattura')?></label>
+                <!-- adminhtml/system_config_source_currency -->
+                <select name="wgtntpro[invoicecurrency]">
+                    <?php foreach(Mage::getModel('adminhtml/system_config_source_currency')->toOptionArray(FALSE) as $cur): ?>
+                        <option value="<?php echo $cur['value']?>" <?php if ($cur['value']==$_order->getOrderCurrencyCode()) {echo " SELECTED ";} ?>><?php echo $cur['label']?></option>
+                    <?php endforeach ?>
+                </select>
+            </span>
+
+            <!-- DOMESTIC / INTERNATIONAL -->
+            </div>
+                <div class="box-right">
+                    <div id="domestic">
+                        <?php include "domestic.phtml"; ?>
+                    </div>
+                    <div id="international">
+                        <?php include "international.phtml"; ?>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<?php
+echo $this->getChildHtml();
+?>
+
+<script type="text/javascript">
+var countryTo = "<?php echo $_countryTo ?>";
+var countryMag = <?php echo json_encode(Mage::getModel('wgtntpro/magazzini')->toOptionArray()) ?>;
+
+document.observe("dom:loaded", function() {
+    if (!$F('wgtntpro_usalo')) {
+        $('wgtntprodiv').hide();
+    }
+});
+
+$('wgtntpro_usalo').observe('change', function (e) {
+    if ($F('wgtntpro_usalo')) {
+        $('wgtntprodiv').show();
+        $$('.wgtntpro .req').each( function (ele) {
+            ele.addClassName('required-entry');
+        });
+    } else {
+        $('wgtntprodiv').hide();
+        $$('.wgtntpro .req').each( function (ele) {
+            ele.removeClassName('required-entry');
+        });
+    }
+});
+
+$('wgtntpro_TNTDepot_span').hide()
+$('wgtntpro_operationaloption').observe('change', function (e) {
+    if ($F('wgtntpro_operationaloption')==3) {
+        $('wgtntpro_TNTDepot_span').show();
+    } else {
+        $('wgtntpro_TNTDepot_span').hide();
+    }
+});
+
+$$('span.insurance').each( function (ele) {
+            $(ele).hide();
+});
+$('wgtntpro_insurance').observe('change', function () {
+    if ($F('wgtntpro_insurance')=='Y') {
+        $$('span.insurance').each( function (ele) {
+                    $(ele).show();
+        });
+    } else {
+        $$('span.insurance').each( function (ele) {
+                    $(ele).hide();
+        });
+    }
+});
+
+$$('span.invoice').each( function (ele) {
+            $(ele).hide();
+});
+$('wgtntpro_invoice').observe('change', function () {
+    if ($F('wgtntpro_invoice')=='Y') {
+        $$('span.invoice').each( function (ele) {
+                    $(ele).show();
+        });
+    } else {
+        $$('span.invoice').each( function (ele) {
+                    $(ele).hide();
+        });
+    }
+});
+
+$('wgtntpro_magazzino').observe('change', wgtntpro_check );
+function wgtntpro_check() {
+    if ((countryMag[$F('wgtntpro_magazzino')]['country']==countryTo) ||
+        ('IT' == countryMag[$F('wgtntpro_magazzino')]['country'] &&('SM' == countryTo || 'VA'==countryTo))) { //caso speciale san marino/vatican city da italia
+        $('domestic').show();
+        $('international').hide();
+        var inter = $$('option.INT');
+        for (var x = 0; x < inter.length; x++) {
+            inter[x].setAttribute('disabled','disabled');
+            inter[x].removeAttribute('SELECTED');
+            $(inter[x]).hide();
+        }
+        var inter = $$('option.DOM');
+        for (var x = 0; x < inter.length; x++) {
+            inter[x].removeAttribute('disabled');
+            $(inter[x]).show();
+            if (x==0) {
+                inter[x].setAttribute('SELECTED','SELECTED');
+            }
+        }
+    } else {
+        $('wgtntpro_invoice').checked = true;
+        $$('span.invoice').each( function (ele) {
+                    $(ele).show();
+        });
+        $('domestic').hide();
+        $('international').show();
+        var inter = $$('option.DOM');
+        for (var x = 0; x < inter.length; x++) {
+            inter[x].setAttribute('disabled','disabled');
+            inter[x].removeAttribute('SELECTED');
+            $(inter[x]).hide();
+        }
+        var inter = $$('option.INT');
+        for (var x = 0; x < inter.length; x++) {
+            inter[x].removeAttribute('disabled');
+            $(inter[x]).show();
+            if (x==0) {
+                inter[x].setAttribute('SELECTED','SELECTED');
+            }
+        }
+    }
+}
+wgtntpro_check();
+
+if(Validation) {
+	Validation.add('my-number','Please insert a valid number',
+			function (v, e) {
+                            return ( /^\d*[.]?\d+$/.test(v) );
+		});
+}
+
+var customForm = new VarienForm('edit_form');
+
+</script>

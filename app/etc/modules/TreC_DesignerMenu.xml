@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <TreC_DesignerMenu>
+            <active>true</active>
+            <codePool>local</codePool>
+        </TreC_DesignerMenu>
+    </modules>
+</config>

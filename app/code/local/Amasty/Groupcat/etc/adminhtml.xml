@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Groupcat
+ */
+--> 
+<config>
+     <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                     <catalog>
+                        <children>
+                            <amgroupcat translate="title" module="amgroupcat">
+                                <title>Customer Group Catalog</title>
+                                <sort_order>750</sort_order>
+                                <children>
+                                    <amgroupcat_rules translate="title" module="amgroupcat">
+                                        <title>Rules</title>
+                                        <sort_order>10</sort_order>
+                                    </amgroupcat_rules>
+                                </children>
+                            </amgroupcat>
+                        </children>
+                    </catalog>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <amgroupcat translate="title" module="amgroupcat">
+                                        <title>Customer Group Catalog</title>
+                                    </amgroupcat>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin> 
+        </resources>
+    </acl>
+    <translate>
+        <modules>
+            <Amasty_Conf>
+                <files>
+                    <default>Amasty_Groupcat.csv</default>
+                </files>
+            </Amasty_Conf>
+        </modules>
+    </translate>
+</config> 

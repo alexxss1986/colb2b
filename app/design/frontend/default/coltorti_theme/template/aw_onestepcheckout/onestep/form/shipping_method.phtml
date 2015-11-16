@@ -1,0 +1,88 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Onestepcheckout
+ * @version    1.2.7
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php if ($this->canShip()) : ?>
+<?php $blockNumber = $this->getBlockNumber();?>
+<?php $blockNumberClass = (!is_null($blockNumber))?"aw-onestepcheckout-number-{$blockNumber}":"";?>
+<p class="aw-onestepcheckout-number <?php echo $blockNumberClass;?>"><?php echo $this->__('SHIPPING METHOD'); ?></p>
+<div id="aw-onestepcheckout-shipping-method" class="aw-onestepcheckout-add-loader-into-this-block">
+    <?php $_shippingRateGroups = $this->getShippingRates(); ?>
+    <?php if (!$_shippingRateGroups) : ?>
+        <p><?php echo $this->__('Please specify the shipping address to see available options.') ?></p>
+    <?php else : ?>
+        <dl class="sp-methods" style="margin-top:5px;margin-bottom:25px">
+        <?php $_sole = count($_shippingRateGroups) == 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
+         <?php 
+		$free=false;
+		if ($code=="freeshipping") {
+			$free=true;
+		}
+        endforeach; 
+		?>
+        <?php $_sole = count($_shippingRateGroups) == 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
+        <?php if (( $free == false) || ( ( $free == true ) && ( $code == "freeshipping" ) )): ?>
+            <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
+            <dd>
+                <ul>
+                <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
+                    <li>
+                        <?php if ($_rate->getErrorMessage()): ?>
+                            <ul class="messages"><li class="error-msg"><ul><li><?php echo $this->escapeHtml($_rate->getErrorMessage()) ?></li></ul></li></ul>
+                        <?php else: ?>
+                            <?php if ($_sole) : ?>
+                                <span class="no-display"><input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" /></span>
+                            <?php else: ?>
+                                <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod() || $free==true) echo ' checked="checked"' ?> class="radio"/>
+                            <?php endif; ?>
+                            <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+                                <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                                <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+                                <?php echo $_excl; ?>
+                                <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                    (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                                <?php endif; ?>
+                            </label>
+                        <?php endif ?>
+                    </li>
+                <?php endforeach; ?>
+                </ul>
+            </dd>
+             <?php endif ?>
+        <?php endforeach; ?>
+        </dl>
+        <div class="validation-advice" style="display: none;"></div>
+    <?php endif; ?>
+    <script type="text/javascript">
+        window.awOSCShipment = new AWOnestepcheckoutShipment({
+            containerSelector: "#aw-onestepcheckout-shipping-method",
+            switchMethodInputsSelector: "input[type='radio'][name='shipping_method']",
+            saveShipmentUrl: <?php echo Zend_Json::encode($this->getSaveShipmentUrl());?>
+        });
+    </script>
+    <?php echo $this->helper('giftmessage/message')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
+    <?php echo $this->getEnterpriseGiftWrappingHtml(); ?>
+    <?php echo $this->getChildHtml('extra');?>
+</div>
+<?php endif; ?>

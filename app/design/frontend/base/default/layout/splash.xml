@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<layout>
+	<!--
+	/**
+	 * Splash Page View
+	 */
+	 -->
+	 <splash_page_view>
+		 <label>Splash Page</label>
+         <reference name="left_first">
+             <block type="splash/layer_view" name="catalog.leftnav" after="currency" template="catalog/layer/view.phtml">
+                 <block type="core/text_list" name="catalog.leftnav.state.renderers" as="state_renderers" />
+             </block>
+         </reference>
+	 	<reference name="content">
+	 		<block type="splash/page_view" name="splash.page" template="splash/page/view.phtml">
+	 			<block type="catalog/product_list" name="splash.page.products" as="product_list" template="catalog/product/list.phtml">
+					<block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+						<block type="page/html_pager" name="product_list_toolbar_pager"/>
+					</block>
+                    <action method="addColumnCountLayoutDepend"><layout>empty</layout><count>6</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>one_column</layout><count>5</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>two_columns_left</layout><count>4</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>two_columns_right</layout><count>4</count></action>
+                    <action method="addColumnCountLayoutDepend"><layout>three_columns</layout><count>3</count></action>
+                    <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+                    <!-- Since the addColumnCountLayoutDepend does not work, we are manually setting the max columns -->
+                    <action method="setColumnCount"><count>4</count></action>
+	 			</block>
+	 		</block>
+	 	</reference>
+         <reference name="before_body_end">
+             <block type="infinitescroll/init" name="infinitescroll_init">
+                 <action method="setTemplate">
+                     <template>strategery/infinitescroll/init.phtml</template>
+                 </action>
+             </block>
+         </reference>
+	 </splash_page_view>
+	<!--
+	/**
+	 * Splash Page View: 2 Columns Right Template
+	 * Switch the layer block to the right hand side
+	 */
+	 -->
+	 <splash_page_view_two_columns_right>
+		 <reference name="left">
+			 <action method="unsetChild"><child>catalog.leftnav</child></action>
+		 </reference>
+		 <reference name="right">
+			 <action method="insert"><block>catalog.leftnav</block><sibling>-</sibling></action>
+		 </reference>
+	 </splash_page_view_two_columns_right>
+
+</layout>

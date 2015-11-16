@@ -1,0 +1,60 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Onestepcheckout
+ * @version    1.2.7
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><div id="aw-onestepcheckout-review-coupon">
+<?php if ($this->canShow()): ?>
+    <div class="coupon-message-container" style="overflow:hidden;height:0px;"></div>
+    <div class="coupon-code-form">
+        <label for="coupon_code"><?php echo $this->__('Coupon Code') ?></label>
+        <div class="input-box field-row">
+            <input class="input-text<?php if ($this->getConfig()->isApplyCouponButton()) : ?> with-buttons<?php endif; ?>" id="coupon_code" name="coupon_code" value="<?php echo $this->getCouponCode(); ?>" />
+            <?php if ($this->getConfig()->isApplyCouponButton()) : ?>
+                <button type="button" class="button" id="aw-onestepcheckout-coupon-code-apply-btn" onclick="return false;"<?php if ($this->getCouponCode()) : ?> style="display:none;"<?php endif; ?>>
+                    <span><span><?php echo $this->__('Apply Coupon'); ?></span></span>
+                </button>
+                <button type="button" class="button" id="aw-onestepcheckout-coupon-code-cancel-btn" onclick="return false;"<?php if (!$this->getCouponCode()) : ?> style="display:none;"<?php endif; ?>>
+                    <span><span><?php echo $this->__('Cancel Coupon'); ?></span></span>
+                </button>
+            <?php endif; ?>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var awOSCReviewCoupon = new AWOnestepcheckoutReviewCoupon({
+            isCouponApplied: <?php echo ($this->getCouponCode()) ? 'true' : 'false'; ?>,
+            isApplyCouponButton: <?php echo ($this->getConfig()->isApplyCouponButton()) ? 'true' : 'false'; ?>,
+            applyCouponButtonSelector: '#aw-onestepcheckout-coupon-code-apply-btn',
+            cancelCouponButtonSelector: '#aw-onestepcheckout-coupon-code-cancel-btn',
+            msgContainerSelector: '.coupon-message-container',
+            applyCouponUrl: '<?php echo $this->getApplyCouponAjaxUrl(); ?>',
+            cancelCouponUrl: '<?php echo $this->getCancelCouponAjaxUrl(); ?>',
+            couponCodeInput: 'coupon_code',
+            successMessageBoxCssClass: 'aw-onestepcheckout-success-msg',
+            errorMessageBoxCssClass: 'aw-onestepcheckout-error-msg',
+            jsErrorMsg: <?php echo Zend_Json::encode($this->__("Oops something's wrong")); ?>,
+            jsSuccessMsg: <?php echo Zend_Json::encode($this->__("Ok")); ?>
+        });
+    </script>
+<?php endif; ?>
+</div>

@@ -1,0 +1,17 @@
+<?php
+/**
+ *
+ */
+
+ echo $this->getDocType();
+ 
+ ?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+ <?php foreach($this->getPages() as $page): ?>
+ <url>
+ 	<loc><?php echo $page->getUrl() ?></loc>
+ 	<lastmod><?php echo $this->getLastModifiedDate($page) ?></lastmod>
+ 	<changefreq><?php echo $this->getChangeFrequency() ?></changefreq>
+ 	<priority><?php echo $this->getPriority() ?></priority>
+ </url>
+ <?php endforeach; ?>
+ </urlset>

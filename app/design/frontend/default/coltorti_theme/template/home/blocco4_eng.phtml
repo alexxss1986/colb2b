@@ -1,0 +1,45 @@
+<div class="blocco4 visibile">
+    <div id="block41">
+        <div class="testo">
+            <span class="titolo">WOMAN</span>
+        </div>
+    </div>
+    <div id="block42" class="grid">
+        <?php $cat=Mage::getModel('catalog/category')->load("4"); ?>
+
+        <figure class="effect-bubba">
+            <img alt="Women Clothing Coltorti Boutique" title="Women Clothing Coltorti Boutique" src="<?php echo $this->getSkinUrl('images/home/abbigliamento_donna.jpg') ?>"  />
+            <figcaption>
+                <p>SHOP NOW</p>
+                <a href="<?php echo $cat->getUrl() ?>">SHOP NOW</a>
+            </figcaption>
+        </figure>
+
+        <div class="testo"><span><?php echo $this->__("CLOTHING") ?></span></div>
+    </div>
+    <div id="block43" class="grid">
+        <?php $cat=Mage::getModel('catalog/category')->load("57"); ?>
+        <figure class="effect-bubba">
+            <img alt="Women Bags Coltorti Boutique" title="Women Bags Coltorti Boutique" src="<?php echo $this->getSkinUrl('images/home/bags_donna.jpg') ?>" />
+            <figcaption>
+                <p>SHOP NOW</p>
+                <a href="<?php echo $cat->getUrl() ?>">SHOP NOW</a>
+            </figcaption>
+        </figure>
+        <div class="testo"><span><?php echo $this->__("BAGS") ?></span></div>
+    </div>
+    <div id="block44" class="grid">
+        <?php $cat=Mage::getModel('catalog/category')->load("18"); ?>
+        <figure class="effect-bubba">
+            <img alt="Women Shoes Coltorti Boutique" title="Women Shoes Coltorti Boutique" src="<?php echo $this->getSkinUrl('images/home/shoes_donna.jpg') ?>"  />
+            <figcaption>
+                <p>SHOP NOW</p>
+                <a href="<?php echo $cat->getUrl() ?>">SHOP NOW</a>
+            </figcaption>
+        </figure>
+        <div class="testo"><span><?php echo $this->__("SHOES") ?></span></div>
+    </div>
+    <div class="block_vuoto">
+        &nbsp;
+    </div>
+</div>

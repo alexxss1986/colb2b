@@ -1,0 +1,28 @@
+<config>
+    <modules>
+        <TreC_NoIndex>
+            <version>0.0.1</version>
+        </TreC_NoIndex>
+    </modules>
+    <global>
+        <models>
+            <noindex>
+                <class>TreC_NoIndex_Model</class>
+            </noindex>
+        </models>
+    </global>
+    <frontend>
+        <events>
+            <controller_action_layout_generate_xml_before>
+                <observers>
+                    <noindex>
+                        <type>singleton</type>
+                        <class>noindex/observer</class>
+                        <method>changeRobots</method>
+                    </noindex>
+                </observers>
+            </controller_action_layout_generate_xml_before>
+        </events>
+    </frontend>
+</config>
+

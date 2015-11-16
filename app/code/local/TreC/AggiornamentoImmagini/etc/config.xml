@@ -1,0 +1,28 @@
+<config>
+    <modules>
+        <TreC_AggiornamentoImmagini>
+            <version>0.1.0</version>
+        </TreC_AggiornamentoImmagini>
+    </modules>
+    <global>
+        <models>
+            <trec_aggiornamentoimmagini>
+                <class>TreC_AggiornamentoImmagini_Model</class>
+            </trec_aggiornamentoimmagini>
+        </models>
+    </global>
+    <crontab>
+        <jobs>
+            <aggiornamentoimmagini_apply_all>
+                <schedule>
+                    <!--<cron_expr>*/5,0-02 12 * * *</cron_expr>-->
+                    <cron_expr>*/5 * * * *</cron_expr>
+                    <!--<cron_expr>30 0 * * *</cron_expr>-->
+                </schedule>
+                <run>
+                    <model>trec_aggiornamentoimmagini/observer::update</model>
+                </run>
+            </aggiornamentoimmagini_apply_all>
+        </jobs>
+    </crontab>
+</config>

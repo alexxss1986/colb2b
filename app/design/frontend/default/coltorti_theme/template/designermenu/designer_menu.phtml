@@ -1,0 +1,1108 @@
+<?php
+$unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+    'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+    'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+    'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+    'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
+
+
+if (Mage::app()->getStore()->getId()==1){
+    $url="https://www.coltortiboutique.com/it";
+}
+else if (Mage::app()->getStore()->getId()==2){
+    $url="https://www.coltortiboutique.com/en";
+}
+else if (Mage::app()->getStore()->getId()==3){
+    $url="https://www.coltortiboutique.com/en_us";
+}
+
+$brands=$this->getBrands();
+
+
+?>
+
+<?php
+$k=0;
+$i=0;
+foreach ($brands as $brand) {
+    $nome=$brand["nome"];
+    $prodotti=$brand["prodotti"];
+    $prima=strtoupper(substr($nome,0,1));
+    if ($i==0){
+        $primaBackup=$prima;
+    }
+    else if ($primaBackup!=$prima){
+        $primaBackup=$prima;
+        $k=0;
+    }
+
+    if ($prima=="A"){
+        $brandA[$k][0]=$nome;
+        $brandA[$k][1]=$prodotti;
+    }
+    else if ($prima=="B"){
+        $brandB[$k][0]=$nome;
+        $brandB[$k][1]=$prodotti;
+    }
+    else if ($prima=="C"){
+        $brandC[$k][0]=$nome;
+        $brandC[$k][1]=$prodotti;
+    }
+    else if ($prima=="D"){
+        $brandD[$k][0]=$nome;
+        $brandD[$k][1]=$prodotti;
+    }
+    else if ($prima=="E"){
+        $brandE[$k][0]=$nome;
+        $brandE[$k][1]=$prodotti;
+    }
+    else if ($prima=="F"){
+        $brandF[$k][0]=$nome;
+        $brandF[$k][1]=$prodotti;
+    }
+    else if ($prima=="G"){
+        $brandG[$k][0]=$nome;
+        $brandG[$k][1]=$prodotti;
+    }
+    else if ($prima=="H"){
+        $brandH[$k][0]=$nome;
+        $brandH[$k][1]=$prodotti;
+    }
+    else if ($prima=="I"){
+        $brandI[$k][0]=$nome;
+        $brandI[$k][1]=$prodotti;
+    }
+    else if ($prima=="J"){
+        $brandJ[$k][0]=$nome;
+        $brandJ[$k][1]=$prodotti;
+    }
+    else if ($prima=="K"){
+        $brandK[$k][0]=$nome;
+        $brandK[$k][1]=$prodotti;
+    }
+    else if ($prima=="L"){
+        $brandL[$k][0]=$nome;
+        $brandL[$k][1]=$prodotti;
+    }
+    else if ($prima=="M"){
+        $brandM[$k][0]=$nome;
+        $brandM[$k][1]=$prodotti;
+    }
+    else if ($prima=="N"){
+        $brandN[$k][0]=$nome;
+        $brandN[$k][1]=$prodotti;
+    }
+    else if ($prima=="O"){
+        $brandO[$k][0]=$nome;
+        $brandO[$k][1]=$prodotti;
+    }
+    else if ($prima=="P"){
+        $brandP[$k][0]=$nome;
+        $brandP[$k][1]=$prodotti;
+    }
+    else if ($prima=="Q"){
+        $brandQ[$k][0]=$nome;
+        $brandQ[$k][1]=$prodotti;
+    }
+    else if ($prima=="R"){
+        $brandR[$k][0]=$nome;
+        $brandR[$k][1]=$prodotti;
+    }
+    else if ($prima=="S"){
+        $brandS[$k][0]=$nome;
+        $brandS[$k][1]=$prodotti;
+    }
+    else if ($prima=="T"){
+        $brandT[$k][0]=$nome;
+        $brandT[$k][1]=$prodotti;
+    }
+    else if ($prima=="U"){
+        $brandU[$k][0]=$nome;
+        $brandU[$k][1]=$prodotti;
+    }
+    else if ($prima=="V"){
+        $brandV[$k][0]=$nome;
+        $brandV[$k][1]=$prodotti;
+    }
+    else if ($prima=="W"){
+        $brandW[$k][0]=$nome;
+        $brandW[$k][1]=$prodotti;
+    }
+    else if ($prima=="X"){
+        $brandX[$k][0]=$nome;
+        $brandX[$k][1]=$prodotti;
+    }
+    else if ($prima=="Y"){
+        $brandY[$k][0]=$nome;
+        $brandY[$k][1]=$prodotti;
+    }
+    else if ($prima=="Z"){
+        $brandZ[$k][0]=$nome;
+        $brandZ[$k][1]=$prodotti;
+    }
+    else {
+        $brand0[$k][0]=$nome;
+        $brand0[$k][1]=$prodotti;
+    }
+    $k=$k+1;
+    $i=$i+1;
+}
+
+
+
+?>
+<?php $p=1; ?>
+
+    <div id="menu_designer" class="slideup">
+    <div id="menu_designer_scroll">
+    <div class="spazio_menu">&nbsp;</div>
+<div class="div_colonna" id="menu_d">
+        <?php if (isset($brandA) && count($brandA)>0) { $p=$p+1; ?>
+<section>
+            <h3>A</h3>
+            <div class="div_lista_brand">
+                <?php
+                for ($i=0; $i<count($brandA); $i++) {
+                    $nome=$brandA[$i][0];
+                    $prodotti=$brandA[$i][1];
+                    $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                    $url_key=url_slug($nome);
+                    $url_key = strtr( $url_key, $unwanted_array );
+                    if ($i==0){
+                        echo "<ul class=\"lista_brand\">";
+                    }
+                    else if ($i%6==0){
+                        echo "</ul>";
+                        echo "<ul class=\"lista_brand\">";
+                    }
+
+                    echo " <li class=\"item\">";
+                    if ($prodotti=="1") {
+                        echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                    }
+                    else {
+                        echo $nome;
+                    }
+                    echo "</li>";
+
+                }
+                ?>
+                </ul>
+            </div></section>
+
+        <?php } ?>
+        <?php if (isset($brandB) && count($brandB)>0) { $p=$p+1; ?>
+            <section>
+            <h3>B</h3>
+            <div class="div_lista_brand">
+                <?php
+                for ($i=0; $i<count($brandB); $i++) {
+                    $nome=$brandB[$i][0];
+                    $prodotti=$brandB[$i][1];
+                    $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                    $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                    $url_key=url_slug($nome);
+                    $url_key = strtr( $url_key, $unwanted_array );
+                    if ($i==0){
+                        echo "<ul class=\"lista_brand\">";
+                    }
+                    else if ($i%6==0){
+                        echo "</ul>";
+                        echo "<ul class=\"lista_brand\">";
+                    }
+
+                    echo " <li class=\"item\">";
+                    if ($prodotti=="1") {
+                        echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                    }
+                    else {
+                        echo $nome;
+                    }
+                    echo "</li>";
+
+                }
+                ?>
+                </ul>
+            </div></section>
+
+        <?php } ?>
+        <?php if (isset($brandC) && count($brandC)>0) { $p=$p+1; ?>
+            <section>
+            <h3>C</h3>
+            <div class="div_lista_brand">
+                <?php
+                for ($i=0; $i<count($brandC); $i++) {
+                    $nome=$brandC[$i][0];
+                    $prodotti=$brandC[$i][1];
+                    $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                    $url_key=url_slug($nome);
+                    $url_key = strtr( $url_key, $unwanted_array );
+                    if ($i==0){
+                        echo "<ul class=\"lista_brand\">";
+                    }
+                    else if ($i%6==0){
+                        echo "</ul>";
+                        echo "<ul class=\"lista_brand\">";
+                    }
+
+                    echo " <li class=\"item\">";
+                    if ($prodotti=="1") {
+                        echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                    }
+                    else {
+                        echo $nome;
+                    }
+                    echo "</li>";
+
+                }
+                ?>
+                </ul>
+
+            </div></section>
+        <?php } ?>
+        <?php if (isset($brandD) && count($brandD)>0) { $p=$p+1; ?>
+            <section>
+            <h3>D</h3>
+            <div class="div_lista_brand">
+                <?php
+                for ($i=0; $i<count($brandD); $i++) {
+                    $nome=$brandD[$i][0];
+                    $prodotti=$brandD[$i][1];
+                    $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                    $url_key=url_slug($nome);
+                    $url_key = strtr( $url_key, $unwanted_array );
+                    if ($i==0){
+                        echo "<ul class=\"lista_brand\">";
+                    }
+                    else if ($i%6==0){
+                        echo "</ul>";
+                        echo "<ul class=\"lista_brand\">";
+                    }
+
+                    echo " <li class=\"item\">";
+                    if ($prodotti=="1") {
+                        echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                    }
+                    else {
+                        echo $nome;
+                    }
+                    echo "</li>";
+
+                }
+                ?>
+                </ul>
+            </div></section>
+
+        <?php } ?>
+        <?php if (isset($brandE) && count($brandE)>0) { $p=$p+1; ?>
+            <section>
+            <h3>E</h3>
+            <div class="div_lista_brand">
+                <?php
+                for ($i=0; $i<count($brandE); $i++) {
+                    $nome=$brandE[$i][0];
+                    $prodotti=$brandE[$i][1];
+                    $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                    $url_key=url_slug($nome);
+                    $url_key = strtr( $url_key, $unwanted_array );
+                    if ($i==0){
+                        echo "<ul class=\"lista_brand\">";
+                    }
+                    else if ($i%6==0){
+                        echo "</ul>";
+                        echo "<ul class=\"lista_brand\">";
+                    }
+
+                    echo " <li class=\"item\">";
+                    if ($prodotti=="1") {
+                        echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                    }
+                    else {
+                        echo $nome;
+                    }
+                    echo "</li>";
+
+                }
+                ?>
+                </ul>
+            </div></section>
+        <?php } ?>
+
+    <?php if (isset($brandF) && count($brandF)>0) { $p=$p+1; ?>
+            <section>
+        <h3>F</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandF); $i++) {
+                $nome=$brandF[$i][0];
+                $prodotti=$brandF[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div>
+            </section>
+    <?php } ?>
+    <?php if (isset($brandG) && count($brandG)>0) { $p=$p+1; ?>
+        <section>
+        <h3>G</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandG); $i++) {
+                $nome=$brandG[$i][0];
+                $prodotti=$brandG[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div>
+        </section>
+    <?php } ?>
+    <?php if (isset($brandH) && count($brandH)>0) { $p=$p+1; ?>
+        <section>
+        <h3>H</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandH); $i++) {
+                $nome=$brandH[$i][0];
+                $prodotti=$brandH[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div>
+        </section>
+    <?php } ?>
+
+    <?php if (isset($brandI) && count($brandI)>0) { $p=$p+1; ?>
+        <section>
+        <h3>I</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandI); $i++) {
+                $nome=$brandI[$i][0];
+                $prodotti=$brandI[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div>
+        </section>
+    <?php } ?>
+
+    <?php if (isset($brandJ) && count($brandJ)>0) { $p=$p+1; ?>
+        <section>
+        <h3>J</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandJ); $i++) {
+                $nome=$brandJ[$i][0];
+                $prodotti=$brandJ[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div></section>
+    <?php } ?>
+
+    <?php if (isset($brandK) && count($brandK)>0) { $p=$p+1; ?>
+        <section>
+        <h3>K</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandK); $i++) {
+                $nome=$brandK[$i][0];
+                $prodotti=$brandK[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div></section>
+
+    <?php } ?>
+
+    <?php if (isset($brandL) && count($brandL)>0) { $p=$p+1; ?>
+        <section>
+        <h3>L</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandL); $i++) {
+                $nome=$brandL[$i][0];
+                $prodotti=$brandL[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div></section>
+
+    <?php } ?>
+
+    <?php if (isset($brandM) && count($brandM)>0) { $p=$p+1; ?>
+        <section>
+        <h3>M</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandM); $i++) {
+                $nome=$brandM[$i][0];
+                $prodotti=$brandM[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+
+        </div></section>
+    <?php } ?>
+
+    <?php if (isset($brandN) && count($brandN)>0) { $p=$p+1; ?>
+        <section>
+        <h3>N</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandN); $i++) {
+                $nome=$brandN[$i][0];
+                $prodotti=$brandN[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+
+        </div></section>
+    <?php } ?>
+
+    <?php if (isset($brandO) && count($brandO)>0) { $p=$p+1; ?>
+        <section>
+        <h3>O</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandO); $i++) {
+                $nome=$brandO[$i][0];
+                $prodotti=$brandO[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div></section>
+
+    <?php } ?>
+
+
+    <?php if (isset($brandP) && count($brandP)>0) { $p=$p+1; ?>
+        <section>
+        <h3>P</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandP); $i++) {
+                $nome=$brandP[$i][0];
+                $prodotti=$brandP[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+
+        </div></section>
+    <?php } ?>
+
+    <?php if (isset($brandQ) && count($brandQ)>0) { $p=$p+1; ?>
+        <section>
+        <h3>Q</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandQ); $i++) {
+                $nome=$brandQ[$i][0];
+                $prodotti=$brandQ[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div></section>
+
+    <?php } ?>
+
+    <?php if (isset($brandR) && count($brandR)>0) { $p=$p+1; ?>
+    <section>
+        <h3>R</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandR); $i++) {
+                $nome=$brandR[$i][0];
+                $prodotti=$brandR[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div></section>
+    <?php } ?>
+
+    <?php if (isset($brandS) && count($brandS)>0) { $p=$p+1; ?>
+        <section>
+        <h3>S</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandS); $i++) {
+                $nome=$brandS[$i][0];
+                $prodotti=$brandS[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div></section>
+    <?php } ?>
+
+    <?php if (isset($brandT) && count($brandT)>0) { $p=$p+1; ?>
+        <section>
+        <h3>T</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandT); $i++) {
+                $nome=$brandT[$i][0];
+                $prodotti=$brandT[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div></section>
+
+    <?php } ?>
+
+    <?php if (isset($brandU) && count($brandU)>0) { $p=$p+1; ?>
+        <section>
+        <h3>U</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandU); $i++) {
+                $nome=$brandU[$i][0];
+                $prodotti=$brandU[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div></section>
+
+    <?php } ?>
+
+    <?php if (isset($brandV) && count($brandV)>0) { $p=$p+1; ?>
+        <section>
+        <h3>V</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandV); $i++) {
+                $nome=$brandV[$i][0];
+                $prodotti=$brandV[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div></section>
+    <?php } ?>
+
+    <?php if (isset($brandW) && count($brandW)>0) { $p=$p+1; ?>
+        <section>
+        <h3>W</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandW); $i++) {
+                $nome=$brandW[$i][0];
+                $prodotti=$brandW[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div></section>
+
+    <?php } ?>
+
+    <?php if (isset($brandX) && count($brandX)>0) { $p=$p+1; ?>
+            <section>
+        <h3>X</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandX); $i++) {
+                $nome=$brandX[$i][0];
+                $prodotti=$brandX[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+            }
+            ?>
+            </ul>
+        </div></section>
+
+    <?php } ?>
+
+    <?php if (isset($brandY) && count($brandY)>0) { $p=$p+1; ?>
+                <section>
+        <h3>Y</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandY); $i++) {
+                $nome=$brandY[$i][0];
+                $prodotti=$brandY[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div></section>
+
+    <?php } ?>
+
+    <?php if (isset($brandZ) && count($brandZ)>0) { $p=$p+1; ?>
+                    <section>
+        <h3>Z</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brandZ); $i++) {
+                $nome=$brandZ[$i][0];
+                $prodotti=$brandZ[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div></section>
+    <?php } ?>
+
+    <?php if (isset($brand0) && count($brand0)>0) { $p=$p+1; ?>
+                        <section>
+        <h3>#</h3>
+        <div class="div_lista_brand">
+            <?php
+            for ($i=0; $i<count($brand0); $i++) {
+                $nome=$brand0[$i][0];
+                $prodotti=$brand0[$i][1];
+                $nome=html_entity_decode($nome, ENT_QUOTES, 'utf-8');
+                $url_key=url_slug($nome);
+                $url_key = strtr( $url_key, $unwanted_array );
+                if ($i==0){
+                    echo "<ul class=\"lista_brand\">";
+                }
+                else if ($i%6==0){
+                    echo "</ul>";
+                    echo "<ul class=\"lista_brand\">";
+                }
+
+                echo " <li class=\"item\">";
+                if ($prodotti=="1") {
+                    echo "<a href=\"" . $url . "/" . $url_key . ".html\">" . $nome . "</a>";
+                }
+                else {
+                    echo $nome;
+                }
+                echo "</li>";
+
+            }
+            ?>
+            </ul>
+        </div>
+                            </section>
+    <?php } ?>
+
+
+
+
+        <div class="spazio_menu">&nbsp;</div>
+</div>
+    </div>
+
+    </div>
+
+
+<?php
+
+
+
+?>

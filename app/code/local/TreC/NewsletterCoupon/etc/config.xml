@@ -1,0 +1,30 @@
+<config>
+    <modules>
+        <TreC_NewsletterCoupon>
+            <version>0.0.1</version>
+        </TreC_NewsletterCoupon>
+    </modules>
+    <global>
+        <models>
+            <newslettercoupon>
+                <class>TreC_NewsletterCoupon_Model</class>
+            </newslettercoupon>
+        </models>
+        <helpers>
+            <newslettercoupon>
+                <class>TreC_NewsletterCoupon_Helper</class>
+            </newslettercoupon>
+        </helpers>
+        <events>
+            <newsletter_subscriber_save_after>
+                <observers>
+                    <newsletter_observer>
+                        <type>singleton</type>
+                        <class>newslettercoupon/observer</class>
+                        <method>createCoupon</method>
+                    </newsletter_observer>
+                </observers>
+            </newsletter_subscriber_save_after>
+        </events>
+    </global>
+</config>

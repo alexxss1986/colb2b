@@ -1,0 +1,28 @@
+<config>
+    <modules>
+        <TreC_RemoveImages2>
+            <version>0.1.0</version>
+        </TreC_RemoveImages2>
+    </modules>
+    <global>
+        <models>
+            <trec_removeimages2>
+                <class>TreC_RemoveImages2_Model</class>
+            </trec_removeimages2>
+        </models>
+    </global>
+    <crontab>
+        <jobs>
+            <removeimages_apply_all>
+                <schedule>
+                    <!--<cron_expr>*/5,0-02 12 * * *</cron_expr>-->
+                    <cron_expr>*/5 * * * *</cron_expr>
+                    <!--<cron_expr>30 0 * * *</cron_expr>-->
+                </schedule>
+                <run>
+                    <model>trec_removeimages2/observer::remove</model>
+                </run>
+            </removeimages_apply_all>
+        </jobs>
+    </crontab>
+</config>

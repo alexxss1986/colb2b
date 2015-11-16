@@ -1,0 +1,42 @@
+<config>
+    <modules>
+        <TreC_NewProducts>
+            <version>0.1.0</version>
+        </TreC_NewProducts>
+    </modules>
+    <global>
+        <models>
+            <trec_newproducts>
+                <class>TreC_NewProducts_Model</class>
+            </trec_newproducts>
+        </models>
+        <helpers>
+            <trec_newproducts>
+                <class>TreC_NewProducts_Helper</class>
+            </trec_newproducts>
+        </helpers>
+        <events>
+            <product_save>
+                <observers>
+                    <index>
+                        <type>disabled</type>
+                    </index>
+                </observers>
+            </product_save>
+        </events>
+    </global>
+    <crontab>
+        <jobs>
+            <newproducts_apply_all>
+                <schedule>
+                    <!--<cron_expr>*/5,0-02 12 * * *</cron_expr>-->
+                    <cron_expr>*/5 * * * *</cron_expr>
+                    <!--<cron_expr>30 0 * * *</cron_expr>-->
+                </schedule>
+                <run>
+                    <model>trec_newproducts/observer::import</model>
+                </run>
+            </newproducts_apply_all>
+        </jobs>
+    </crontab>
+</config>

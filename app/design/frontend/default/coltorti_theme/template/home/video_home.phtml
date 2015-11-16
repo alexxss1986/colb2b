@@ -1,0 +1,484 @@
+<script>
+    function iedetect(v) {
+
+        var r = RegExp('msie' + (!isNaN(v) ? ('\\s' + v) : ''), 'i');
+        return r.test(navigator.userAgent);
+
+    }
+
+    function GetCookie(name) {
+        var arg = name + "=";
+        var alen = arg.length;
+        var clen = document.cookie.length;
+        var i = 0;
+        while (i < clen) {
+            var j = i + alen;
+            if (document.cookie.substring(i, j) == arg)
+                return "here";
+            i = document.cookie.indexOf(" ", i) + 1;
+            if (i == 0) break;
+        }
+        return null;
+    }
+
+    jQuery(document).ready(function () {
+        video = document.getElementById('video_home2');
+        var visit = GetCookie("ZZZZZ");
+        if (visit == null && jQuery(window).width()>770) {
+            jQuery('#video_home2').on('loadedmetadata', function () {
+                video.play();
+            });
+
+            var expire = new Date();
+            expire = new Date(expire.getTime() + 60*60*1000);
+            document.cookie = "ZZZZZ=here; expires=" + expire;
+        }
+        else {
+            jQuery(".cont_video").remove();
+            jQuery(".skip_intro").remove();
+            jQuery("body").css("overflow", "auto").delay(600);
+            jQuery(".menu-link").css("display", "block");
+            jQuery(".skip-links").css("display", "block");
+            if (jQuery(window).width()>=770) {
+                adatta("document");
+            }
+            else {
+                jQuery('html').animate({scrollTop: 0}, 1);
+                jQuery('body').animate({scrollTop: 0}, 1);
+                jQuery(".main-container").css("display", "block");
+                jQuery(".footer-container").css("display", "block");
+            }
+            caricaSlider("document");
+        }
+    });
+
+
+    jQuery(window).load(function () {
+        if (jQuery(window).width()>770) {
+            //if (document.cookie.indexOf("visited") <= 0) {
+            // For mobile screens, just show an image called 'poster.jpg'. Mobile
+            // screens don't support autoplaying videos, or for IE.
+            if (screen.width < 800 || iedetect(8) || iedetect(7) || 'ontouchstart' in window) {
+
+                (adjSize = function () { // Create function called adjSize
+
+                    $width = jQuery(window).width(); // Width of the screen
+                    $height = jQuery(window).height(); // Height of the screen
+
+
+                    $height = $height - 170;
+                    // Resize image accordingly
+                    jQuery('#container').css({
+                        'background-image': 'url(poster.jpg)',
+                        'background-size': 'cover',
+                        'width': '80%',
+                        'height': $height + 'px'
+                    });
+
+                    // Hide video
+                    jQuery('video').hide();
+
+                })(); // Run instantly
+
+                // Run on resize too
+                jQuery(window).resize(adjSize);
+            }
+            else {
+
+
+                var $width, $height, // Width and height of screen
+                    $vidwidth = this.videoWidth, // Width of video (actual width)
+                    $vidheight = this.videoHeight, // Height of video (actual height)
+                    $aspectRatio = $vidwidth / $vidheight; // The ratio the video's height and width are in
+
+                (adjSize = function () { // Create function called adjSize
+
+                    $width = jQuery(window).width(); // Width of the screen
+                    $height = jQuery(window).height(); // Height of the screen
+                    $height = $height - 170;
+                    $boxRatio = $width / $height; // The ratio the screen is in
+
+                    $adjRatio = $aspectRatio / $boxRatio; // The ratio of the video divided by the screen size
+
+                    // Set the container to be the width and height of the screen
+                    jQuery('#container').css({
+                        'width': '70%',
+                        'height': $height + 'px'
+                    });
+
+                    $width = $width - 120;
+                    $altezzaVideo = jQuery("video").height();
+                    $marginTop = -($altezzaVideo - $height);
+                    if ($boxRatio < $aspectRatio) { // If the screen ratio is less than the aspect ratio..
+                        // Set the width of the video to the screen size multiplied by $adjRatio
+                        $vid = jQuery('#container video').css({'width': $width * $adjRatio + 'px'});
+                    } else {
+                        // Else just set the video to the width of the screen/container
+                        $vid = jQuery('#container video').css({'width': $width + 'px'});
+                    }
+
+                })(); // Run function immediately
+
+                // Run function also on window resize.
+                jQuery(window).resize(adjSize);
+
+
+                video.addEventListener("ended", function () {
+                    jQuery("#container").fadeOut("slow");
+                    jQuery(".skip_intro").fadeOut("slow");
+                    setTimeout(function () {
+                        jQuery("body").css("overflow", "auto").delay(600);
+                        jQuery(".menu-link").css("display", "block");
+                        jQuery(".skip-links").css("display", "block");
+                        adatta("window");
+                        caricaSlider("window");
+                    }, 600);
+                }, false);
+
+                jQuery(".skip_intro").click(function () {
+                    //xhr.abort();
+                    jQuery("#video_home2")[0].pause();
+                    jQuery("#container").fadeOut("slow");
+                    jQuery(".skip_intro").fadeOut("slow");
+                    setTimeout(function () {
+                        jQuery("body").css("overflow", "auto").delay(600);
+                        jQuery(".menu-link").css("display", "block");
+                        jQuery(".skip-links").css("display", "block");
+                        adatta("window");
+                        caricaSlider("window");
+                    }, 600);
+
+                });
+            }
+            //document.cookie = "visited=true";
+            /*}
+             else {
+             jQuery(".cont_video").remove();
+             jQuery(".skip_intro").remove();
+             jQuery("body").css("overflow", "auto").delay(600);
+             jQuery(".menu-link").css("display", "block");
+             jQuery(".skip-links").css("display", "block");
+             }*/
+            /*jQuery('html').animate({scrollTop:0}, 1);
+             jQuery('body').animate({scrollTop:0}, 1);
+             jQuery(".main-container").css("display","block");
+             jQuery(".footer-container").css("display","block");
+             //if (document.cookie.indexOf('visited=true') == -1) {
+             video = document.getElementById('video_home');
+
+             height = jQuery(window).height();
+             altezza = height - 170;
+             video.style.height=altezza+"px";
+
+
+             video.load();
+             video.play();
+             video.addEventListener("ended", function () {
+             jQuery(".video_home").fadeOut("slow");
+             jQuery(".skip_intro").fadeOut("slow");
+             setTimeout(function () {
+             jQuery("body").css("overflow", "auto").delay(600);
+             jQuery(".menu-link").css("display", "block");
+             jQuery(".skip-links").css("display", "block");
+             adatta();
+             }, 600);
+             }, false);
+
+             jQuery(".skip_intro").click(function () {
+             //xhr.abort();
+             jQuery("#video_home")[0].pause();
+             jQuery(".video_home").fadeOut("slow");
+             jQuery(".skip_intro").fadeOut("slow");
+             setTimeout(function () {
+             jQuery("body").css("overflow", "auto").delay(600);
+             jQuery(".menu-link").css("display", "block");
+             jQuery(".skip-links").css("display", "block");
+             adatta();
+             }, 600);
+
+             });
+
+
+
+
+             //document.cookie = "visited=true;";
+             /*}
+             else {
+             jQuery(".video_home").remove();
+             jQuery(".skip_intro").remove();
+             }*/
+            jQuery('html').animate({scrollTop: 0}, 1);
+            jQuery('body').animate({scrollTop: 0}, 1);
+            jQuery(".main-container").css("display", "block");
+            jQuery(".footer-container").css("display", "block");
+
+
+        }
+        else {
+            jQuery('html').animate({scrollTop: 0}, 1);
+            jQuery('body').animate({scrollTop: 0}, 1);
+            jQuery(".main-container").css("display", "block");
+            jQuery(".footer-container").css("display", "block");
+        }
+
+        jQuery(window).resize(function () {
+            adattaOK();
+            caricaSliderResize();
+        });
+    });
+
+
+    function caricaSliderResize() {
+        height = jQuery(window).height();
+        altezza = height - 170;
+        jQuery(".bx-wrapper").css("height", altezza + "px");
+        jQuery(".bx-viewport").css("height", altezza + "px");
+        jQuery(".bxslider li").css("height", altezza + "px");
+        jQuery(".bxslider li").find("img").css("height", altezza + "px");
+
+        larghezza = (1920 * altezza) / 960;
+
+
+        larghTesto = [481, 536, 422, 380];
+        i = 0;
+        jQuery(".bxslider li").each(function () {
+            alt = 164;
+            marginTop = -(((altezza - alt) / 2) + alt);
+            jQuery(this).find(".content-slider-bx").css("margin-top", marginTop + "px");
+
+            larg = larghTesto[i];
+            marginLeft = (larghezza - larg) / 2;
+            jQuery(this).find(".content-slider-bx").css("margin-left", marginLeft + "px");
+            i = i + 1;
+        });
+
+
+        jQuery(".div_slider").css("width", larghezza + "px");
+
+        padding = (altezza - 62) / 2;
+        jQuery(".bx-pager").css("padding-top", padding + "px");
+    }
+
+    function caricaSliderOK(height) {
+        altezza = height - 170;
+        jQuery(".bx-wrapper").css("height", altezza + "px");
+        jQuery(".bx-viewport").css("height", altezza + "px");
+        jQuery(".bxslider li").css("height", altezza + "px");
+        jQuery(".bxslider li").find("img").css("height", altezza + "px");
+
+        larghezza = jQuery(".img_slider").width();
+
+        larghTesto = [481, 536, 422, 380];
+        i = 0;
+        jQuery(".bxslider li").each(function () {
+            alt = jQuery(this).find(".content-slider-bx").height();
+            marginTop = -(((altezza - alt) / 2) + alt);
+            jQuery(this).find(".content-slider-bx").css("margin-top", marginTop + "px");
+
+            larg = larghTesto[i];
+            marginLeft = (larghezza - larg) / 2;
+            jQuery(this).find(".content-slider-bx").css("margin-left", marginLeft + "px");
+            i = i + 1;
+        });
+
+        jQuery('.bxslider').bxSlider({
+            auto: true,
+            autoControls: false,
+            mode: 'fade',
+            useCSS: false,
+            easing: 'easeInOut',
+            speed: 6000,
+            captions: true,
+            adaptiveHeight: true
+        });
+
+
+        jQuery(".div_slider").css("width", larghezza + "px");
+
+        padding = (altezza - 62) / 2;
+        jQuery(".bx-pager").css("padding-top", padding + "px");
+    }
+
+
+    function adattaOK() {
+//blocco designer
+        altezzaDesigner = jQuery(".blocco1 #block1 .designers").height();
+        altezzaBlocco2 = jQuery(".blocco1 #block2").height();
+        margine = (altezzaBlocco2 - altezzaDesigner) / 2;
+        jQuery(".blocco1 #block1 .designers").css("margin-top", margine + "px");
+
+        //blocco donna
+        larghezzaTot = jQuery(window).width();
+        larghezzaTot = Math.floor(larghezzaTot / 5);
+        jQuery(".blocco4 #block1").css("height", larghezzaTot);
+        jQuery(".blocco4 #block2").css("width", larghezzaTot);
+        jQuery(".blocco4 #block3").css("width", larghezzaTot);
+        jQuery(".blocco4 #block4").css("width", larghezzaTot);
+
+        jQuery(".blocco4 figure").css("width", larghezzaTot);
+        altezzaTesto = jQuery(".blocco4 #block1 .testo").height();
+        margine = (larghezzaTot - (altezzaTesto + 20)) / 2;
+        jQuery(".blocco4 #block1 .testo").css("margin-top", margine + "px");
+        lunghezzaTesto = jQuery(".blocco4 #block1 .testo").width();
+        lunghezzaB = jQuery(".blocco4 #block1").width();
+        margine = (lunghezzaB - (lunghezzaTesto + 20)) / 2;
+        jQuery(".blocco4 #block1 .testo").css("margin-left", margine + "px");
+
+        alt1 = jQuery(".blocco4 figure figcaption").height();
+        alt2 = jQuery(".blocco4 figure figcaption p").height();
+        margine = (alt1 - alt2) / 2;
+        jQuery(".blocco4 figure figcaption p").css("margin-top", margine + "px");
+
+        //blocco uomo
+        larghezzaTot = jQuery(window).width();
+        larghezzaTot = Math.floor(larghezzaTot / 5);
+        jQuery(".blocco5 #block3").css("height", larghezzaTot);
+        jQuery(".blocco5 #block1").css("width", larghezzaTot);
+        jQuery(".blocco5 #block2").css("width", larghezzaTot);
+        jQuery(".blocco5 #block4").css("width", larghezzaTot);
+        jQuery(".blocco5 figure").css("width", larghezzaTot);
+
+        alt1 = jQuery(".blocco5 figure figcaption").height();
+        alt2 = jQuery(".blocco5 figure figcaption p").height();
+        margine = (alt1 - alt2) / 2;
+        jQuery(".blocco5 figure figcaption p").css("margin-top", margine + "px");
+
+        altezzaTesto = jQuery(".blocco5 #block3 .testo").height();
+        margine = (larghezzaTot - (altezzaTesto + 20)) / 2;
+        jQuery(".blocco5 #block3 .testo").css("margin-top", margine + "px");
+        lunghezzaTesto = jQuery(".blocco5 #block3 .testo").width();
+        lunghezzaB = jQuery(".blocco5 #block3").width();
+        margine = (lunghezzaB - (lunghezzaTesto + 20)) / 2;
+        jQuery(".blocco5 #block3 .testo").css("margin-left", margine + "px");
+
+        //blocco boutique
+        altezzaC = jQuery("#img_coltorti").height();
+        jQuery(".blocco2 #block1").css("height", altezzaC);
+        jQuery(".blocco2 #block3").css("height", altezzaC);
+        altezzaTesto = jQuery(".blocco2 #block1 .boutique").height();
+        margine = (altezzaC - (altezzaTesto + 22)) / 2;
+        jQuery(".blocco2 #block1 .boutique").css("margin-top", margine + "px");
+        lunghezzaTesto = jQuery(".blocco2 #block1 .boutique").width();
+        lunghezzaB = jQuery(".blocco2 #block1").width();
+        margine = (lunghezzaB - (lunghezzaTesto + 22)) / 2;
+        jQuery(".blocco2 #block1 .boutique").css("margin-left", margine + "px");
+        altezzaImg = altezzaC - 200;
+        jQuery(".blocco2 #block3 .product_home img").css("height", altezzaImg + "px");
+        altezzaProduct = jQuery(".blocco2 #block3 .product_home").height();
+        margine = (altezzaC - altezzaProduct) / 2;
+        jQuery(".blocco2 #block3 .product_home").css("margin-top", margine + "px");
+
+
+        //blocco filosofia
+        altezzaB = jQuery("#img_boutique").height();
+        jQuery(".blocco3 #block1").css("height", altezzaB);
+        jQuery(".blocco3 #block2").css("height", altezzaB);
+        altezzaTesto = jQuery(".blocco3 #block2 .coltorti").height();
+        margine = (altezzaB - (altezzaTesto + 20)) / 2;
+        jQuery(".blocco3 #block2 .coltorti").css("margin-top", margine + "px");
+        lunghezzaTesto = jQuery(".blocco3 #block2 .coltorti").width();
+        lunghezzaB = jQuery(".blocco3 #block2").width();
+        margine = (lunghezzaB - (lunghezzaTesto + 20)) / 2;
+        jQuery(".blocco3 #block2 .coltorti").css("margin-left", margine + "px");
+        altezzaTesto = jQuery(".blocco3 #block1 .filosofia").height();
+        margine = (altezzaC - (altezzaTesto + 20)) / 2;
+        jQuery(".blocco3 #block1 .filosofia").css("margin-top", margine + "px");
+        lunghezzaTesto = jQuery(".blocco3 #block1 .filosofia").width();
+        lunghezzaB = jQuery(".blocco3 #block1").width();
+        margine = (lunghezzaB - (lunghezzaTesto + 20)) / 2;
+        jQuery(".blocco3 #block1 .filosofia").css("margin-left", margine + "px");
+
+
+        //blocco yps
+        altezzaC = jQuery("#img_yps_donna").height();
+        jQuery(".blocco8 #block1").css("height", altezzaC);
+        jQuery(".blocco8 #block2 .block_uomo").css("height", altezzaC);
+        jQuery(".blocco8 #block3 .block_donna").css("height", altezzaC);
+        altezzaTesto = jQuery(".blocco8 #block1 .yps").height();
+        margine = (altezzaC - (altezzaTesto + 20)) / 2;
+        jQuery(".blocco8 #block1 .yps").css("margin-top", margine + "px");
+        lunghezzaTesto = jQuery(".blocco8 #block1 .yps").width();
+        lunghezzaB = jQuery(".blocco8 #block1").width();
+        margine = (lunghezzaB - (lunghezzaTesto + 20)) / 2;
+        jQuery(".blocco8 #block1 .yps").css("margin-left", margine + "px");
+
+        jQuery(".blocco8 #block2 .block_uomo").css("display", "block");
+        jQuery(".blocco8 #block3 .block_donna").css("display", "block");
+        alte1 = jQuery(".blocco8 #block2 .block_uomo .stile").height();
+        alte2 = jQuery(".blocco8 #block2 .block_uomo .occasione ").height();
+        alte3 = jQuery(".blocco8 #block2 .block_uomo .bottone ").height();
+        altezza = (altezzaC - (alte2 + alte1 + alte3 + 20 + 50)) / 2;
+        jQuery(".blocco8 #block2 .block_uomo .stile").css("margin-top", altezza + "px");
+        width1 = jQuery(".blocco8 #block2 .block_uomo .stile .valori .big").width();
+        width2 = jQuery(".blocco8 #block2 .block_uomo .occasione .valori .big").width();
+        jQuery(".blocco8 #block2 .block_uomo .stile .valori .stile_valore").css("width", (width1 + 32) + "px");
+        jQuery(".blocco8 #block2 .block_uomo .occasione .valori .stile_valore").css("width", (width2 + 32) + "px");
+        larghezza = jQuery(".blocco8 #block2 .block_uomo").width();
+        padding = (larghezza - (((width1 + 32) * 3) + 20)) / 2;
+        jQuery(".blocco8 #block2 .block_uomo .stile .valori").css("padding-left", padding + "px");
+        padding2 = (larghezza - (((width2 + 32) * 3) + 20)) / 2;
+        jQuery(".blocco8 #block2 .block_uomo .occasione .valori").css("padding-left", padding2 + "px");
+
+        alte1 = jQuery(".blocco8 #block3 .block_donna .stile").height();
+        alte2 = jQuery(".blocco8 #block3 .block_donna .occasione ").height();
+        alte3 = jQuery(".blocco8 #block3 .block_donna .bottone ").height();
+        altezza = (altezzaC - (alte2 + alte1 + alte3 + 20 + 50)) / 2;
+        jQuery(".blocco8 #block3 .block_donna .stile").css("margin-top", altezza + "px");
+        width1 = jQuery(".blocco8 #block3 .block_donna .stile .valori .big").width();
+        width2 = jQuery(".blocco8 #block3 .block_donna .occasione .valori .big").width();
+        jQuery(".blocco8 #block3 .block_donna .stile .valori .stile_valore").css("width", (width1 + 32) + "px");
+        jQuery(".blocco8 #block3 .block_donna .occasione .valori .stile_valore").css("width", (width2 + 32) + "px");
+        larghezza = jQuery(".blocco8 #block3 .block_donna").width();
+        padding = (larghezza - (((width1 + 32) * 3) + 20)) / 2;
+        jQuery(".blocco8 #block3 .block_donna .stile .valori").css("padding-left", padding + "px");
+        padding2 = (larghezza - (((width2 + 32) * 3) + 20)) / 2;
+        jQuery(".blocco8 #block3 .block_donna .occasione .valori").css("padding-left", padding2 + "px");
+
+        alt1 = jQuery(".blocco8 figure figcaption").height();
+        alt2 = jQuery(".blocco8 figure figcaption p").height();
+        margine = (alt1 - alt2) / 2;
+        jQuery(".blocco8 figure figcaption p").css("margin-top", margine + "px");
+
+        jQuery(".blocco8 #block2 .block_uomo").css("display", "none");
+        jQuery(".blocco8 #block3 .block_donna").css("display", "none");
+    }
+
+
+    function caricaSlider(tipo) {
+        height = jQuery(window).height();
+        if (tipo == "document") {
+            jQuery(window).load(function () {
+                caricaSliderOK(height);
+            });
+        }
+        else {
+            caricaSliderOK(height);
+        }
+    }
+
+    function adatta(tipo) {
+        if (tipo == "document") {
+            jQuery(window).load(function () {
+                adattaOK();
+            });
+        }
+        else {
+            adattaOK();
+        }
+    }
+
+
+</script>
+<div id="container" class="cont_video" style="position: relative;overflow: hidden;margin:0 auto;top:100px">
+    <video poster="<?php echo $this->getSkinUrl("images/poster.jpg") ?>"  id="video_home2" style="top:0;z-index:2;height: auto" autobuffer  class="video_home" class="video-js vjs-default-skin" preload="auto" autoplay="autoplay">
+        <source src="<?php echo $this->getSkinUrl("video/intro_coltorti.mp4") ?>" type="video/mp4" />
+    </video>
+</div>
+<!--<video poster="<?php //echo $this->getSkinUrl("images/poster.jpg") ?>" id="video_home" autobuffer  class="video_home" class="video-js vjs-default-skin" preload="auto">
+    <source src="http://www.coltortiboutique.com/intro_coltorti.mp4" type="video/mp4" />
+</video>-->
+<!--<div class="skip_intro">
+    <button class="button" title="Skip" type="button"><span><span>SKIP -></span></span></button>
+</div>-->
+<p class="skip_intro">Skip -></p>
+

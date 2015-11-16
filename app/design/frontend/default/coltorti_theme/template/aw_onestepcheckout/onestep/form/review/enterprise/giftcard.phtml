@@ -1,0 +1,53 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Onestepcheckout
+ * @version    1.2.7
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><div id="aw-onestepcheckout-review-enterprise-giftcard">
+    <?php if ($this->canShow()): ?>
+        <div class="enterprise-giftcard-message-container" style="overflow:hidden;height:0px;"></div>
+        <div class="enterprise-giftcard-code-form">
+            <label for="enterprise_giftcard_code"><?php echo $this->__('Gift Cards') ?></label>
+            <div class="input-box field-row">
+                <input class="input-text with-buttons" id="enterprise_giftcard_code" name="enterprise_giftcard_code" value="" />
+                <button type="button" class="button" id="aw-onestepcheckout-enterprise-giftcard-apply-btn" onclick="return false;">
+                    <span><span><?php echo $this->__('Add Gift Card'); ?></span></span>
+                </button>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var awOSCEnterpriseGiftcard = new AWOnestepcheckoutEnterpriseGiftcard({
+                applyGiftcardButtonSelector: '#aw-onestepcheckout-enterprise-giftcard-apply-btn',
+                cancelGiftcardElSelector: 'tr th a',
+                msgContainerSelector: '.enterprise-giftcard-message-container',
+                applyGiftcardUrl: '<?php echo $this->getApplyEnterpriseGiftcardAjaxUrl(); ?>',
+                removeGiftcardUrl: '<?php echo $this->getRemoveEnterpriseGiftcardAjaxUrl(); ?>',
+                giftcardCodeInput: 'enterprise_giftcard_code',
+                successMessageBoxCssClass: 'aw-onestepcheckout-success-msg',
+                errorMessageBoxCssClass: 'aw-onestepcheckout-error-msg',
+                jsErrorMsg: <?php echo Zend_Json::encode($this->__("Oops something's wrong")); ?>,
+                jsSuccessMsg: <?php echo Zend_Json::encode($this->__("Ok")); ?>
+            });
+        </script>
+    <?php endif; ?>
+</div>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+		
+    <wgtntpro_index_index translate="label">
+        <label>Webgriffe Tntpro</label>
+    </wgtntpro_index_index>
+
+    <wgtntpro_adminhtml_magazzini_index>
+        <reference name="content">
+            <block type="wgtntpro/adminhtml_magazzini" name="tntpromagazzino" />
+        </reference>
+    </wgtntpro_adminhtml_magazzini_index>
+
+    <wgtntpro_adminhtml_consignmentno_index>
+        <reference name="content">
+            <block type="wgtntpro/adminhtml_consignmentno" name="tntproconsignmentno" />
+        </reference>
+    </wgtntpro_adminhtml_consignmentno_index>
+    
+    <adminhtml_sales_order_shipment_new>
+        <reference name="form">            
+            <block type="wgtntpro/adminhtml_newshipment" name="tntproform" template="shipmentform.phtml"/>
+        </reference>
+    </adminhtml_sales_order_shipment_new>
+    <adminhtml_sales_order_invoice_new>
+        <reference name="form">            
+            <block type="wgtntpro/adminhtml_newshipment" name="tntproform" template="shipmentform.phtml"/>
+        </reference>
+    </adminhtml_sales_order_invoice_new>    
+
+</layout>
+
+<!-- Put this function in your block
+
+    protected function _getAllowSymlinks() # fix per la 1.6.0.0
+    {
+		return TRUE;    
+    }
+
+		public function fetchView($fileName) {
+			$this->setScriptPath(
+					Mage::getModuleDir('','Webgriffe_Tntpro'). DS . 'templates'
+			);
+						
+			return parent::fetchView($this->getTemplate());
+		}
+
+  -->

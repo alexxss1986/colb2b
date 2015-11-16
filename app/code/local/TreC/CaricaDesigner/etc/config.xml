@@ -1,0 +1,40 @@
+<config>
+    <modules>
+        <TreC_CaricaDesigner>
+            <version>0.0.1</version>
+        </TreC_CaricaDesigner>
+    </modules>
+    <global>
+        <helpers>
+            <trec_caricadesigner>
+                <class>TreC_CaricaDesigner_Helper</class>
+            </trec_caricadesigner>
+        </helpers>
+        <models>
+            <trec_caricadesigner>
+                <class>TreC_CaricaDesigner_Model</class>
+            </trec_caricadesigner>
+        </models>
+        <resources>
+            <trec_caricadesigner_setup>
+                <setup>
+                    <module>TreC_CaricaDesigner</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+            </trec_caricadesigner_setup>
+        </resources>
+    </global>
+    <crontab>
+        <jobs>
+            <caricadesigner_apply_all>
+                <schedule>
+                    <cron_expr>00 1 * * *</cron_expr>
+                    <!--<cron_expr>27 16 * * *</cron_expr>-->
+                </schedule>
+                <run>
+                    <model>trec_caricadesigner/observer::load</model>
+                </run>
+            </caricadesigner_apply_all>
+        </jobs>
+    </crontab>
+</config>

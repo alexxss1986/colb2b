@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="header">
+            <block type="trecdesigner/designer" name="designerMenu" as="designerMenu" template="designermenu/designer_menu.phtml" />
+        </reference>
+    </default>
+</layout>

@@ -1,0 +1,327 @@
+<script>
+    jQuery(document).ready(function() {
+        // IE detect
+        function iedetect(v) {
+
+            var r = RegExp('msie' + (!isNaN(v) ? ('\\s' + v) : ''), 'i');
+            return r.test(navigator.userAgent);
+
+        }
+
+        // For mobile screens, just show an image called 'poster.jpg'. Mobile
+        // screens don't support autoplaying videos, or for IE.
+        if(screen.width < 800 || iedetect(8) || iedetect(7) || 'ontouchstart' in window) {
+
+            (adjSize = function() { // Create function called adjSize
+
+                $width = jQuery(window).width(); // Width of the screen
+                $height = jQuery(window).height(); // Height of the screen
+
+                $height=$height-235;
+                // Resize image accordingly
+                jQuery('#container').css({
+                    'background-image' : 'url(poster.jpg)',
+                    'background-size' : 'cover',
+                    'width' : '80%',
+                    'height' : $height+'px'
+                });
+
+                // Hide video
+                jQuery('video').hide();
+
+            })(); // Run instantly
+
+            // Run on resize too
+            jQuery(window).resize(adjSize);
+        }
+        else {
+
+            // Wait until the video meta data has loaded
+            jQuery('#video_first_advisor').on('loadedmetadata', function() {
+
+                var $width, $height, // Width and height of screen
+                    $vidwidth = this.videoWidth, // Width of video (actual width)
+                    $vidheight = this.videoHeight, // Height of video (actual height)
+                    $aspectRatio = $vidwidth / $vidheight; // The ratio the video's height and width are in
+
+                (adjSize = function() { // Create function called adjSize
+
+                    $width = jQuery(window).width(); // Width of the screen
+                    $height = jQuery(window).height(); // Height of the screen
+
+                    $height=$height-235;
+                    $boxRatio = $width / $height; // The ratio the screen is in
+
+                    $adjRatio = $aspectRatio / $boxRatio; // The ratio of the video divided by the screen size
+
+                    // Set the container to be the width and height of the screen
+                    jQuery('#container').css({
+                        'width' : '70%',
+                        'height' : $height+'px'
+                    });
+
+                    $width=$width-120;
+                    $altezzaVideo=jQuery("video").height();
+                    $marginTop=-($altezzaVideo-$height);
+                    if($boxRatio < $aspectRatio) { // If the screen ratio is less than the aspect ratio..
+                        // Set the width of the video to the screen size multiplied by $adjRatio
+                        $vid = jQuery('#container video').css({'width' : $width*$adjRatio+'px','margin-top':$marginTop+'px'});
+                    } else {
+                        // Else just set the video to the width of the screen/container
+                        $vid = jQuery('#container video').css({'width' : $width+'px','margin-top':$marginTop+'px'});
+                    }
+
+                })(); // Run function immediately
+
+                // Run function also on window resize.
+                jQuery(window).resize(adjSize);
+
+            });
+        }
+
+
+    });
+
+
+    jQuery(document).ready(function() {
+        jQuery(document).on("mouseenter",".div_first_advisor_dispari",function(){
+            /*jQuery(this).css("background-color","#1e2125");
+            l1=jQuery(window).width();
+            l2=jQuery(this).find(".contenuto").width();
+            l3=jQuery(this).find(".div_esterno").width();
+            ltot=(l3-l2);
+            left=-(((l1-l2)/2)-ltot);
+            jQuery(this).find(".immagine").css("visibility","hidden");
+            jQuery(this).find(".contenuto").css("text-align","center");
+            jQuery(this).find(".contenuto").css("position","relative");
+            jQuery(this).find(".contenuto").animate({"left":left+"px"},"slow");*/
+            jQuery(this).find(".immagine").css("display","none");
+            jQuery(this).find(".div_esterno").css("width","100%");
+            jQuery(this).find(".contenuto").css("display","none");
+            jQuery(this).find(".lista_prodotti_hover").css("display","block");
+        });
+        jQuery(document).on("mouseleave",".div_first_advisor_dispari",function(){
+           /* l1=jQuery(window).width();
+            l2=jQuery(this).find(".contenuto").width();
+            l3=jQuery(this).find(".immagine").width();
+            left_base=-((l1-(l3*2))-l2);
+            jQuery(this).css("background-color","");
+            jQuery(this).find(".contenuto").css("text-align","left");
+            jQuery(this).find(".contenuto").animate({"left":"0px"},1000);
+            elemento=jQuery(this).find(".immagine");
+            elemento.css("visibility","visible");*/
+            jQuery(this).find(".lista_prodotti_hover").css("display","none");
+            jQuery(this).find(".div_esterno").css("width","50%");
+            jQuery(this).find(".contenuto").css("display","block");
+            jQuery(this).find(".immagine").css("display","block");
+
+        });
+
+
+        jQuery(document).on("mouseenter",".div_first_advisor_pari",function(){
+            jQuery(this).css("background-color","#1e2125");
+            l1=jQuery(window).width();
+            l2=jQuery(this).find(".contenuto").width();
+            l3=jQuery(this).find(".div_esterno").width();
+            ltot=(l3-l2);
+            left=((l1-l2)/2)-ltot;
+            jQuery(this).find(".immagine").css("visibility","hidden");
+            jQuery(this).find(".contenuto").css("text-align","center");
+            jQuery(this).find(".contenuto").css("position","relative");
+            jQuery(this).find(".contenuto").animate({"left":left+"px"},"slow");
+        });
+        jQuery(document).on("mouseleave",".div_first_advisor_pari",function(){
+            l1=jQuery(window).width();
+            l2=jQuery(this).find(".contenuto").width();
+            l3=jQuery(this).find(".immagine").width();
+            left_base=-((l1-(l3*2))-l2);
+            jQuery(this).css("background-color","");
+            jQuery(this).find(".contenuto").css("text-align","right");
+            jQuery(this).find(".contenuto").animate({"left":"0px"},1000);
+            elemento=jQuery(this).find(".immagine");
+            elemento.css("visibility","visible");
+
+        });
+
+
+
+
+
+    });
+
+
+
+</script>
+
+<?php
+$unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+    'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+    'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+    'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+    'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
+
+?>
+
+<div id="container" style="position: relative;overflow: hidden;margin:0 auto">
+    <video poster="<?php echo $this->getSkinUrl("images/poster.jpg") ?>" muted id="video_first_advisor" loop style="top:0;z-index:2;height: auto" autobuffer  class="video_home" class="video-js vjs-default-skin" preload="auto" autoplay="autoplay">
+        <source src="<?php echo $this->getSkinUrl("video/your-personal-stylist.mp4") ?>" type="video/mp4" />
+    </video>
+</div>
+
+<div class="titolo_first_advisor">
+    <div class="contenuto">
+
+    </div>
+</div>
+<p class="sottotitolo_first_advisor">&nbsp;</p>
+<?php
+
+
+echo "<div class='div_first_advisor visibile div_first_advisor_dispari'>";
+echo "<div class='immagine'><img src='".$this->getSkinUrl("images/look/LOOK-1.jpg")."' style='height: 719px;display:inline ' />";
+echo "</div><div class='div_esterno'><div class='contenuto'>";
+echo "<h1>outfit 1</h1>";
+echo "<p>Uomo</p>";
+echo "<div class='shop'><button type='button' name='shop now' value='shop now' >Shop now</button></div>";
+echo "<div class='cat'><p><span>Dsquared 2</span> Mocassini</p>";
+echo "<p><span>Salvatore Ferragamo</span> Mocassini</p>";
+echo "<p><span>Celine</span> Borse</p>";
+echo "<p><span>Dsquared 2</span> Jeans</p>";
+echo "<p><span>Salvatore Ferragamo</span> Maglie</p></div>";
+echo "</div></div>";
+?>
+<ul class="lista_prodotti_hover"><li class="item last">
+        <a href="http://www.coltortiboutique.com/it/jeans-dsquared2-151431dje000002-470.html" title="Jeans dsquared2" class="product-image">
+            <img id="product-collection-image-3748" src="http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/j/e/jeans_dsquared2_blu_151431dje000002-470-3.jpg" alt="Jeans dsquared2" onmouseover="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/j/e/jeans_dsquared2_blu_151431dje000002-470-4.jpg'" onmouseout="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/j/e/jeans_dsquared2_blu_151431dje000002-470-3.jpg'">
+        </a>
+        <div class="product-info">
+            <h2 class="product-name" style="font-family: Brandon_bld"><span style="padding: 0px; background-color: rgb(255, 255, 255);">Dsquared2</span></h2>
+            <h2 class="product-name" style="font-size:12px;text-transform: capitalize">Jeans</h2>
+
+
+
+
+
+            <div class="price-box">
+                                                                <span class="regular-price" id="product-price-3748">
+                                            <span class="price">285,00&nbsp;€</span>                                    </span>
+
+            </div>
+
+        </div>
+        <!--<div class="shop"><button type="button" name="shop now" value="shop now">Shop now</button></div>-->
+    </li><li class="item last">
+        <a href="http://www.coltortiboutique.com/it/mocassini-salvatore-ferragamo-151400lcx000053-sugp.html" title="Mocassini salvatore ferragamo" class="product-image">
+            <img id="product-collection-image-4678" src="http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/m/o/mocassini_salvatore-ferragamo_blu_151400lcx000053-sugp-3.jpg" alt="Mocassini salvatore ferragamo" onmouseover="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/m/o/mocassini_salvatore-ferragamo_blu_151400lcx000053-sugp-4.jpg'" onmouseout="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/m/o/mocassini_salvatore-ferragamo_blu_151400lcx000053-sugp-3.jpg'">
+        </a>
+        <div class="product-info">
+            <h2 class="product-name" style="font-family: Brandon_bld"><span style="padding: 0px; background-color: rgb(255, 255, 255);">Salvatore Ferragamo</span></h2>
+            <h2 class="product-name" style="font-size:12px;text-transform: capitalize">Mocassini</h2>
+
+
+
+
+
+            <div class="price-box">
+                                                                <span class="regular-price" id="product-price-4678">
+                                            <span class="price">440,00&nbsp;€</span>                                    </span>
+
+            </div>
+
+        </div>
+
+        <!--<div class="shop"><button type="button" name="shop now" value="shop now">Shop now</button></div>-->
+    </li>
+    <li class="item last">
+        <a href="http://www.coltortiboutique.com/it/borse-celine-151414abs000019-06tu.html" title="Borse celine" class="product-image">
+            <img id="product-collection-image-4590" src="http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/b/o/borse_celine_blu_151414abs000019-06tu-3.jpg" alt="Borse celine" onmouseover="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/b/o/borse_celine_blu_151414abs000019-06tu-4.jpg'" onmouseout="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/b/o/borse_celine_blu_151414abs000019-06tu-3.jpg'">
+        </a>
+        <div class="product-info">
+            <h2 class="product-name" style="font-family: Brandon_bld"><span style="padding: 0px; background-color: rgb(255, 255, 255);">Celine</span></h2>
+            <h2 class="product-name" style="font-size:12px;text-transform: capitalize">Borse</h2>
+
+
+
+
+
+            <div class="price-box">
+                                                                <span class="regular-price" id="product-price-4590">
+                                            <span class="price">800,00&nbsp;€</span>                                    </span>
+
+            </div>
+
+        </div>
+        <!--<div class="shop"><button type="button" name="shop now" value="shop now">Shop now</button></div>-->
+    </li>
+    <li class="item last">
+        <a href="http://www.coltortiboutique.com/it/jeans-dsquared2-151431dje000011-470.html" title="Jeans dsquared2" class="product-image">
+            <img id="product-collection-image-3721" src="http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/j/e/jeans_dsquared2_blu_151431dje000011-470-3.jpg" alt="Jeans dsquared2" onmouseover="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/j/e/jeans_dsquared2_blu_151431dje000011-470-4.jpg'" onmouseout="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/j/e/jeans_dsquared2_blu_151431dje000011-470-3.jpg'">
+        </a>
+        <div class="product-info">
+            <h2 class="product-name" style="font-family: Brandon_bld"><span style="padding: 0px; background-color: rgb(255, 255, 255);">Dsquared2</span></h2>
+            <h2 class="product-name" style="font-size:12px;text-transform: capitalize">Jeans</h2>
+
+
+
+
+
+            <div class="price-box">
+                                                                <span class="regular-price" id="product-price-3721">
+                                            <span class="price">380,00&nbsp;€</span>                                    </span>
+
+            </div>
+        </div>
+        <!--<div class="shop"><button type="button" name="shop now" value="shop now">Shop now</button></div>-->
+    </li>
+    <li class="item last">
+        <a href="http://www.coltortiboutique.com/it/maglie-salvatore-ferragamo-151400dma000002-oxblu.html" title="Maglie salvatore ferragamo" class="product-image">
+            <img id="product-collection-image-4847" src="http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/m/a/maglie_salvatore-ferragamo_blu_151400dma000002-oxblu-3.jpg" alt="Maglie salvatore ferragamo" onmouseover="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/m/a/maglie_salvatore-ferragamo_blu_151400dma000002-oxblu-4.jpg'" onmouseout="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/m/a/maglie_salvatore-ferragamo_blu_151400dma000002-oxblu-3.jpg'">
+        </a>
+        <div class="product-info">
+            <h2 class="product-name" style="font-family: Brandon_bld"><span style="padding: 0px; background-color: rgb(255, 255, 255);">Salvatore Ferragamo</span></h2>
+            <h2 class="product-name" style="font-size:12px;text-transform: capitalize">Maglie</h2>
+
+
+
+
+
+            <div class="price-box">
+                                                                <span class="regular-price" id="product-price-4847">
+                                            <span class="price">530,00&nbsp;€</span>                                    </span>
+
+            </div>
+        </div>
+
+        <!--<div class="shop"><button type="button" name="shop now" value="shop now">Shop now</button></div>-->
+    </li></ul>
+<?php
+echo "</div>";
+
+
+echo "<div class='div_first_advisor visibile div_first_advisor_pari'>";
+echo "<div class='div_esterno'><div class='contenuto'>";
+echo "<h1>outfit 2</h1>";
+echo "<p>Uomo / Donna / Accessori</p>";
+echo "<div class='shop'><button type='button' name='shop now' value='shop now' >Shop now</button></div>";
+echo "</div></div>";
+echo "<div class='immagine'><img src='".$this->getSkinUrl("images/look/LOOK-2.jpg")."' style='height: 719px;display:inline ' />";
+echo "</div>";
+echo "</div>";
+
+
+echo "<div class='div_first_advisor visibile div_first_advisor_dispari'>";
+echo "<div class='immagine'><img src='".$this->getSkinUrl("images/look/LOOK-3.jpg")."' style='height: 719px;display:inline ' />";
+echo "</div><div class='div_esterno'><div class='contenuto'>";
+echo "<h1>outfit 3</h1>";
+echo "<p>Uomo / Donna / Accessori</p>";
+echo "<div class='shop'><button type='button' name='shop now' value='shop now'>Shop now</button></div>";
+echo "</div></div>";
+echo "</div>";
+
+
+
+
+?>
+
+
+

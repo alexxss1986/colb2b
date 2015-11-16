@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+<modules>
+   <Creare_Eucookielaw>
+      <active>true</active>
+      <codePool>community</codePool>
+      <version>1.0.1</version>
+   </Creare_Eucookielaw>
+</modules>
+</config>

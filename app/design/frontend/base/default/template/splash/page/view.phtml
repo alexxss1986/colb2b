@@ -1,0 +1,26 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package    Fishpig_AttributeSplashPro
+ * @license      http://fishpig.co.uk/license.txt
+ * @author       Ben Tideswell <ben@fishpig.co.uk>
+ */
+?>
+<?php $_page = $this->getPage() ?>
+<?php if ($_page): ?>
+    <!--<div class="page-title">
+		<h1><?php //echo $this->escapeHtml($_page->getName()) ?></h1>
+	</div>-->
+    <div id="messages_splash_page_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+    <?php if ($_page->getShortDescription()): ?>
+        <div class="splash-desc splash-desc-short">
+            <?php echo $_page->getShortDescription() ?>
+        </div>
+    <?php endif; ?>
+    <?php echo $this->getProductListHtml() ?>
+    <?php //if ($_page->getDescription()): ?>
+    <!--<div class="splash-desc splash-desc-long">
+			<?php //echo $_page->getDescription() ?>
+		</div>-->
+    <?php //endif; ?>
+<?php endif; ?>

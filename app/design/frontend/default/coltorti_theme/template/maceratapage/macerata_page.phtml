@@ -1,0 +1,239 @@
+<script>
+    jQuery(document).ready(function() {
+        // IE detect
+        function iedetect(v) {
+
+            var r = RegExp('msie' + (!isNaN(v) ? ('\\s' + v) : ''), 'i');
+            return r.test(navigator.userAgent);
+
+        }
+
+        // For mobile screens, just show an image called 'poster.jpg'. Mobile
+        // screens don't support autoplaying videos, or for IE.
+        if(screen.width < 800 || iedetect(8) || iedetect(7) || 'ontouchstart' in window) {
+
+            (adjSize = function() { // Create function called adjSize
+
+                $width = jQuery(window).width(); // Width of the screen
+                $height = jQuery(window).height(); // Height of the screen
+
+                $height=$height-195;
+                // Resize image accordingly
+                jQuery('#container').css({
+                    'background-image' : 'url(poster.jpg)',
+                    'background-size' : 'cover',
+                    'width' : $width+'px',
+                    'height' : $height+'px'
+                });
+
+                // Hide video
+                jQuery('video').hide();
+
+            })(); // Run instantly
+
+            // Run on resize too
+            jQuery(window).resize(adjSize);
+        }
+        else {
+
+            // Wait until the video meta data has loaded
+            jQuery('#video_boutique').on('loadedmetadata', function() {
+
+                var $width, $height, // Width and height of screen
+                    $vidwidth = this.videoWidth, // Width of video (actual width)
+                    $vidheight = this.videoHeight, // Height of video (actual height)
+                    $aspectRatio = $vidwidth / $vidheight; // The ratio the video's height and width are in
+
+                (adjSize = function() { // Create function called adjSize
+
+                    $width = jQuery(window).width(); // Width of the screen
+                    $height = jQuery(window).height(); // Height of the screen
+
+                    $height=$height-195;
+                    $boxRatio = $width / $height; // The ratio the screen is in
+
+                    $adjRatio = $aspectRatio / $boxRatio; // The ratio of the video divided by the screen size
+
+                    // Set the container to be the width and height of the screen
+                    jQuery('#container').css({
+                        'width' : $width+'px',
+                        'height' : $height+'px',
+                        'padding-left' : '60px',
+                        'padding-right' : '60px'
+                    });
+
+                    $width=$width-120;
+                    $altezzaVideo=jQuery("video").height();
+                    $marginTop=-($altezzaVideo-$height);
+                    if($boxRatio < $aspectRatio) { // If the screen ratio is less than the aspect ratio..
+                        // Set the width of the video to the screen size multiplied by $adjRatio
+                        $vid = jQuery('#container video').css({'width' : $width*$adjRatio+'px','margin-top':$marginTop+'px'});
+                    } else {
+                        // Else just set the video to the width of the screen/container
+                        $vid = jQuery('#container video').css({'width' : $width+'px','margin-top':$marginTop+'px'});
+                    }
+
+                })(); // Run function immediately
+
+                // Run function also on window resize.
+                jQuery(window).resize(adjSize);
+
+            });
+        }
+
+
+    });
+
+    jQuery(window).load(function () {
+        adatta();
+        jQuery(window).resize(function () {
+            adatta();
+        });
+    });
+
+    function adatta() {
+        //blocco contatta la boutique
+        altezzaC = jQuery(".contenuto_boutique_interno .blocco1 .immagine #img_coltorti").height();
+        jQuery(".contenuto_boutique_interno .blocco1 .testo").css("height", altezzaC);
+        jQuery(".contenuto_boutique_interno .blocco1 .vuoto").css("height", altezzaC);
+        altezzaTesto = jQuery(".contenuto_boutique_interno .blocco1 .testo").height();
+        margine=(altezzaTesto-37)/2;
+        jQuery(".contenuto_boutique_interno .blocco1 .testo #shop").css("margin-top", margine+"px");
+
+        //blocco immagine
+        altezzaC = jQuery(".contenuto_boutique_interno .blocco2 .immagine #img_coltorti").height();
+        jQuery(".contenuto_boutique_interno .blocco2 .vuoto").css("height", altezzaC);
+
+        //blocco dati
+        altezzaC = jQuery(".contenuto_boutique_interno .blocco3 .immagine #img_coltorti").height();
+        jQuery(".contenuto_boutique_interno .blocco3 .testo").css("height", altezzaC);
+        jQuery(".contenuto_boutique_interno .blocco3 .vuoto").css("height", altezzaC);
+        altezzaTesto=jQuery(".contenuto_boutique_interno .blocco3 .testo .dati").height();
+        margine=(altezzaC-altezzaTesto)/2;
+        jQuery(".contenuto_boutique_interno .blocco3 .testo .dati").css("margin-top", margine+"px");
+        larghezzaTesto=jQuery(".contenuto_boutique_interno .blocco3 .testo .dati").width();
+        larghezzaDiv=jQuery(".contenuto_boutique_interno .blocco3 .testo").width();
+        margine=(larghezzaDiv-larghezzaTesto)/2;
+        jQuery(".contenuto_boutique_interno .blocco3 .testo .dati").css("margin-left", margine+"px");
+
+
+
+
+    }
+</script>
+
+<div id="container" style="position: relative;overflow: hidden;">
+<video poster="<?php echo $this->getSkinUrl("images/poster.jpg") ?>" muted id="video_boutique" loop style="top:0;z-index:2;height: auto" autobuffer  class="video_home" class="video-js vjs-default-skin" preload="auto" autoplay="autoplay">
+    <source src="http://www.coltortiboutique.com/intro_coltorti.mp4" type="video/mp4" />
+</video>
+    </div>
+
+<div class="titolo_boutique_interno">
+    <div class="contenuto">
+        <h1>Macerata</h1>
+        <p class="sottotitolo">uomo / <span>donna</span></p>
+    </div>
+</div>
+
+<div class="contenuto_boutique_interno">
+    <div class="blocco_init">
+        <div class="immagine_boutique_interno">
+            &nbsp;
+        </div>
+        <div class="testo_boutique_interno">
+            <p class="titolo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+            <hr>
+        </div>
+    </div>
+    <div class="blocco1 visibile">
+        <div class="vuoto">
+&nbsp;
+        </div>
+        <div class="testo">
+            <button type="button" name="shop" id="shop" class="shop">contatta la boutique</button>
+            <p class="italic">Brand disponibili in boutique >></p>
+        </div>
+        <div class="immagine">
+            <img id="img_coltorti" src="http://www.coltortiboutique.com/skin/frontend/default/coltorti_theme/images/home/coltorti.jpg" />
+        </div>
+    </div>
+    <div class="blocco2 visibile">
+        <div class="immagine">
+            <img id="img_coltorti" src="http://www.coltortiboutique.com/skin/frontend/default/coltorti_theme/images/home/coltorti.jpg" />
+        </div>
+        <div class="vuoto">
+            &nbsp;
+        </div>
+    </div>
+    <div class="blocco3 visibile">
+        <div class="testo">
+            <div class="dati">
+                <h1>Macerata</h1>
+                <p class="sottotitolo">Uomo / Donna</p>
+                <p class="indirizzo">Corso della Repubblica, 37/65</p>
+                <p class="indirizzo">62100 Macerata</p>
+                <p class="indirizzo">T.[+39]0733 263419</p>
+            </div>
+        </div>
+        <div class="immagine">
+            <img id="img_coltorti" src="http://www.coltortiboutique.com/skin/frontend/default/coltorti_theme/images/home/coltorti.jpg" />
+        </div>
+        <div class="vuoto">
+            &nbsp;
+        </div>
+    </div>
+    <div class="blocco4 visibile4">
+        <div class="testo_boutique_interno">
+            <div class="cont_testo">
+                <p class="titolo">Orario di apertura</p>
+                <table>
+                    <tr>
+                        <td>L.</td><td></td><td>16.30 - 20:00</td>
+                    </tr>
+                    <tr>
+                        <td>M.</td><td>09.30 - 13.00</td><td>16.30 - 20:00</td>
+                    </tr>
+                    <tr>
+                        <td>M.</td><td>09.30 - 13.00</td><td>16.30 - 20:00</td>
+                    </tr>
+                    <tr>
+                        <td>G.</td><td>09.30 - 13.00</td><td>16.30 - 20:00</td>
+                    </tr>
+                    <tr>
+                        <td>V.</td><td>09.30 - 13.00</td><td>16.30 - 20:00</td>
+                    </tr>
+                    <tr>
+                        <td>S.</td><td>09.30 - 13.00</td><td>16.30 - 20:00</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="immagine_boutique_interno">
+            &nbsp;
+        </div>
+    </div>
+    <div class="blocco5 visibile">
+        <div class="immagine">
+            <div id="container_macerata" style="position: relative;overflow: hidden;">
+                <video poster="<?php echo $this->getSkinUrl("images/poster.jpg") ?>" muted id="video_macerata" loop style="top:0;z-index:2;height: auto;width:50%" autobuffer  class="video_home" class="video-js vjs-default-skin" preload="auto" autoplay="autoplay">
+                    <source src="<?php echo $this->getSkinUrl("video/ancona.mp4") ?>" type="video/mp4" />
+                </video>
+            </div>
+        </div>
+        <p>Virtual Tour / Video</p>
+    </div>
+    <div class="blocco6 visibile">
+        <div class="testo">
+            <button type="button" name="contatta" id="contatta" class="contatta">contatta la boutique</button>
+        </div>
+    </div>
+    <div class="blocco7 visibile">
+        <div class="testo">
+            <p>FOLLOW US</p>
+        </div>
+    </div>
+</div>
+
+
+
+

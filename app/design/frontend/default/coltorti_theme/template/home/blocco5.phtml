@@ -1,0 +1,51 @@
+<div class="blocco5 visibile">
+    <div class="block_vuoto">
+        &nbsp;
+    </div>
+    <div id="block53_mobile" class="mobile">
+        <div class="testo">
+            <span class="titolo">UOMO</span>
+        </div>
+
+    </div>
+    <div id="block51" class="grid">
+        <?php $cat=Mage::getModel('catalog/category')->load("14"); ?>
+        <figure class="effect-bubba">
+            <img alt="Abbigliamento Uomo Coltorti Boutique" title="Abbigliamento Uomo Coltorti Boutique" src="<?php echo $this->getSkinUrl('images/home/abbigliamento_uomo.jpg') ?>"  />
+            <figcaption>
+                <p>SHOP NOW</p>
+                <a href="<?php echo $cat->getUrl() ?>">SHOP NOW</a>
+            </figcaption>
+        </figure>
+        <div class="testo"><span><?php echo $this->__("ABBIGLIAMENTO") ?></span></div>
+    </div>
+    <div id="block52" class="grid">
+        <?php $cat=Mage::getModel('catalog/category')->load("47"); ?>
+        <figure class="effect-bubba">
+            <img alt="Calzature Uomo Coltorti Boutique" title="Calzature Uomo Coltorti Boutique" src="<?php echo $this->getSkinUrl('images/home/shoes_uomo.jpg') ?>"  />
+            <figcaption>
+                <p>SHOP NOW</p>
+                <a href="<?php echo $cat->getUrl() ?>">SHOP NOW</a>
+            </figcaption>
+        </figure>
+        <div class="testo"><span><?php echo $this->__("CALZATURE") ?></span></div>
+    </div>
+    <div id="block53" class="desktop">
+        <div class="testo">
+            <span class="titolo">UOMO</span>
+        </div>
+
+    </div>
+    <div id="block54" class="grid">
+        <?php $cat=Mage::getModel('catalog/category')->load("82"); ?>
+        <figure class="effect-bubba">
+            <img alt="Borse Uomo Coltorti Boutique" title="Borse Uomo Coltorti Boutique" src="<?php echo $this->getSkinUrl('images/home/bags_uomo.jpg') ?>"  />
+            <figcaption>
+                <p>SHOP NOW</p>
+                <a href="<?php echo $cat->getUrl() ?>">SHOP NOW</a>
+            </figcaption>
+        </figure>
+        <div class="testo"><span><?php echo $this->__("BORSE") ?></span></div>
+    </div>
+
+</div>

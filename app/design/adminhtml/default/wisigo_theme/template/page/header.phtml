@@ -1,0 +1,134 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/** @var $this Mage_Adminhtml_Block_Page_Header */
+?>
+<div class="header-top">
+    <a href="<?php echo $this->getHomeLink() ?>"><img src="<?php  echo $this->getSkinUrl('images/logo-wisigo-header.jpg') ?>" alt="<?php echo $this->__('Magento Logo') ?>" class="logo" /><!--<div style="float: left;
+width: 200px;
+text-align: center;
+margin: 18px;
+margin-left: 25px;"><span style="float: left;
+font-size: 30px;
+margin-left: 28px;
+margin-top: 14px;
+">WISIGO</span><span style="float: left;
+font-size: 17px;
+margin-top: 10px;
+margin-left: 7px;">Administration Panel</span></div>--></a>
+    <div class="header-right">
+    	<div class="notification-global" style="background-color: #EDEDED; border: 1px solid #FFF">
+        	<?php if ($this->getLayout()->createBlock('adminhtml/notification_toolbar')->isMessageWindowAvailable()): ?>
+                <strong class="label clickable" onclick="openMessagePopup()">
+            <?php else: ?>
+                <strong class="label">
+            <?php endif; ?>
+        
+            <?php echo $this->__('Latest Message:') ?></strong> <?php echo $this->getLayout()->createBlock('adminhtml/notification_toolbar')->getLatestNotice() ?>
+            <?php if (!empty($latestNoticeUrl)): ?>
+                <a href="<?php echo $latestNoticeUrl ?>" onclick="this.target='_blank';"><?php echo $this->__('Read details') ?></a>
+            <?php endif; ?>
+        </div>
+    	<div style="float:right;margin-top:24px;margin-right:24px">
+        <p class="super">
+            <!--<?php echo $this->__("Logged in as %s", $this->escapeHtml($this->getUser()->getUsername())) ?><span class="separator">|</span><?php echo $this->formatDate(null, 'full') ?><span class="separator">|</span><a href="http://golinks.magento.com/CE15" onclick="this.target='_blank'" class="go-try"><?php echo $this->__('Try Magento Go for Free') ?></a><span class="separator">|</span><a href="<?php echo $this->getLogoutLink() ?>" class="link-logout"><?php echo $this->__('Log Out') ?></a>-->
+            <img style="float:left" src="<?php echo $this->getSkinUrl('images/user.png') ?>" width="20px"  /><span style="float: left;
+margin-left: 10px;"><?php echo $this->__("Logged in as %s", $this->escapeHtml($this->getUser()->getUsername())) ?></span><a style="float: left;
+margin-left: 10px;" href="<?php echo $this->getLogoutLink() ?>" class="link-logout"><?php echo $this->__('Log Out') ?></a>
+
+		<?php 
+		$major=$this->getLayout()->createBlock('adminhtml/notification_toolbar')->getMajorCount();
+		$critical=$this->getLayout()->createBlock('adminhtml/notification_toolbar')->getCriticalCount();
+		$minor=$this->getLayout()->createBlock('adminhtml/notification_toolbar')->getMinorCount();
+		$notice=$this->getLayout()->createBlock('adminhtml/notification_toolbar')->getNoticeCount();
+		$somma=$major+$critical+$minor+$notice;
+		 ?>
+         <span style="float:left;margin-left: 5px;" class="separator">|</span>
+<img style="float:left;margin-left:5px" src="<?php echo $this->getSkinUrl('images/mail.png') ?>" width="20px"  /><span style="float: left;
+margin-left: 10px;"><?php  echo $this->__('You have %s unread message(s).', $somma) ?></span><a style="margin-left:10px" href="<?php echo $this->getLayout()->createBlock('adminhtml/notification_toolbar')->getNoticesInboxUrl() ?>"><?php echo $this->__('View Inbox') ?></a>
+		
+        </p>
+       <a href="javascript:cs_amimate('search_box')"><img style="float:left;margin-left:15px" src="<?php echo $this->getSkinUrl('images/search.png') ?>" width="32px"  /></a>
+         <a id="page-help-link"  href="<?php echo Mage::helper('adminhtml')->getPageHelpUrl() ?>"><img style="float:left;margin-left:10px" src="<?php echo $this->getSkinUrl('images/question.png') ?>" width="32px"  /></a>
+         <script type="text/javascript">$('page-help-link').target = 'magento_page_help'</script>
+        </div>
+        <?php if ( Mage::getSingleton('admin/session')->isAllowed('admin/global_search') ): ?>
+        <div id="search_box" style="display: none;
+float: left;
+height: 50px;
+position: absolute;
+right: 42px;
+top: 81px;
+width: 240px;">
+        <fieldset style="
+float: left;
+margin-top: 13px;
+margin-left: 10px;padding-left:0px">
+            <legend>Search</legend>
+            <span id="global_search_indicator" class="autocomplete-indicator" style="display: none;float: right;
+margin-top: 6px;
+margin-right: 6px;
+margin-left: 5px;">
+                <img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>" alt="<?php echo $this->__('Loading...') ?>" class="v-middle"/>
+            </span>
+            <?php $defSearch = $this->__('Global Record Search') ?>
+            <input id="global_search" name="query" type="text" class="input-text" value="<?php if(!empty($query)): ?><?php echo $query ?><?php else: ?><?php echo $defSearch ?><?php endif ?>" onfocus="if(this.value=='<?php echo $defSearch ?>')this.value=''; " onblur="if(this.value=='')this.value='<?php echo $defSearch ?>';" style="float: left;
+margin-left: 2px;margin-top:6px;margin-right:0"/>
+            <div id="global_search_autocomplete" class="autocomplete"></div>
+            <script type="text/javascript">
+                new Ajax.Autocompleter(
+                    'global_search',
+                    'global_search_autocomplete',
+                    '<?php echo $this->getUrl('adminhtml/index/globalSearch') ?>',
+                    {
+                        paramName:"query",
+                        minChars:2,
+                        indicator:"global_search_indicator",
+                        updateElement:getSelectionId,
+                        evalJSON:'force'
+                    }
+                );
+                function getSelectionId(li) {
+                    location.href = li.getAttribute('url');
+                }
+            </script>
+        </fieldset>
+        </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<script>
+function cs_amimate(id){
+	if (document.getElementById(id).style.display=='block'){
+		document.getElementById(id).style.display='none';
+	}
+	else {
+		document.getElementById(id).style.display='block';
+	}
+}
+
+</script>

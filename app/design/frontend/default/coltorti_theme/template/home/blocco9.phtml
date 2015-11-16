@@ -1,0 +1,266 @@
+<style>
+    .loader {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        text-align: center;
+        padding: 10px;
+        margin-left: -38px;
+        margin-top: -68px;
+        z-index: 6001;
+        overflow: auto;
+    }
+</style>
+<script>
+    jQuery(window).load(function(){
+        altezza=jQuery("#video_campaign_figure").height();
+        jQuery("#video_campaignfw_figure").css("height",altezza+"px");
+        jQuery("#video_campaignfw_figure").css("width","100%");
+        jQuery("#video_campaignfw_figure video").css("height",altezza+"px");
+    });
+
+    function playVideoCampaign(){
+        video = document.getElementById('video_campaign');
+        if (video.paused === false) {
+            video.pause();
+            jQuery('#stop_campaign').hide();
+            jQuery('#play_campaign').show();
+            flag2=true;
+        } else {
+            video_length_round=10;
+            if (flag2==false) {
+                video.load();
+                // Ensure video is fully buffered before playing
+                video.addEventListener("canplay", function() {
+                    this.removeEventListener("canplay", arguments.callee, false);
+                    if(Math.round(video.buffered.end(0)) >= 1){
+                        // Video is already loaded
+                        video.play();
+                        jQuery('#video_campaign_figure').css("opacity","1");
+                        jQuery('#ajax_loader_video2').hide();
+                        jQuery('#stop_campaign').show();
+                        jQuery('#play_campaign').hide();
+
+                    } else {
+                        jQuery('#ajax_loader_video2').show();
+                        jQuery('#video_campaign_figure').css("opacity","0.3");
+                        jQuery('#stop_campaign').hide();
+                        jQuery('#play_campaign').hide();
+                        // Monitor video buffer progress before playing
+                        video.addEventListener("progress", function() {
+                            if(Math.round(video.buffered.end(0)) == video_length_round){
+                                this.removeEventListener("progress", arguments.callee, false);
+                                video.play();
+                                jQuery('#video_campaign_figure').css("opacity","1");
+                                jQuery('#ajax_loader_video2').hide();
+                                jQuery('#stop_campaign').show();
+                                jQuery('#play_campaign').hide();
+
+                            }
+                        }, false);
+                    }
+                }, false);
+            }
+            else {
+                video.play();
+                jQuery('#stop_campaign').show();
+                jQuery('#play_campaign').hide();
+            }
+
+
+
+        }
+    }
+
+    function playVideoCampaignFW(){
+        video = document.getElementById('video_campaignfw');
+        if (video.paused === false) {
+            video.pause();
+            jQuery('#stop_campaignfw').hide();
+            jQuery('#play_campaignfw').show();
+            flag=true;
+        } else {
+            video_length_round=10;
+            if (flag==false) {
+                jQuery('#ajax_loader_videofw').show();
+                jQuery('#video_campaignfw_figure').css("opacity","0.3");
+                jQuery('#stop_campaignfw').hide();
+                jQuery('#play_campaignfw').hide();
+                video.load();
+                // Ensure video is fully buffered before playing
+                video.addEventListener("canplay", function() {
+                    this.removeEventListener("canplay", arguments.callee, false);
+                    if(Math.round(video.buffered.end(0)) >= 1){
+                        // Video is already loaded
+                        video.play();
+                        jQuery('#video_campaignfw_figure').css("opacity","1");
+                        jQuery('#ajax_loader_videofw').hide();
+                        jQuery('#stop_campaignfw').show();
+                        jQuery('#play_campaignfw').hide();
+
+                    } else {
+                        jQuery('#ajax_loader_videofw').show();
+                        jQuery('#video_campaignfw_figure').css("opacity","0.3");
+                        jQuery('#stop_campaignfw').hide();
+                        jQuery('#play_campaignfw').hide();
+                        // Monitor video buffer progress before playing
+                        video.addEventListener("progress", function() {
+                            alert(Math.round(video.buffered.end(0)));
+                            if(Math.round(video.buffered.end(0)) == video_length_round){
+                                this.removeEventListener("progress", arguments.callee, false);
+                                video.play();
+                                jQuery('#video_campaignfw_figure').css("opacity","1");
+                                jQuery('#ajax_loader_videofw').hide();
+                                jQuery('#stop_campaignfw').show();
+                                jQuery('#play_campaignfw').hide();
+
+                            }
+                        }, false);
+                    }
+                }, false);
+            }
+            else {
+                video.play();
+                jQuery('#stop_campaignfw').show();
+                jQuery('#play_campaignfw').hide();
+            }
+
+
+
+        }
+    }
+
+    jQuery(document).ready(function(){
+        video = document.getElementById('video_campaign');
+        flag2=false;
+        flag=false;
+
+
+        jQuery('.effect-bubba #fig_video_campaign').on('click',function(){
+            playVideoCampaign();
+        });
+
+        jQuery('.effect-bubba #fig_video_campaignfw').on('click',function(){
+            playVideoCampaignFW();
+        });
+
+        jQuery('.effect-bubba #fig_video_ancona').on('click',function(){
+            video = document.getElementById('video_ancona');
+            if (video.paused === false) {
+                video.pause();
+                jQuery('#stop_ancona').hide();
+                jQuery('#play_ancona').show();
+            } else {
+                video.play();
+                jQuery('#stop_ancona').show();
+                jQuery('#play_ancona').hide();
+            }
+
+        });
+
+
+        jQuery('#video_campaign').on('ended',function(){
+            jQuery('#stop_campaign').hide();
+            jQuery('#play_campaign').show();
+            jQuery('#video_campaign').load();
+            flag2=true;
+        });
+
+        jQuery('#video_campaignfw').on('ended',function(){
+            jQuery('#stop_campaignfw').hide();
+            jQuery('#play_campaignfw').show();
+            jQuery('#video_campaignfw').load();
+            flag=true;
+        });
+
+        jQuery('#video_ancona').on('ended',function(){
+            jQuery('#stop_ancona').hide();
+            jQuery('#play_ancona').show();
+            jQuery('#video_ancona').load();
+        });
+    });
+
+
+</script>
+<style>
+    figure.effect-bubba video {
+        opacity: 1;
+    }
+
+    figure.effect-bubba:hover video {
+        opacity: 0.4;
+
+    }
+</style>
+<div class="blocco10 visibile" style="float:left;width: 100%;">
+    <div id="block_titolo">
+        <span>VIDEO</a></span>
+    </div>
+    <div class="postWrapper grid">
+        <span id='ajax_loader_videofw' class="loader" style='display:none'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></span>
+
+        <figure class="effect-bubba" id="video_campaignfw_figure">
+
+            <video poster="<?php echo $this->getSkinUrl("video/anteprime/coltorti-campaign-fw1516.jpg") ?>" id="video_campaignfw" autobuffer  style="width:100%;float:left" class="video-js vjs-default-skin" preload="auto">
+                <source src="<?php echo $this->getSkinUrl("video/coltorti-campaign-fw1516.mp4") ?>" type="video/mp4" />
+            </video>
+
+            <figcaption id="fig_video_campaignfw">
+
+            </figcaption>
+        </figure>
+
+        <div class="postContentWrapper">
+            <div class="postTitle">
+                <h2>Campaign FW1516</h2>
+                <span>Video advertising</span>
+            </div>
+            <a href='javascript:void(0)' id="play_campaignfw" onclick="playVideoCampaignFW()">Play</a>
+            <a href='javascript:void(0)' id="stop_campaignfw" style="display: none" onclick="playVideoCampaignFW()">Stop</a>
+        </div>
+    </div>
+    <div class="postWrapper grid">
+        <span id='ajax_loader_video2' class="loader" style='display:none'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></span>
+
+        <figure class="effect-bubba" id="video_campaign_figure">
+
+            <video poster="<?php echo $this->getSkinUrl("video/anteprime/intro_coltorti.jpg") ?>" id="video_campaign" autobuffer  style="width:100%;float:left" class="video-js vjs-default-skin" preload="auto">
+                <source src="<?php echo $this->getSkinUrl("video/intro_coltorti.mp4") ?>" type="video/mp4" />
+            </video>
+
+            <figcaption id="fig_video_campaign">
+
+            </figcaption>
+        </figure>
+
+        <div class="postContentWrapper">
+            <div class="postTitle">
+                <h2>Campaign SS15</h2>
+                <span>Video advertising</span>
+            </div>
+            <a href='javascript:void(0)' id="play_campaign" onclick="playVideoCampaign()">Play</a>
+            <a href='javascript:void(0)' id="stop_campaign" style="display: none" onclick="playVideoCampaign()">Stop</a>
+        </div>
+    </div>
+    <div class="postWrapper grid">
+        <figure class="effect-bubba">
+            <video poster="<?php echo $this->getSkinUrl("video/anteprime/ancona-boutique-top.jpg") ?>" muted id="video_ancona" autobuffer  style="width:100%;float:left" class="video-js vjs-default-skin" preload="auto">
+                <source src="<?php echo $this->getSkinUrl("video/ancona-boutique-top.mp4") ?>" type="video/mp4" />
+            </video>
+
+            <figcaption id="fig_video_ancona">
+
+            </figcaption>
+        </figure>
+
+        <div class="postContentWrapper">
+            <div class="postTitle">
+                <h2>Ancona</h2>
+                <span><?php echo $this->__("Boutique Uomo/Donna") ?></span>
+            </div>
+            <a href='javascript:void(0)' id="play_ancona" onclick="video = document.getElementById('video_ancona');video.play();jQuery('#play_ancona').hide();jQuery('#stop_ancona').show();">Play</a>
+            <a href='javascript:void(0)' id="stop_ancona" style="display: none" onclick="video = document.getElementById('video_ancona');video.pause();jQuery('#stop_ancona').hide();jQuery('#play_ancona').show();">Stop</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Webgriffe_Tntpro>
+            <version>0.1.1</version>
+        </Webgriffe_Tntpro>
+    </modules>
+    <global>
+        <sales>
+            <shipping>
+                <carriers>
+                    <wgtntpro>
+                        <class>Webgriffe_Tntpro_Model_Track</class>
+                    </wgtntpro>
+                </carriers>
+            </shipping>
+        </sales>
+
+        <models>
+            <wgtntpro>
+                <class>Webgriffe_Tntpro_Model</class>
+                <resourceModel>wgtntpro_mysql4</resourceModel>
+            </wgtntpro>
+            <wgtntpro_mysql4>
+                <class>Webgriffe_Tntpro_Model_Mysql4</class>
+                <entities>
+                    <consignmentno>
+                        <table>wgtntpro_consignmentno</table>
+                    </consignmentno>
+                    <magazzini>
+                        <table>wgtntpro_magazzini</table>
+                    </magazzini>
+                </entities>
+            </wgtntpro_mysql4>
+        </models>
+
+        <helpers>
+            <wgtntpro>
+                <class>Webgriffe_Tntpro_Helper</class>
+            </wgtntpro>
+        </helpers>
+
+        <blocks>
+            <wgtntpro>
+                <class>Webgriffe_Tntpro_Block</class>
+            </wgtntpro>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_shipment_create_form>Webgriffe_Tntpro_Block_Adminhtml_Newshipment_Createshipment</sales_order_shipment_create_form>
+                    <sales_order_invoice_create_form>Webgriffe_Tntpro_Block_Adminhtml_Newshipment_Createinvoice</sales_order_invoice_create_form>
+                </rewrite>
+            </adminhtml>
+
+        </blocks>
+
+        <resources>
+            <wgtntpro_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </wgtntpro_write>
+
+            <wgtntpro_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </wgtntpro_read>
+
+            <wgtntpro_setup>
+                <setup>
+                    <module>Webgriffe_Tntpro</module>
+                    <class>Webgriffe_Tntpro_Model_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </wgtntpro_setup>
+        </resources>
+
+        <events>
+
+            <sales_order_shipment_save_before>
+                <observers>
+                    <wgtntpro_observer>
+                        <type>singleton</type>
+                        <class>wgtntpro/observer</class>
+                        <method>before</method>
+                    </wgtntpro_observer>
+                </observers>
+            </sales_order_shipment_save_before>
+
+            <sales_order_shipment_save_after>
+                <observers>
+                    <wgtntpro_observer>
+                        <type>singleton</type>
+                        <class>wgtntpro/observer</class>
+                        <method>after</method>
+                    </wgtntpro_observer>
+                </observers>
+            </sales_order_shipment_save_after>
+
+        </events>
+
+    </global>
+    <adminhtml>
+        <menu>
+            <sales>
+                <children>
+                    <wgtntpro translate="title" module="wgtntpro">
+                        <title>Tnt Pro</title>
+                        <sort_order>99</sort_order>
+                        <children>
+                            <magazzini translate="title">
+                                <title>Magazzini</title>
+                                <sort_order>40</sort_order>
+                                <action>wgtntpro/adminhtml_magazzini</action>
+                            </magazzini>
+                            <consignmentno>
+                                <title>Consignment Number</title>
+                                <sort_order>50</sort_order>
+                                <action>wgtntpro/adminhtml_consignmentno</action>
+                            </consignmentno>
+                        </children>
+                    </wgtntpro>
+                </children>
+            </sales>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <sales>
+                            <children>
+                                <wgtntpro translate="title" module="wgtntpro">
+                                    <title>Tnt Pro</title>
+                                    <sort_order>99</sort_order>
+                                    <children>
+                                        <magazzini translate="title">
+                                            <title>Magazzini</title>
+                                            <sort_order>40</sort_order>
+                                        </magazzini>
+                                        <consignmentno>
+                                            <title>Consignment Number</title>
+                                            <sort_order>50</sort_order>
+                                        </consignmentno>
+                                    </children>
+                                </wgtntpro>
+                            </children>
+                        </sales>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+            <modules>
+                <Webgriffe_Tntpro>
+                    <files>
+                        <default>Webgriffe_Tntpro.csv</default>
+                    </files>
+                </Webgriffe_Tntpro>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <wgtntpro>
+                    <file>../../../../../code/local/Webgriffe/Tntpro/layout/wgtntpro.xml</file>
+                </wgtntpro>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <admin>
+        <routers>
+            <wgtntpro>
+                <use>admin</use>
+                <args>
+                    <module>Webgriffe_Tntpro</module>
+                    <frontName>wgtntpro</frontName>
+                </args>
+            </wgtntpro>
+        </routers>
+    </admin>
+
+    <frontend>
+        <routers>
+            <wgtntpro>
+                <use>standard</use>
+                <args>
+                    <module>Webgriffe_Tntpro</module>
+                    <frontName>wgtntpro</frontName>
+                </args>
+            </wgtntpro>
+        </routers>
+
+        <translate>
+            <modules>
+                <Webgriffe_Tntpro>
+                    <files>
+                        <default>Webgriffe_Tntpro.csv</default>
+                    </files>
+                </Webgriffe_Tntpro>
+            </modules>
+        </translate>
+
+        <layout>
+            <updates>
+                <wgtntpro>
+                    <file>../../../../../code/local/Webgriffe/Tntpro/layout/wgtntpro.xml</file>
+                </wgtntpro>
+            </updates>
+        </layout>
+
+    </frontend>
+    <default>
+        <carriers>
+            <wgtntpro>
+                <model>wgtntpro/track</model>
+                <title>WG TNT PRO</title>
+            </wgtntpro>
+        </carriers>
+        <shipping>
+            <wgtntpro>
+                <version>1.0</version>
+                <customer>change me</customer>
+                <user>change me</user>
+                <password>change me</password>
+                <langid>IT</langid>
+                <maildestinatario>tntedi@tntitaly.it</maildestinatario>
+                <mailsubject>MANIFESTO RIEPILOGATIVO</mailsubject>
+                <debug>1</debug>
+                <wsdl><![CDATA[]]></wsdl>
+            </wgtntpro>
+        </shipping>
+    </default>
+</config>

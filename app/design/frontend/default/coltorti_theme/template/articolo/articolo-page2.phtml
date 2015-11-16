@@ -1,0 +1,148 @@
+<script>
+
+
+    jQuery(window).load(function () {
+        adatta();
+        jQuery(window).resize(function () {
+            adatta();
+        });
+    });
+
+    function adatta() {
+
+        altezza = jQuery(window).height();
+        alt = altezza - 200;
+        jQuery(".titolo_articolo_interno2").css("height", alt + "px");
+
+        // blocco iniziale
+        altezzaWindows=jQuery(window).height();
+        altezzaBlocco=altezzaWindows-200;
+        larghezzaWindows=jQuery(window).width();
+        larghezzaBlocco=larghezzaWindows-120;
+        jQuery("#container").css("height", altezzaBlocco+"px");
+        jQuery("#container").css("width", larghezzaBlocco+"px");
+
+        /*
+         //blocco contatta la boutique
+         altezzaC = jQuery(".contenuto_boutique_interno .blocco1 .immagine #img_coltorti").height();
+         jQuery(".contenuto_boutique_interno .blocco1 .testo").css("height", altezzaC);
+         jQuery(".contenuto_boutique_interno .blocco1 .vuoto").css("height", altezzaC);
+         altezzaTesto = jQuery(".contenuto_boutique_interno .blocco1 .testo").height();
+         margine=(altezzaTesto-37)/2;
+         jQuery(".contenuto_boutique_interno .blocco1 .testo #shop").css("margin-top", margine+"px");
+
+         //blocco immagine
+         altezzaC = jQuery(".contenuto_boutique_interno .blocco2 .immagine #img_coltorti").height();
+         jQuery(".contenuto_boutique_interno .blocco2 .vuoto").css("height", altezzaC);
+
+         //blocco dati
+         altezzaC = jQuery(".contenuto_boutique_interno .blocco3 .immagine #img_coltorti").height();
+         jQuery(".contenuto_boutique_interno .blocco3 .testo").css("height", altezzaC);
+         jQuery(".contenuto_boutique_interno .blocco3 .vuoto").css("height", altezzaC);
+         altezzaTesto=jQuery(".contenuto_boutique_interno .blocco3 .testo .dati").height();
+         margine=(altezzaC-altezzaTesto)/2;
+         jQuery(".contenuto_boutique_interno .blocco3 .testo .dati").css("margin-top", margine+"px");
+         larghezzaTesto=jQuery(".contenuto_boutique_interno .blocco3 .testo .dati").width();
+         larghezzaDiv=jQuery(".contenuto_boutique_interno .blocco3 .testo").width();
+         margine=(larghezzaDiv-larghezzaTesto)/2;
+         jQuery(".contenuto_boutique_interno .blocco3 .testo .dati").css("margin-left", margine+"px");
+
+         */
+
+
+    }
+</script>
+
+
+<div class="titolo_articolo_interno2">
+    <div class="contenuto">
+        <h1 style="width: 900px;  line-height: 65px;">Flower Power</h1>
+        <p class="sottotitolo">Il tuo guardaroba della Primavera/Estate 2015</p>
+    </div>
+</div>
+
+<div class="contenuto_articolo_interno">
+    <div class="blocco3">
+        <div class="testo">
+            <p>Moda colorata e senza regole, tessuti con stampe floreali e geometriche, abbinamenti audaci con forti rimandi agli anni ’70, quando esplodeva la genialità dei primi stilisti che osavano sperimentare.
+                Spazio ad una creatività geniale che vede gonne ampie a fantasia floreale abbinate a bluse a righe o a pois, è una stagione romantica e anticonvenzionale allo stesso tempo.</p>
+        </div>
+        <div class="testo2">
+            I colori sono chiari, toni accesi per look decisi e sfumature pastello  per outfit più romantici.
+            L’estate 2015 sarà all’insegna dell’eleganza leggera e femminile, per una donna che non rinuncia alla sua libertà ed emancipazione, proprio come le donne degli anni ’70, che hanno saputo osare e anticipare i tempi.
+        </div>
+    </div>
+    <div class="blocco1 visibile">
+        <div class="block1">
+            <div class="colonna1">
+                <div class="riga1">
+
+                </div>
+                <div class="riga2">
+
+                </div>
+            </div>
+            <div class="colonna2">
+                <div class="riga1">
+
+                </div>
+                <div class="riga2">
+
+                </div>
+            </div>
+            <div class="colonna3">
+                <div class="riga1">
+
+                </div>
+                <div class="riga2">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="blocco2 visibile">
+        <div class="block1">
+            <div class="colonna1">
+                &nbsp;
+            </div>
+            <div class="colonna2">
+                <div class="riga1">
+                    &nbsp;
+                </div>
+                <div class="riga2">
+                    <img id="img_coltorti" src="<?php echo $this->getSkinUrl("images/boutiques/ancona/boutique-ancona-coltorti-vetrina-top.jpg") ?>" />
+                </div>
+            </div>
+            <div class="colonna3">
+                <img id="img_coltorti" src="<?php echo $this->getSkinUrl("images/boutiques/ancona/boutique-ancona-vetrina-top.jpg") ?>" />
+            </div>
+            <div class="colonna4">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="blocco3 visibile">
+        <div class="block1">
+            <div class="colonna1">
+                &nbsp;
+            </div>
+            <div class="colonna2">
+                &nbsp;
+            </div>
+            <div class="colonna3">
+                <img id="img_coltorti" src="<?php echo $this->getSkinUrl("images/boutiques/ancona/boutique-ancona-vetrina-bottom.jpg") ?>" />
+            </div>
+            <div class="colonna4">
+                <img id="img_coltorti" src="<?php echo $this->getSkinUrl("images/boutiques/ancona/boutique-ancona-coltorti-vetrina-bottom.jpg") ?>" />
+            </div>
+            <div class="colonna5">
+                &nbsp;
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+

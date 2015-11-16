@@ -1,0 +1,48 @@
+<config>
+ <modules>
+	 <TreC_ExportOrders>
+		<version>0.0.1</version>
+	 </TreC_ExportOrders>
+ </modules>
+ <global>
+     <helpers>
+         <trec_exportorders>
+             <class>TreC_ExportOrders_Helper</class>
+         </trec_exportorders>
+     </helpers>
+     <blocks>
+         <trec_exportorders>
+             <class>TreC_ExportOrders_Block</class>
+         </trec_exportorders>
+     </blocks>
+	<events>
+        <sales_order_save_commit_after>
+            <observers>
+                <trec_exportorders>
+                        <type>singleton</type>
+                        <class>TreC_ExportOrders_Model_Observer</class>
+                        <method>export</method>
+                </trec_exportorders>
+            </observers>
+        </sales_order_save_commit_after>
+    </events>
+     <resources>
+         <trec_exportorders_setup>
+             <setup>
+                 <module>TreC_ExportOrders</module>
+             </setup>
+         </trec_exportorders_setup>
+     </resources>
+</global>
+<default>
+    <trec_exportorders>
+        <config>
+            <banca_carta_eur><![CDATA[1.6]]></banca_carta_eur>
+            <banca_carta_noeur><![CDATA[2.6]]></banca_carta_noeur>
+            <spese_carta><![CDATA[0.25]]></spese_carta>
+            <spese_paypal><![CDATA[0.35]]></spese_paypal>
+            <banca_paypal><![CDATA[1.55]]></banca_paypal>
+        </config>
+    </trec_exportorders>
+</default>
+</config>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+
+<config>
+    <modules>
+        <TreC_ContactPage>
+            <version>0.1.0</version>
+        </TreC_ContactPage>
+    </modules>
+    <frontend>
+        <routers>
+            <contact>
+                <args>
+                    <modules>
+                        <trec_contactpage before="Mage_Contact">TreC_ContactPage</trec_contactpage>
+                    </modules>
+                </args>
+            </contact>
+        </routers>
+    </frontend>
+</config>

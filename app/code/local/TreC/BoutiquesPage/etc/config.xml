@@ -1,0 +1,14 @@
+<config>
+    <modules>
+        <TreC_BoutiquesPage>
+            <version>0.1.0</version>
+        </TreC_BoutiquesPage>
+    </modules>
+    <global>
+        <blocks>
+            <trecboutiques>
+                <class>TreC_BoutiquesPage_Block</class>
+            </trecboutiques>
+        </blocks>
+    </global>
+</config>

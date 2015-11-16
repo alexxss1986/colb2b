@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Groupcat
+ */
+-->
+<config>
+    <modules>
+        <Amasty_Groupcat>
+            <active>true</active>
+            <codePool>local</codePool>
+            <edition>community</edition>
+        </Amasty_Groupcat>
+    </modules>
+</config>

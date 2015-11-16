@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Groupcat
+ */
+-->
+<layout>
+    <amgroupcat_adminhtml_rules_new>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>amasty/amgroupcat/restriction.js</name><params/></action>
+        </reference>
+    </amgroupcat_adminhtml_rules_new>
+	
+    <amgroupcat_adminhtml_rules_edit>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>amasty/amgroupcat/restriction.js</name><params/></action>            
+        </reference>
+    </amgroupcat_adminhtml_rules_edit>
+</layout>

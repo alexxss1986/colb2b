@@ -1,0 +1,23 @@
+<config>
+    <modules>
+        <TreC_CategoriesMenu>
+            <version>0.1.0</version>
+        </TreC_CategoriesMenu>
+    </modules>
+    <frontend>
+        <layout>
+            <updates>
+                <treccategoriesmenu module="TreC_CategoriesMenu">
+                    <file>treccategoriesmenu.xml</file>
+                </treccategoriesmenu>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <blocks>
+            <treccategoriesmenu>
+                <class>TreC_CategoriesMenu_Block</class>
+            </treccategoriesmenu>
+        </blocks>
+    </global>
+</config>

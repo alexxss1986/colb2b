@@ -1,0 +1,519 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_product = $this->getProduct(); ?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="product-view" id="scroll_product" itemscope itemtype="http://schema.org/Product">
+    <div class="product-essential">
+        <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+            <?php echo $this->getBlockHtml('formkey') ?>
+            <div class="no-display">
+                <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+                <input type="hidden" name="related_product" id="related-products-field" value="" />
+            </div>
+
+            <div class="product-img-box">
+                <?php echo $this->getChildHtml('media') ?>
+                <?php echo $this->getChildHtml('sharing') ?>
+            </div>
+
+            <div class="product-shop">
+                <?php
+                //Assign Category Model
+                $categoryModel = Mage::getModel( 'catalog/category' );
+
+                //Get Array of Category Id's with Last as First (Reversed)
+                $_categories = array_reverse( $_product->getCategoryIds() );
+                $_category = $categoryModel->load($_categories[0]);
+
+                $categoryModel2 = Mage::getModel( 'catalog/category' );
+                $_categories2 = $_product->getCategoryIds();
+                $sesso = $categoryModel2->load($_categories2[1]);
+
+                ?>
+                <div class="product-name">
+                    <span class="h1 brand" itemprop="brand"><?php echo $_product->getAttributeText("ca_brand"); ?></span>
+                    <span class="h1 name" itemprop="name"><?php echo strtolower($_product->getData("ca_name")); ?></span>
+                </div>
+                <div class="product-sku">
+                    <span>ART. </span><span itemprop="sku"><?php echo $_product->getData("ca_codice_produttore") ?></span>
+                </div>
+                <div class="price-info" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                    <meta itemprop="priceCurrency" content="<?php echo $currency_code = Mage::app()->getStore()->getCurrentCurrencyCode(); ?>"/>
+                    <?php echo $this->getPriceHtml($_product); ?>
+                    <?php echo $this->getChildHtml('bundle_prices') ?>
+                    <?php echo $this->getTierPriceHtml() ?>
+                </div>
+
+                <meta itemprop="url" content="<?php echo $_product->getProductUrl() ?>"/>
+
+                <div class="extra-info">
+                    <?php echo $this->getReviewsSummaryHtml($_product, 'default', false)?>
+                    <?php //echo $this->getChildHtml('product_type_availability'); ?>
+                </div>
+
+                <?php echo $this->getChildHtml('alert_urls') ?>
+
+                <?php
+                // controllo categorie per tabella taglie
+                $brand=$_product->getData("ca_brand");
+                $codiceTaglia="";
+                    if (isset($_categories2[3]) && $_categories2[3] == 22) {
+                        $codiceTaglia = "07";
+                    } else if (isset($_categories2[3]) && $_categories2[3] == 81) {
+                        $codiceTaglia = "09";
+                    } else if (isset($_categories2[3]) && $_categories2[3] == 95) {
+                        $codiceTaglia = "35";
+                    } else if ($_categories2[2] == 47) {
+                        if ($brand == 2352 && $_categories2[1] == 13) {
+                            $codiceTaglia = "30";
+                        } else if ($brand == 2351 && $_categories2[1] == 13) {
+                            $codiceTaglia = "64";
+                        } else {
+                            $codiceTaglia = "08";
+                        }
+                    } else if ($_categories2[2] == 14) {
+                        $codiceTaglia = "05";
+                    } else if (isset($_categories2[3]) && $_categories2[3] == 74) {
+                        $codiceTaglia = "04";
+                    } else if (isset($_categories2[3]) && $_categories2[3] == 87) {
+                        $codiceTaglia = "34";
+                    } else if ($_categories2[2] == 18) {
+                        if ($brand == 2352 && $_categories2[1] == 3) {
+                            $codiceTaglia = "29";
+                        } else {
+                            $codiceTaglia = "03";
+                        }
+                    } else if ($_categories2[2] == 4) {
+                        $codiceTaglia = "01";
+                    }
+
+
+                    if ($brand == 1073 || $brand == 2567) {
+                        if ($_categories2[1] == 3) {
+                            $codiceTaglia = "19";
+                        } else if ($_categories2[1] == 13) {
+                            $codiceTaglia = "20";
+                        }
+                    }
+
+
+
+
+                ?>
+
+                <input type="hidden" id="codiceTaglia" value="<?php echo $codiceTaglia ?>" />
+                <?php if ($_product->getDescription()):?>
+                    <?php
+                    $descrizione=$_product->getDescription();
+                    /*$descrizione=str_replace("<div><br></div>","",$descrizione);
+                    $descrizione=str_replace("<div>",", ",$descrizione);
+                    $descrizione=str_replace("</div>","",$descrizione);
+                    $descrizione=str_replace("<div style=\"line-height: 18.5714282989502px;\">","",$descrizione);*/
+                    $descrizione=strip_tags($descrizione);
+
+                    ?>
+                    <div class="description">
+                        <div class="std" itemprop="description"><?php echo $descrizione ?></div>
+                    </div>
+                <?php endif;?>
+                <div class="info-prodotto">
+                    <span class="first" id="dettaglio_prodotto"><?php echo $this->__("Dettagli") ?></span> / <span class="first" id="servizio_clienti"><?php echo $this->__("Servizio clienti") ?></span> / <span id="spedizione"> <?php echo $this->__("Spedizione") ?></span> / <span class="last" id="restituzione"> <?php echo $this->__("Restituzione") ?></span>
+                </div>
+                <div class="short-description">
+                    <div class="std" id="testo_dettaglio_prodotto">
+                        <?php echo $this->getChildHtml('additional');?>
+                    </div>
+                    <div class="std" id="testo_servizio_clienti" >
+                        <?php echo $this->__("Servizio clienti 24H via mail all’indirizzo support@coltortiboutique.com") ?>
+                    </div>
+                    <div class="std" id="testo_spedizione" >
+                        <?php echo $this->__("Spedizione in Italia con consegna express in massimo 48 ore lavorative") ?>
+                    </div>
+                    <div class="std" id="testo_restituzione">
+                        <?php echo $this->__("E' possibile restituire il capo acquistato dopo 15 giorni dalla ricezione del pacco") ?>
+                        <?php if (Mage::app()->getStore()->getId()=="1"){
+                        ?>
+                            <?php echo "<span>".$this->__("leggi le ")."</span> <a href='".Mage::getBaseUrl()."politiche-reso'>".$this->__("politiche di reso")."</a>" ?>
+                            <?php
+                        }
+                        else {
+                            ?>
+                            <?php echo "<span>".$this->__("leggi le ")."</span> <a href='".Mage::getBaseUrl()."return-policies'>".$this->__("politiche di reso")."</a>" ?>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <div class="product-colors">
+                    <span class="span_color"><?php $attribute = Mage::getModel('catalog/resource_eav_attribute')
+                            ->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'ca_colore');
+                        echo $this->__($attribute->getFrontendLabel()); ?></span>
+                                <div class="bordo-esterno">
+                                    <div class="bordo-interno"
+                                        <?php
+                                        $resource = Mage::getSingleton('core/resource');
+                                        $readConnection = $resource->getConnection('core_read');
+                                        $colore=$_product->getData('ca_colore');
+                                        $stringQuery = "select codice,nome from " . $resource->getTableName('colore') . " where id_colore='" . $colore . "'";
+                                        $query=$readConnection->fetchAll($stringQuery);
+                                        $codiceColore="";
+                                        $nome_colore="";
+                                        foreach ($query as $row) {
+                                            $codiceColore = $row["codice"];
+                                            $nome_colore = $row["nome"];
+                                        }
+                                        if ($codiceColore!="") {
+                                            echo "  title=\"".$nome_colore."\" style=background-color:$codiceColore; ";
+                                        }
+                                        else {
+                                            echo " title=\"".$nome_colore."\" style=background-image:url('".$this->getSkinUrl("images/col_misti.jpg")."'); ";
+                                        }
+                                        ?>
+                                    >
+                                    </div>
+                                </div>
+                    <span class="span_color2"><?php echo " - <span itemprop=\"color\">".$_product->getData("ca_codice_colore_fornitore") ?></span></span>
+                </div>
+
+                <?php echo $this->getChildHtml('other');?>
+
+                <?php if ($this->checkBrand($_product->getData("ca_brand"))){ ?>
+                <?php if ($_product->isSaleable() && $this->hasOptions()) {?>
+                    <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                <?php }
+                    else { ?>
+                        <div class="add-to-cart">
+                            <div class="add-to-cart-buttons">
+                                <p class="no-disponibile"><?php echo $this->__("Non disponibile") ?></p>
+                            </div>
+                        </div>
+                    <?php }?>
+                <?php } else { ?>
+                    <div class="add-to-cart">
+                        <div class="add-to-cart-buttons">
+                            <p class="no-disponibile"><?php echo $this->__("Disponibile in boutique") ?></p>
+                        </div>
+                    </div>
+
+                <?php } ?>
+
+            </div>
+
+            <?php /*
+            <div class="add-to-cart-wrapper">
+                <?php echo $this->getChildHtml('product_type_data') ?>
+                <?php echo $this->getChildHtml('extrahint') ?>
+
+                <?php if (!$this->hasOptions()):?>
+                    <div class="add-to-box">
+                        <?php if($_product->isSaleable()): ?>
+                            <?php echo $this->getChildHtml('addtocart') ?>
+                            <?php if( $this->helper('wishlist')->isAllow() || $_compareUrl=$this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
+                                <span class="or"><?php echo $this->__('OR') ?></span>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php echo $this->getChildHtml('addto') ?>
+                    </div>
+                    <?php echo $this->getChildHtml('extra_buttons') ?>
+                <?php elseif (!$_product->isSaleable()): ?>
+                    <div class="add-to-box">
+                        <?php echo $this->getChildHtml('addto') ?>
+                        <?php echo $this->getChildHtml('sharing') ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+ */ ?>
+
+
+            <div class="clearer"></div>
+            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+            <?php endif;?>
+        </form>
+        <script type="text/javascript">
+            function apriCarrello() {
+                jQuery("body").find(".push").css("left", "-25%");
+                jQuery('#menu2').css("right", "0px");
+                jQuery("#cart_btn").addClass("open");
+                jQuery('.main-container').css("opacity", "0.08");
+            }
+
+            function chiudiCarrello() {
+                jQuery("#cart_btn").removeClass("open");
+                jQuery('#menu2').css("right", "-25%");
+                jQuery("body").find(".push").css("left", "0");
+                jQuery('.main-container').css("opacity", "1");
+            }
+        //<![CDATA[
+            var productAddToCartForm = new VarienForm('product_addtocart_form');
+            /*productAddToCartForm.submit = function(button, url) {
+                if (this.validator.validate()) {
+                    var form = this.form;
+                    var oldUrl = form.action;
+
+                    if (url) {
+                       form.action = url;
+                    }
+                    var e = null;
+                    try {
+                        this.form.submit();
+                    } catch (e) {
+                    }
+                    this.form.action = oldUrl;
+                    if (e) {
+                        throw e;
+                    }
+
+                    if (button && button != 'undefined') {
+                        button.disabled = true;
+                    }
+                }
+            }.bind(productAddToCartForm);*/
+
+        /* ajax submit checkout */
+            productAddToCartForm.submit = function(button, url) {
+                if (this.validator.validate()) {
+                    var form = this.form;
+                    var oldUrl = form.action;
+
+                    if (jQuery(window).width()>940) {
+                        if (url) {
+                            form.action = url;
+                        }
+                        var e = null;
+                        //Start of our new ajax code
+                        if (!url) {
+                            url = jQuery('#product_addtocart_form').attr('action');
+                        }
+                        var data = jQuery('#product_addtocart_form').serialize();
+                        data += '&isAjax=1';
+                        jQuery('#ajax_loader').show();
+                        jQuery('#background').show();
+                        try {
+                            jQuery.ajax({
+                                url: url,
+                                dataType: 'json',
+                                type: 'post',
+                                data: data,
+                                success: function (data) {
+                                    if (data.status == "SUCCESS") {
+                                        jQuery('#ajax_loader').hide();
+                                        jQuery('#background').hide();
+                                        if (jQuery('.header-minicart')) {
+                                            jQuery('.header-minicart').replaceWith("<div class=\"header-minicart\">" + data.toplink + "</div>");
+                                            jQuery("#menu2").html("<span id='ajax_loader2'><img alt=\"loader\" title=\"loader\" src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></span>");
+                                            jQuery("#header-cart").appendTo("#menu2");
+                                            altezza = jQuery(window).height();
+                                            alt = altezza - 350;
+                                            jQuery("#cart-sidebar").css("height", alt + "px");
+                                            jQuery("#cart-sidebar").mCustomScrollbar();
+                                            if (jQuery(".mCSB_container").hasClass("mCS_no_scrollbar_y")) {
+                                                jQuery(".mCustomScrollBox").css("width", "100%");
+                                            }
+                                            else {
+                                                jQuery(".mCustomScrollBox").css("width", "112%");
+                                            }
+                                            jQuery("#cart_btn").click(function () {
+                                                if (jQuery("#cart_btn").hasClass("open")) {
+                                                    chiudiCarrello();
+                                                }
+                                                else {
+                                                    apriCarrello();
+                                                }
+                                            });
+
+                                            apriCarrello();
+
+                                            jQuery("#background2").click(function () {
+                                                chiudiCarrello()
+
+                                            });
+
+                                            jQuery(".close").click(function () {
+                                                chiudiCarrello()
+
+                                            });
+
+
+                                        }
+                                    }
+                                    else {
+                                        alert(data.message);
+                                        //alert("La misura richiesta per il prodotto non è più disponibile!");
+                                        jQuery('#ajax_loader').hide();
+                                        jQuery('#background').hide();
+                                    }
+                                }
+                            });
+
+                        } catch (e) {
+                        }
+                        //End of our new ajax code
+                        this.form.action = oldUrl;
+                        if (e) {
+                            throw e;
+                        }
+                    }
+                    else {
+                        form.submit();
+                    }
+                }
+            }.bind(productAddToCartForm);
+
+
+            productAddToCartForm.submitLight = function(button, url){
+                if(this.validator) {
+                    var nv = Validation.methods;
+                    delete Validation.methods['required-entry'];
+                    delete Validation.methods['validate-one-required'];
+                    delete Validation.methods['validate-one-required-by-name'];
+                    // Remove custom datetime validators
+                    for (var methodName in Validation.methods) {
+                        if (methodName.match(/^validate-datetime-.*/i)) {
+                            delete Validation.methods[methodName];
+                        }
+                    }
+
+                    if (this.validator.validate()) {
+                        if (url) {
+                            this.form.action = url;
+                        }
+                        this.form.submit();
+                    }
+                    Object.extend(Validation.methods, nv);
+                }
+            }.bind(productAddToCartForm);
+        //]]>
+        </script>
+    </div>
+
+
+    <!--<div class="product-collateral toggle-content tabs">
+        <?php //if ($detailedInfoGroup = $this->getChildGroup('detailed_info', 'getChildHtml')):?>
+            <dl id="collateral-tabs" class="collateral-tabs">
+                <?php //foreach ($detailedInfoGroup as $alias => $html):?>
+                    <dt class="tab"><span><?php //echo $this->escapeHtml($this->getChildData($alias, 'title')) ?></span></dt>
+                    <dd class="tab-container">
+                        <div class="tab-content"><?php //echo $html ?></div>
+                    </dd>
+                <?php //endforeach;?>
+            </dl>
+        <?php //endif; ?>
+    </div>-->
+
+    <?php echo $this->getChildHtml('upsell_products') ?>
+    <?php echo $this->getChildHtml('product_additional_data') ?>
+    <div class="product_related">
+        <?php echo $this->getChildHtml('related_products') ?>
+        <div class="button_related">
+            <button type="button" title="Back to Bags" class="button btn-back-bags"  onclick="window.location='<?php echo Mage::getBaseUrl()."".strtolower($_category->getName())."-".strtolower($sesso->getName()) ?>'" ><span><span><?php echo $this->__("Torna a ") ?><?php echo $_category->getName(); ?></span></span></button>
+            <button type="button" title="Back to Burberry" class="button btn-back-burberry" onclick="window.location='<?php echo Mage::getBaseUrl()."".url_slug($_product->getAttributeText("ca_brand")).".html" ?>'" ><span><span><?php echo $this->__("Torna a ") ?><?php echo $_product->getAttributeText("ca_brand") ?></span></span></button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).on("click",".info-prodotto span",function(){
+        id=jQuery(this).attr("id");
+        if (id=="restituzione"){
+            if (jQuery("#restituzione").hasClass("active")) {
+                jQuery('#testo_restituzione').css('display', 'none');
+                jQuery('#restituzione').removeClass("active");
+            }
+            else {
+                jQuery('#testo_servizio_clienti').css('display','none');
+                jQuery('#testo_spedizione').css('display','none');
+                jQuery('#testo_dettaglio_prodotto').css('display','none');
+                jQuery('#servizio_clienti').removeClass("active");
+                jQuery('#spedizione').removeClass("active");
+                jQuery('#dettaglio_prodotto').removeClass("active");
+                jQuery('#testo_restituzione').css('display', 'block');
+                jQuery('#restituzione').addClass("active");
+            }
+        }
+        else if (id=="servizio_clienti"){
+            if (jQuery("#servizio_clienti").hasClass("active")) {
+                jQuery('#testo_servizio_clienti').css('display', 'none');
+                jQuery('#servizio_clienti').removeClass("active");
+            }
+            else {
+                jQuery('#testo_restituzione').css('display','none');
+                jQuery('#testo_spedizione').css('display','none');
+                jQuery('#testo_dettaglio_prodotto').css('display','none');
+                jQuery('#restituzione').removeClass("active");
+                jQuery('#spedizione').removeClass("active");
+                jQuery('#dettaglio_prodotto').removeClass("active");
+                jQuery('#testo_servizio_clienti').css('display', 'block');
+                jQuery('#servizio_clienti').addClass("active");
+            }
+        }
+        else if (id=="spedizione"){
+            if (jQuery("#spedizione").hasClass("active")) {
+                jQuery('#testo_spedizione').css('display', 'none');
+                jQuery('#spedizione').removeClass("active");
+            }
+            else {
+                jQuery('#testo_restituzione').css('display','none');
+                jQuery('#testo_servizio_clienti').css('display','none');
+                jQuery('#testo_dettaglio_prodotto').css('display','none');
+                jQuery('#restituzione').removeClass("active");
+                jQuery('#servizio_clienti').removeClass("active");
+                jQuery('#dettaglio_prodotto').removeClass("active");
+                jQuery('#testo_spedizione').css('display', 'block');
+                jQuery('#spedizione').addClass("active");
+            }
+        }
+        else if (id=="dettaglio_prodotto"){
+            if (jQuery("#dettaglio_prodotto").hasClass("active")) {
+                jQuery('#testo_dettaglio_prodotto').css('display', 'none');
+                jQuery('#dettaglio_prodotto').removeClass("active");
+            }
+            else {
+                jQuery('#testo_restituzione').css('display','none');
+                jQuery('#testo_servizio_clienti').css('display','none');
+                jQuery('#testo_spedizione').css('display','none');
+                jQuery('#restituzione').removeClass("active");
+                jQuery('#servizio_clienti').removeClass("active");
+                jQuery('#spedizione').removeClass("active");
+                jQuery('#testo_dettaglio_prodotto').css('display', 'block');
+                jQuery('#dettaglio_prodotto').addClass("active");
+            }
+        }
+
+    })
+</script>

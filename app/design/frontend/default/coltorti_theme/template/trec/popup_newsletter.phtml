@@ -1,0 +1,102 @@
+<script type="text/javascript">
+
+        jQuery(document).ready(function() {
+            if (jQuery(window).width()>960) {
+                var check_cookie = "<?php echo Mage::getModel('core/cookie')->get('popup-shown'); ?>";
+
+                if (!check_cookie) {
+                    beginNewsletterForm();
+                    <?php Mage::getModel('core/cookie')->set('popup-shown', 'true', 3600);?>
+                }
+
+                function beginNewsletterForm() {
+                    jQuery.fancybox({
+                        'closeBtn': false,
+                        helpers: {
+                            overlay: {closeClick: false} // prevents closing when clicking OUTSIDE fancybox
+                        },
+                        'href': '#newsletter_popup'
+                    });
+
+                }
+            }
+         });
+    </script>
+
+    <div class="newsletter_popup" id="newsletter_popup">
+        <div class="newsletter_popup_in">
+            <a href="javascript:parent.jQuery.fancybox.close();" class="not-phone close-dialog absolute icon">Close</a>
+            <div class="img_sinistra_news">
+                <img src="<?php echo $this->getSkinUrl("images/popup/newsletter_coltorti.jpg") ?>" alt="Newsletter Coltorti" title="Newsletter Coltorti" />
+            </div>
+            <div class="form_destra_news">
+                <form action="<?php echo Mage::getBaseUrl()."newsletter/subscriber/new/" ?>" method="post" id="popupNewsletter">
+                <h3 style=""><?php echo $this->__("Ciao!") ?><br></h3>
+                <p><?php echo $this->__("Iscriviti alla newsletter e ottieni il 10% di sconto sul primo acquisto! Offerte speciali e le ultime novità dal mondo del luxury-fashion ti aspettano!") ?></p>
+
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td colspan="3">
+                                <label class="phone-only" for="dialog-newsletterFormEmail">Email*</label>
+                                <input type="email" placeholder="EMAIL" name="email" maxlength="50" id="dialog-newsletterFormEmail" class="input-text required-entry validate-email">
+                            </td>
+                        </tr>
+                        <tr class="riga_sesso">
+                            <td>
+                                <label class="male" for="dialog-gender-news-1">
+                                    <div class="radio" id="uniform-dialog-gender-news-1">
+                                        <span id="check_uomo" onchange="changeCheck('check_uomo')" class="checked">
+                                            <input type="radio" value="1" name="Sex" class="newsletterForm" style="opacity: 0;">
+                                        </span>
+                                    </div><?php echo $this->__("Male") ?>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="female" for="dialog-gender-news-2">
+                                    <div class="radio" id="uniform-dialog-gender-news-2">
+                                        <span id="check_donna" onchange="changeCheck('check_donna')">
+                                            <input type="radio" value="2" name="Sex" class="newsletterForm" style="opacity: 0;">
+                                        </span>
+                                    </div><?php echo $this->__("Female") ?>
+                                </label>
+                            </td>
+                            <input type="hidden" name="gender" id="generePopup" value="1" class="required-entry" />
+                        </tr>
+                        <tr>
+                            <td class="riga_btn_news" colspan="3">
+                                <?php $category = Mage::getModel('catalog/category')->load(4); ?>
+                                <button type="submit" class="btn"><?php echo $this->__("Shop Now") ?></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font2" colspan="3">
+                                <p><?php echo $this->__("Iscrivendoti, confermi di aver accettato le nostre") ?> <a class="openDialog withMenu" href="<?php echo Mage::getBaseUrl().$this->__("trattamento-dati-personali") ?>">privacy policy</a></p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+    function changeCheck(tipo){
+        jQuery("#check_uomo").removeClass("checked");
+        jQuery("#check_donna").removeClass("checked");
+        jQuery("#generePopup").val("1");
+        if (tipo=="check_uomo"){
+            jQuery("#generePopup").val("1");
+            jQuery("#check_uomo").addClass("checked");
+        }
+        else if (tipo=="check_donna"){
+            jQuery("#generePopup").val("2");
+            jQuery("#check_donna").addClass("checked");
+        }
+    }
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    var newsletterSubscriberFormDetailPopup = new VarienForm('popupNewsletter');
+    //]]>
+</script>

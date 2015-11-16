@@ -1,0 +1,87 @@
+<div class="blocco7 visibile">
+    <div id="block_titolo7">
+        <span>COLTORTI LIFE</span>
+    </div>
+    <?php
+        $articles=$this->getProducts();
+        $i=0;
+        foreach ($articles as $row){
+            $title=$row["title"];
+            $image=$row["post_image"];
+            $url=$row["identifier"];
+            $sottotitolo=$row["short_content"];
+            if ($i==0){
+            ?>
+             <div id="block71">
+                <?php if($image!=null && $image!=""): ?>
+                    <div class="postImage grid">
+                        <figure class="effect-bubba">
+                            <img src="<?php echo Mage::getBaseUrl('media').$image; ?>" />
+                            <figcaption>
+                                <a href="<?php echo Mage::getBaseUrl()."coltorti-life/".$url; ?>">&nbsp;</a>
+                            </figcaption>
+                        </figure>
+
+                    </div>
+                <?php endif; ?>
+                <div class="postContentWrapper">
+                    <div class="postTitle">
+                        <h2><span><?php echo $title; ?></span></h2>
+                        <?php echo $sottotitolo ?>
+                    </div>
+                    <a class="ispirare" href="<?php echo Mage::getBaseUrl()."coltorti-life/".$url; ?>"><?php echo $this->__("Lasciati ispirare") ?></a>
+                </div>
+            </div>
+            <?php
+            }
+            else if ($i==1){
+                ?>
+                <div id="block72">
+                    <?php if($image!=null && $image!=""): ?>
+                        <div class="postImage grid">
+                            <figure class="effect-bubba">
+                            <img src="<?php echo Mage::getBaseUrl('media').$image; ?>" />
+                                <figcaption>
+                                    <a href="<?php echo Mage::getBaseUrl()."coltorti-life/".$url; ?>">&nbsp;</a>
+                                </figcaption>
+                                </figure>
+                        </div>
+                    <?php endif; ?>
+                    <div class="postContentWrapper">
+                        <div class="postTitle">
+                            <h2><span><?php echo $title; ?></span></h2>
+                            <?php echo $sottotitolo ?>
+                        </div>
+                        <a class="ispirare" href="<?php echo Mage::getBaseUrl()."coltorti-life/".$url; ?>"><?php echo $this->__("Lasciati ispirare") ?></a>
+                    </div>
+                </div>
+            <?php
+            }
+            else if ($i==2){
+                ?>
+                <div id="block73">
+                    <?php if($image!=null && $image!=""): ?>
+                        <div class="postImage grid">
+                            <figure class="effect-bubba">
+                            <img src="<?php echo Mage::getBaseUrl('media').$image; ?>" />
+                                <figcaption>
+                                    <a href="<?php echo Mage::getBaseUrl()."coltorti-life/".$url; ?>">&nbsp;</a>
+                                </figcaption>
+                                </figure>
+                        </div>
+                    <?php endif; ?>
+                    <div class="postContentWrapper">
+                        <div class="postTitle">
+                            <h2><span><?php echo $title; ?></span></h2>
+                            <?php echo $sottotitolo ?>
+                        </div>
+                        <a class="ispirare" href="<?php echo Mage::getBaseUrl()."coltorti-life/".$url; ?>"><?php echo $this->__("Lasciati ispirare") ?></a>
+                    </div>
+                </div>
+            <?php
+            }
+
+            $i=$i+1;
+        }
+    ?>
+</div>

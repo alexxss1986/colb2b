@@ -1,0 +1,22 @@
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <config_cliente_sezione translate="title" module="trec_exportorders">
+                                        <title>Impostazioni generali</title>
+                                        <sort_order>100</sort_order>
+                                    </config_cliente_sezione>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

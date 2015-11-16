@@ -1,0 +1,1162 @@
+<script>
+    /*jQuery(document).ready(function() {
+        // IE detect
+        function iedetect(v) {
+
+            var r = RegExp('msie' + (!isNaN(v) ? ('\\s' + v) : ''), 'i');
+            return r.test(navigator.userAgent);
+
+        }
+
+        // For mobile screens, just show an image called 'poster.jpg'. Mobile
+        // screens don't support autoplaying videos, or for IE.
+        if(screen.width < 800 || iedetect(8) || iedetect(7) || 'ontouchstart' in window) {
+
+            (adjSize = function() { // Create function called adjSize
+
+                $width = jQuery(window).width(); // Width of the screen
+                $height = jQuery(window).height(); // Height of the screen
+
+                $height=$height-235;
+                // Resize image accordingly
+                jQuery('#container').css({
+                    'background-image' : 'url(poster.jpg)',
+                    'background-size' : 'cover',
+                    'width' : '80%',
+                    'height' : $height+'px'
+                });
+
+                // Hide video
+                jQuery('video').hide();
+
+            })(); // Run instantly
+
+            // Run on resize too
+            jQuery(window).resize(adjSize);
+        }
+        else {
+
+            // Wait until the video meta data has loaded
+            jQuery('#video_first_advisor').on('loadedmetadata', function() {
+
+                var $width, $height, // Width and height of screen
+                    $vidwidth = this.videoWidth, // Width of video (actual width)
+                    $vidheight = this.videoHeight, // Height of video (actual height)
+                    $aspectRatio = $vidwidth / $vidheight; // The ratio the video's height and width are in
+
+                (adjSize = function() { // Create function called adjSize
+
+                    $width = jQuery(window).width(); // Width of the screen
+                    $height = jQuery(window).height(); // Height of the screen
+
+                    $height=$height-235;
+                    $boxRatio = $width / $height; // The ratio the screen is in
+
+                    $adjRatio = $aspectRatio / $boxRatio; // The ratio of the video divided by the screen size
+
+                    // Set the container to be the width and height of the screen
+                    jQuery('#container').css({
+                        'width' : '50%',
+                        'height' : $height+'px'
+                    });
+
+                    $width=$width-120;
+                    $altezzaVideo=jQuery("video").height();
+                    $marginTop=-($altezzaVideo-$height);
+                    $marginTop=0;
+                    if($boxRatio < $aspectRatio) { // If the screen ratio is less than the aspect ratio..
+                        // Set the width of the video to the screen size multiplied by $adjRatio
+                        $vid = jQuery('#container video').css({'width' : $width*$adjRatio+'px','margin-top':$marginTop+'px'});
+                    } else {
+                        // Else just set the video to the width of the screen/container
+                        $vid = jQuery('#container video').css({'width' : $width+'px','margin-top':$marginTop+'px'});
+                    }
+
+                })(); // Run function immediately
+
+                // Run function also on window resize.
+                jQuery(window).resize(adjSize);
+
+            });
+        }
+
+
+    });*/
+
+
+    jQuery(document).ready(function() {
+        jQuery(document).on("click",".div_first_advisor .shop button",function(){
+            jQuery(this).parent().parent().parent().parent().find(".immagine").css("display","none");
+            jQuery(this).parent().parent().parent().parent().find(".div_esterno").css("width","100%");
+            jQuery(this).parent().parent().parent().parent().find(".contenuto").css("display","none");
+            jQuery(this).parent().parent().parent().parent().find(".lista_prodotti_hover").css("display","block");
+        });
+        jQuery(document).on("click",".div_first_advisor .close",function(){
+            jQuery(this).parent().parent().find(".lista_prodotti_hover").css("display","none");
+            jQuery(this).parent().parent().find(".div_esterno").css("width","50%");
+            jQuery(this).parent().parent().find(".contenuto").css("display","block");
+            jQuery(this).parent().parent().find(".immagine").css("display","block");
+
+        });
+
+
+        /*jQuery(document).on("mouseenter",".div_first_advisor_pari",function(){
+            jQuery(this).css("background-color","#1e2125");
+            l1=jQuery(window).width();
+            l2=jQuery(this).find(".contenuto").width();
+            l3=jQuery(this).find(".div_esterno").width();
+            ltot=(l3-l2);
+            left=((l1-l2)/2)-ltot;
+            jQuery(this).find(".immagine").css("visibility","hidden");
+            jQuery(this).find(".contenuto").css("text-align","center");
+            jQuery(this).find(".contenuto").css("position","relative");
+            jQuery(this).find(".contenuto").animate({"left":left+"px"},"slow");
+        });
+        jQuery(document).on("mouseleave",".div_first_advisor_pari",function(){
+            l1=jQuery(window).width();
+            l2=jQuery(this).find(".contenuto").width();
+            l3=jQuery(this).find(".immagine").width();
+            left_base=-((l1-(l3*2))-l2);
+            jQuery(this).css("background-color","");
+            jQuery(this).find(".contenuto").css("text-align","right");
+            jQuery(this).find(".contenuto").animate({"left":"0px"},1000);
+            elemento=jQuery(this).find(".immagine");
+            elemento.css("visibility","visible");
+
+        });*/
+
+
+
+
+
+    });
+
+
+
+</script>
+
+<?php
+$unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+    'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+    'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+    'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+    'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
+
+?>
+
+<?php
+
+$categoria=$_REQUEST['categoria'];
+$stile=$_REQUEST['stile'];
+$occasione=$_REQUEST['occasione'];
+/*
+?>
+
+<div id="container" style="position: relative;overflow: hidden;margin:0 auto">
+
+    <video poster="<?php echo $this->getSkinUrl("images/poster.jpg") ?>" muted id="video_first_advisor" loop style="top:0;z-index:2;height: auto" autobuffer  class="video_home" class="video-js vjs-default-skin" preload="auto" autoplay="autoplay">
+        <?php
+        $video="";
+        switch ($categoria){
+            case "uomo":
+                switch($stile){
+                    case "chic":
+                        switch($occasione){
+                            case "lavoro":
+                                $video="video/look/uomo/chic - lavoro/uomo-chic-lavoro.mp4";
+                                break;
+                            case "party":
+                                $video="video/look/uomo/chic - party/uomo-chic-party.mp4";
+                                break;
+                            case "tempo-libero":
+                                $video="video/look/uomo/chic - tempo-libero/uomo-chic-tempo-libero.mp4";
+                                break;
+                        }
+                        break;
+                    case "minimal":
+                        switch($occasione){
+                            case "lavoro":
+                                $video="video/look/uomo/minimal - lavoro/uomo-minimal-lavoro.mp4";
+                                break;
+                            case "party":
+                                $video="video/look/uomo/minimal - party/uomo-minimal-party.mp4";
+                                break;
+                            case "tempo-libero":
+                                $video="video/look/uomo/minimal - tempo-libero/uomo-minimal-tempo-libero.mp4";
+                                break;
+                        }
+                        break;
+                    case "trendy":
+                        switch($occasione){
+                            case "lavoro":
+                                $video="video/look/uomo/trendy - lavoro/uomo-trendy-lavoro.mp4";
+                                break;
+                            case "party":
+                                $video="video/look/uomo/trendy - party/uomo-trendy-party.mp4";
+                                break;
+                            case "tempo-libero":
+                                $video="video/look/uomo/trendy - tempo-libero/uomo-trendy-tempo-libero.mp4";
+                                break;
+                        }
+                        break;
+                }
+                break;
+            case "donna":
+                switch($stile){
+                    case "chic":
+                        switch($occasione){
+                            case "officewear":
+                                $video="video/look/donna/chic - officewear/donna-chic-officewear.mp4";
+                                break;
+                            case "party":
+                                $video="video/look/donna/chic - party/donna-chic-party.mp4";
+                                break;
+                            case "tempo-libero":
+                                $video="video/look/donna/chic - tempo-libero/donna-chic-tempo-libero.mp4";
+                                break;
+                        }
+                        break;
+                    case "minimal":
+                        switch($occasione){
+                            case "officewear":
+                                $video="video/look/donna/minimal - officewear/donna-minimal-officewear.mp4";
+                                break;
+                            case "party":
+                                $video="video/look/donna/minimal - party/donna-minimal-party.mp4";
+                                break;
+                            case "tempo-libero":
+                                $video="video/look/donna/minimal - tempo-libero/donna-minimal-tempo-libero.mp4";
+                                break;
+                        }
+                        break;
+                    case "trendy":
+                        switch($occasione){
+                            case "officewear":
+                                $video="video/look/donna/trendy - officewear/donna-trendy-officewear.mp4";
+                                break;
+                            case "party":
+                                $video="video/look/donna/trendy - party/donna-trendy-party.mp4";
+                                break;
+                            case "tempo-libero":
+                                $video="video/look/donna/trendy - tempo-libero/donna-trendy-tempo-libero.mp4";
+                                break;
+                        }
+                        break;
+                }
+                break;
+
+        }
+        ?>
+        <source src="<?php echo $this->getSkinUrl($video) ?>" type="video/mp4" />
+    </video>
+</div>
+
+<div class="titolo_first_advisor">
+    <div class="contenuto">
+
+    </div>
+</div>
+<p class="scroll_down" style="opacity: 1;float: left;width: 100%;margin-top:35px;text-align: center;height:43px"></p>
+<?php
+*/
+
+?>
+<style>
+    .new_comb {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .new_comb .comb {
+        color: #fff;
+        text-align: center;
+        width: 500px;
+        margin: 0 auto;
+        position: relative;
+        font-family: Brandon_bld;
+        font-size: 11px;
+        letter-spacing: 5px;
+        /* float: left; */
+        background-color: #1e2125;
+        height: 60px;
+        margin: 0 auto;
+    }
+
+    .new_comb .comb a {
+        color: #fff;
+        display: block;
+        padding: 10px;
+        border: 1px solid #fff;
+        height: 60px;
+        line-height: 40px;
+    }
+
+    .new_comb .comb a:hover {
+        color: #000;
+        text-decoration: none;
+    }
+
+    .new_comb .comb:hover {
+        background-color:#C6DDED;
+    }
+
+</style>
+<div class="new_comb">
+    <div class="comb">
+        <a href="https://www.coltortiboutique.com/it/#yps"><?php echo $this->__("SCEGLI UNA NUOVA COMBINAZIONE") ?></a>
+    </div>
+</div>
+
+<?php
+$arrayProdotti=array();
+$arrayImg=array();
+switch ($categoria){
+    case "uomo":
+        switch($stile){
+            case "chic":
+                switch($occasione){
+                    case "lavoro":
+                        $arrayImg=array("look-uomo-chic-lavoro-1.jpg","look-uomo-chic-lavoro-2.jpg","look-uomo-chic-lavoro-3.jpg");
+                        $arrayProdotti[0][0]="<span>Prada </span>".$this->__('Pantalone');
+                        $arrayProdotti[0][1]="<span>Prada </span>".$this->__('Giacca');
+                        $arrayProdotti[0][2]="<span>Prada </span>".$this->__('Camicia');
+                        $arrayProdotti[0][3]="<span>Prada </span>".$this->__('Scarpe');
+                        $arrayProdotti[0][4]="<span>Prada </span>".$this->__('Cinta');
+                        $arrayProdotti[1][0]="ID-151450UAB000006-S8156 BRAND-<span>Dsquared2 </span>".$this->__('Abito');
+                        $arrayProdotti[1][1]="ID-151481UCW000002-45600 BRAND-<span>Burberry </span>".$this->__('Camicia');
+                        $arrayProdotti[1][2]="<span>Prada </span>".$this->__('Cravatta');
+                        $arrayProdotti[1][3]="<span>Prada </span>".$this->__('Scarpa');
+                        $arrayProdotti[2][0]="<span>Prada </span>".$this->__('Giacca');
+                        $arrayProdotti[2][1]="ID-151479UCW000002-40 BRAND-<span>Lanvin </span>".$this->__('Camicia');
+                        $arrayProdotti[2][2]="<span>Prada </span>".$this->__('Pantalone');
+                        $arrayProdotti[2][3]="ID-151450LCX000005-80727 BRAND-<span>Dolce & Gabbana </span>".$this->__('Scarpa');
+                        $titolo[0]="Blue Spring";
+                        $titolo[1]="The Elegance";
+                        $titolo[2]="Grey suit";
+                        break;
+                    case "party":
+                        $arrayImg=array("look-uomo-chic-party-1.jpg","look-uomo-chic-party-2.jpg","look-uomo-chic-party-3.jpg");
+                        $arrayProdotti[0][0]="<span>Christian Dior </span>".$this->__('Pantaloni');
+                        $arrayProdotti[0][1]="<span>Dolce & Gabbana </span>".$this->__('Giacca');
+                        $arrayProdotti[0][2]="ID-151450UCW000013-X0800 BRAND-<span>Dolce & Gabbana </span>".$this->__('Camicia');
+                        $arrayProdotti[0][3]="ID-151450LCX000009-80999 BRAND-<span>Dolce & Gabbana </span>".$this->__('Scarpe');
+                        $arrayProdotti[1][0]="ID-151431UAB000004/001FB/50 BRAND-<span>Dsquared2 </span>".$this->__('Abito');
+                        $arrayProdotti[1][1]="ID-151416UCW000002-63 BRAND-<span>Kenzo </span>".$this->__('Camicia');
+                        $arrayProdotti[1][2]="ID-151450LCX000009-80999 BRAND-<span>Kenzo </span>".$this->__('Scarpa dg');
+                        $arrayProdotti[2][0]="ID-151479UAB000001-29 BRAND-<span>Lanvin </span>".$this->__('Abito');
+                        $arrayProdotti[2][1]="<span>Christian Dior </span>".$this->__('Camicia');
+                        $arrayProdotti[2][2]="ID-151450FTT000007/N0190 BRAND-<span>Dolce & Gabbana </span>".$this->__('Papillon');
+                        $arrayProdotti[2][3]="ID-151431LCX000001-2124 BRAND-<span>Dsquared2 </span>".$this->__('Scarpe');
+                        $titolo[0]="Pois";
+                        $titolo[1]="Posh style";
+                        $titolo[2]="Black is back";
+                        break;
+                    case "tempo-libero":
+                        $arrayImg=array("look-uomo-chic-tempo-libero-1.jpg","look-uomo-chic-tempo-libero-2.jpg","look-uomo-chic-tempo-libero-3.jpg");
+                        $arrayProdotti[0][0]="<span>Prada </span>".$this->__('Pantalone');
+                        $arrayProdotti[0][1]="<span>Prada </span>".$this->__('Maglia');
+                        $arrayProdotti[0][2]="<span>Haider Ackermann </span>".$this->__('Giacca');
+                        $arrayProdotti[0][3]="<span>Prada </span>".$this->__('Scarpa');
+                        $arrayProdotti[1][0]="<span>Saint Laurent </span>".$this->__('Pantalone');
+                        $arrayProdotti[1][1]="ID-151571LCX000005-W6 BRAND-<span>Golden Goose </span>".$this->__('Scarpa');
+                        $arrayProdotti[1][2]="<span>Valentino </span>".$this->__('T-shirt');
+                        $arrayProdotti[1][3]="<span>Prada </span>".$this->__('Giacca');
+                        $arrayProdotti[1][4]="<span>Dolce & Gabbana </span>".$this->__('Cintura');
+                        $arrayProdotti[2][0]="<span>Prada </span>".$this->__('Maglia');
+                        $arrayProdotti[2][1]="<span>Prada </span>".$this->__('Camicia');
+                        $arrayProdotti[2][2]="<span>Prada </span>".$this->__('Pantalone');
+                        $arrayProdotti[2][3]="<span>Prada </span>".$this->__('Scarpa');
+                        $arrayProdotti[2][4]="<span>Prada </span>".$this->__('Borsa');
+                        $titolo[0]="Simply Chic";
+                        $titolo[1]="Casual chic";
+                        $titolo[2]="Classy Lifestyle";
+                        break;
+                }
+                break;
+            case "minimal":
+                switch($occasione){
+                    case "lavoro":
+                        $arrayImg=array("look-uomo-minimal-lavoro-1.jpg","look-uomo-minimal-lavoro-2.jpg","look-uomo-minimal-lavoro-3.jpg");
+                        $arrayProdotti[0][0]="ID-151481UIM000004-00100 BRAND-<span>Burberry </span>".$this->__('Trench');
+                        $arrayProdotti[0][1]="ID-151431UPN000002-800 BRAND-<span>Dsquared2 </span>".$this->__('Pantalone');
+                        $arrayProdotti[0][2]="ID-151571UTS000001-B7 BRAND-<span>Golden Goose </span>".$this->__('T-shirt');
+                        $arrayProdotti[0][3]="<span>Prada </span>".$this->__('Scarpe');
+                        $arrayProdotti[0][4]="<span>Prada </span>".$this->__('Borsa');
+                        $arrayProdotti[1][0]="<span>Prada </span>".$this->__('Cardigan');
+                        $arrayProdotti[1][1]="ID-151481UCW00000-10000 BRAND-<span>Burberry </span>".$this->__('Camicia');
+                        $arrayProdotti[1][2]="<span>Prada </span>".$this->__('Pantalone');
+                        $arrayProdotti[1][3]="<span>Prada </span>".$this->__('Scarpa');
+                        $arrayProdotti[1][4]="<span>Bottega Veneta </span>".$this->__('Borsa');
+                        $arrayProdotti[2][0]="ID-151431UAB000001-900 BRAND-<span>Dsquared2 </span>".$this->__('Abito');
+                        $arrayProdotti[2][1]="<span>Prada </span>".$this->__('Maglia');
+                        $arrayProdotti[2][2]="<span>Tom Ford </span>".$this->__('Scarpa');
+                        $arrayProdotti[2][3]="<span>Bottega Veneta </span>".$this->__('Borsa');
+                        $titolo[0]="Black&White";
+                        $titolo[1]="Details of Elegance";
+                        $titolo[2]="Business casual";
+                        break;
+                    case "party":
+                        $arrayImg=array("look-uomo-minimal-party-1.jpg","look-uomo-minimal-party-2.jpg","look-uomo-minimal-party-3.jpg");
+                        $arrayProdotti[0][0]="ID-151431UAB000005-106 BRAND-<span>Dsquared2 </span>".$this->__('Abito');
+                        $arrayProdotti[0][1]="ID-151450UCW000019-W0800 BRAND-<span>Dolce & Gabbana </span>".$this->__('Camicia');
+                        $arrayProdotti[0][2]="ID-151400LCX000012-NERO BRAND-<span>Salvatore Ferragamo </span>".$this->__('Scarpa');
+                        $arrayProdotti[0][3]="<span>Prada </span>".$this->__('Borsa');
+                        $arrayProdotti[1][0]="ID-151395UGH000002-1140 BRAND-<span>Saint Laurent </span>".$this->__('Giacca');
+                        $arrayProdotti[1][1]="<span>Prada </span>".$this->__('Pantalone');
+                        $arrayProdotti[1][2]="ID-151450UCW000019-W0800 BRAND-<span>Dolce & Gabbana </span>".$this->__('Camicia');
+                        $arrayProdotti[1][3]="ID-151400LCX000012-NERO BRAND-<span>Salvatore Ferragamo </span>".$this->__('Scarpa');
+                        $arrayProdotti[2][0]="ID-151450UAB000005-N0000 BRAND-<span>Dolce & Gabbana </span>".$this->__('Abito');
+                        $arrayProdotti[2][1]="ID-151450UCW000015-S9000 BRAND-<span>Dolce & Gabbana </span>".$this->__('Camicia');
+                        $arrayProdotti[2][2]="ID-151450LCX000040-8B956 BRAND-<span>Dolce & Gabbana </span>".$this->__('Scarpa');
+                        $titolo[0]="The Essential";
+                        $titolo[1]="Classic style";
+                        $titolo[2]="Black is more";
+                        break;
+                    case "tempo-libero":
+                        $arrayImg=array("look-uomo-minimal-tempo-libero-1.jpg","look-uomo-minimal-tempo-libero-2.jpg","look-uomo-minimal-tempo-libero-3.jpg");
+                        $arrayProdotti[0][0]="ID-151495UPN000002-09 BRAND-<span>Rick Owens </span>".$this->__('Pantalone');
+                        $arrayProdotti[0][1]="ID-151479UMA000001-02 BRAND-<span>Lanvin </span>".$this->__('Felpa');
+                        $arrayProdotti[0][2]="<span>Prada </span>".$this->__('Scarpa');
+                        $arrayProdotti[0][3]="<span>Prada </span>".$this->__('Zaino');
+                        $arrayProdotti[1][0]="<span>Saint Laurent </span>".$this->__('Maglia');
+                        $arrayProdotti[1][1]="<span>Rick Owens </span>".$this->__('Trench');
+                        $arrayProdotti[1][2]="ID-151450UJE000006-N0000 BRAND-<span>Dolce & Gabbana </span>".$this->__('Pantalone');
+                        $arrayProdotti[1][3]="<span>Prada </span>".$this->__('Scarpa');
+                        $arrayProdotti[2][0]="ID-151495UCP000007-08 BRAND-<span>Rick Owens </span>".$this->__('Giubbino');
+                        $arrayProdotti[2][1]="ID-151395UMA000001-9787 BRAND-<span>Saint Laurent </span>".$this->__('Maglia');
+                        $arrayProdotti[2][2]="ID-151431UJE000002-852 BRAND-<span>Dsquared2 </span>".$this->__('Jeans');
+                        $arrayProdotti[3][3]="<span>Prada </span>".$this->__('Scarpa');
+                        $titolo[0]="Running style";
+                        $titolo[1]="Black is back";
+                        $titolo[2]="Casual look";
+                        break;
+                }
+                break;
+            case "trendy":
+                switch($occasione){
+                    case "lavoro":
+                        $arrayImg=array("look-uomo-trendy-lavoro-1.jpg","look-uomo-trendy-lavoro-2.jpg","look-uomo-trendy-lavoro-3.jpg");
+                        $arrayProdotti[0][0]="ID-151450UGH000002-R0012 BRAND-<span>Dolce & Gabbana </span>".$this->__('Giacca');
+                        $arrayProdotti[0][1]="<span>Prada </span>".$this->__('Pantalone');
+                        $arrayProdotti[0][2]="ID-151450UCW000030-X0800 BRAND-<span>Dolce & Gabbana </span>".$this->__('Camicia');
+                        $arrayProdotti[0][3]="ID-151450LCX000001-8H302 BRAND-<span>Dolce & Gabbana </span>".$this->__('Scarpa');
+                        $arrayProdotti[1][0]="<span>Prada </span>".$this->__('Giacca');
+                        $arrayProdotti[1][1]="ID-151450UCW000016-S9000 BRAND-<span>Dolce & Gabbana </span>".$this->__('Camicia');
+                        $arrayProdotti[1][2]="ID-151431UPN000003-156 BRAND-<span>Dsquared2 </span>".$this->__('Pantalone');
+                        $arrayProdotti[1][3]="ID-151450LCX000008-80669 BRAND-<span>Dolce & Gabbana </span>".$this->__('Scarpa');
+                        $arrayProdotti[2][0]="ID-151431UCW000016-001F BRAND-<span>Dsquared2 </span>".$this->__('Camicia');
+                        $arrayProdotti[2][1]="ID-151431UJE000040-470 BRAND-<span>Dsquared2 </span>".$this->__('Jeans');
+                        $arrayProdotti[2][2]="ID-151001LCX000005-H07 BRAND-<span>Valentino </span>".$this->__('Scarpa');
+                        $arrayProdotti[2][3]="<span>Dsquared2 </span>".$this->__('Papillon');
+                        $arrayProdotti[2][4]="<span>Prada </span>".$this->__('Borsa');
+                        $arrayProdotti[2][5]="<span>Prada </span>".$this->__('Maglia');
+                        $titolo[0]="Prints and colours";
+                        $titolo[1]="Glam suit";
+                        $titolo[2]="Tie&Denim";
+                        break;
+                    case "party":
+                        $arrayImg=array("look-uomo-trendy-party-1.jpg","look-uomo-trendy-party-2.jpg","look-uomo-trendy-party-3.jpg");
+                        $arrayProdotti[0][0]="<span>Tom Ford </span>".$this->__('Scarpa');
+                        $arrayProdotti[0][1]="<span>Prada </span>".$this->__('Pantalone');
+                        $arrayProdotti[0][2]="ID-151431UCW000014-981 BRAND-<span>Dsquared2 </span>".$this->__('Camicia');
+                        $arrayProdotti[0][3]="<span>Prada </span>".$this->__('Trench');
+                        $arrayProdotti[1][0]="ID-151450UCW000031-W0800 BRAND-<span>Dolce & Gabbana </span>".$this->__('Camicia');
+                        $arrayProdotti[1][1]="ID-151450UJE000018-S9001 BRAND-<span>Dolce & Gabbana </span>".$this->__('Short');
+                        $arrayProdotti[1][2]="ID-151450UGH000007-B6712 BRAND-<span>Dolce & Gabbana </span>".$this->__('Giacca');
+                        $arrayProdotti[1][3]="ID-151450LCX000011-8L777  BRAND-<span>Dolce & Gabbana </span>".$this->__('Scarpa');
+                        $arrayProdotti[2][0]="ID-151395UCW000005-9000 BRAND-<span>Saint Laurent </span>".$this->__('Camicia');
+                        $arrayProdotti[2][1]="ID-151557UPN000001-098 BRAND-<span>Haider Ackermann </span>".$this->__('Pantalone');
+                        $arrayProdotti[2][2]="ID-151557UCP000001-098 BRAND-<span>Haider Ackermann </span>".$this->__('Giacca');
+                        $arrayProdotti[2][3]="ID-151450LCX000010-80727 BRAND-<span>Dolce & Gabbana </span>".$this->__('Scarpa');
+                        $titolo[0]="Blue Power";
+                        $titolo[1]="Sporty and Glam";
+                        $titolo[2]="Fashion Attitude";
+                        break;
+                    case "tempo-libero":
+                        $arrayImg=array("look-uomo-trendy-tempo-libero-1.jpg","look-uomo-trendy-tempo-libero-2.jpg","look-uomo-trendy-tempo-libero-3.jpg");
+                        $arrayProdotti[0][0]="ID-151431UJE000042-470 BRAND-<span>Dsquared2 </span>".$this->__('jeans');
+                        $arrayProdotti[0][1]="<span>Tom Ford </span>".$this->__('Giubbino');
+                        $arrayProdotti[0][2]="ID-151001UTS000003-P00 BRAND-<span>Valentino </span>".$this->__('T-shirt');
+                        $arrayProdotti[0][3]="ID-151001LCX000003-A08 BRAND-<span>Valentino </span>".$this->__('Infradito');
+                        $arrayProdotti[1][0]="ID-151450UPN000004-B0665 BRAND-<span>Dolce & Gabbana </span>".$this->__('Pantalone');
+                        $arrayProdotti[1][1]="ID-151450UGH000009-S8180 BRAND-<span>Dolce & Gabbana </span>".$this->__('Giacca');
+                        $arrayProdotti[1][2]="ID-151450UTS000005-S9000 BRAND-<span>Dolce & Gabbana </span>".$this->__('T-shirt');
+                        $arrayProdotti[1][3]="ID-151431LCX000012-M063 BRAND-<span>Dsquared2 </span>".$this->__('Scarpa slipon');
+                        $arrayProdotti[1][4]="ID-151450FBS000011-8F834 BRAND-<span>Dolce & Gabbana </span>".$this->__('Zaino');
+                        $arrayProdotti[2][0]="ID-151431UBE000002-115 BRAND-<span>Dsquared2 </span>".$this->__('Bermuda');
+                        $arrayProdotti[2][1]="ID-151450UTS000010-S9000 BRAND-<span>Dolce & Gabbana </span>".$this->__('T-shirt');
+                        $arrayProdotti[2][2]="ID-151431UCW000001-470 BRAND-<span>Dsquared2 </span>".$this->__('Camicia');
+                        $arrayProdotti[2][3]="ID-151450LCX000039-89651 BRAND-<span>Dolce & Gabbana </span>".$this->__('Scarpa');
+                        $titolo[0]="Cool style";
+                        $titolo[1]="Street style";
+                        $titolo[2]="Summer time";
+                        break;
+                }
+                break;
+        }
+        break;
+    case "donna":
+        switch($stile){
+            case "chic":
+                switch($occasione){
+                    case "officewear":
+                        $arrayImg=array("look-donna-chic-officewear-1.jpg","look-donna-chic-officewear-2.jpg","look-donna-chic-officewear-3.jpg");
+                        $arrayProdotti[0][0]="<span>Prada </span>".$this->__('Giacca');
+                        $arrayProdotti[0][1]="ID-151035DCW000002-LBLUE BRAND-<span>Sacai </span>".$this->__('Camicia');
+                        $arrayProdotti[0][2]="<span>Miu Miu </span>".$this->__('Pantaloni');
+                        $arrayProdotti[0][3]="ID-151395ABS000018-4120 BRAND-<span>Saint Laurent </span>".$this->__('Borsa');
+                        $arrayProdotti[0][4]="<span>Prada </span>".$this->__('Sandali');
+                        $arrayProdotti[1][0]="ID-151450DGH000002-N0000 BRAND-<span>Dolce & Gabbana </span>".$this->__('Giacca');
+                        $arrayProdotti[1][1]="<span>Dolce & Gabbana </span>".$this->__('Top');
+                        $arrayProdotti[1][2]="ID-151431DJE000018-100 BRAND-<span>Dsquared2 </span>".$this->__('Pantaloni');
+                        $arrayProdotti[1][3]="ID-151450ABS000008-8F808 BRAND-<span>Dolce & Gabbana </span>".$this->__('Borsa sicily');
+                        $arrayProdotti[1][4]="ID-151450LCX000006-8F807 BRAND-<span>Dolce & Gabbana </span>".$this->__('Decollete');
+                        $arrayProdotti[2][0]="ID-151479DAB000004-03 BRAND-<span>Lanvin </span>".$this->__('Abito');
+                        $arrayProdotti[2][1]="ID-151395ABS000004-1000 BRAND-<span>Saint Laurent </span>".$this->__('Borsa sac de jour');
+                        $arrayProdotti[2][2]="ID-151450NCX000017-8B956 BRAND-<span>Dolce & Gabbana </span>".$this->__('Decollete');
+                        $titolo[0]="Easy Elegance";
+                        $titolo[1]="Flower Chic";
+                        $titolo[2]="Everyday Elegance";
+                        break;
+                    case "party":
+                        $arrayImg=array("look-donna-chic-party-1.jpg","look-donna-chic-party-2.jpg","look-donna-chic-party-3.jpg");
+                        $arrayProdotti[0][0]="ID-151450DMA000011-S8052 BRAND-<span>Dolce & Gabbana </span>".$this->__('Maglia');
+                        $arrayProdotti[0][1]="<span>Christian Dior </span>".$this->__('Gonna');
+                        $arrayProdotti[0][2]="ID-151405ABS000033-F0CFM BRAND-<span>Fendi </span>".$this->__('Borsa');
+                        $arrayProdotti[0][3]="<span>Christian Dior </span>".$this->__('Scarpe');
+                        $arrayProdotti[1][0]="ID-151532DCA000001-0001 BRAND-<span>Fausto Puglisi </span>".$this->__('Spolverino');
+                        $arrayProdotti[1][1]="<span>Christian Dior </span>".$this->__('Top');
+                        $arrayProdotti[1][2]="ID-151532DGN000001-0001 BRAND-<span>Fausto Puglisi </span>".$this->__('Gonna');;
+                        $arrayProdotti[1][3]="ID-151516ABS000003-BLACK BRAND-<span>Jimmy Choo </span>".$this->__('Clutch');
+                        $arrayProdotti[1][4]="ID-151450NCX000015-80999 BRAND-<span>Dolce & Gabbana </span>".$this->__('Decollete');
+                        $arrayProdotti[2][0]="ID-151479DAB000007-57 BRAND-<span>Lanvin </span>".$this->__('Abito');
+                        $arrayProdotti[2][1]="ID-151479NCX000003-05 BRAND-<span>Lanvin </span>".$this->__('Sandali');
+                        $arrayProdotti[2][2]="<span>Roger Vivier </span>".$this->__('Borsa');
+                        $arrayProdotti[2][3]="<span> </span>".$this->__('Cintura');
+                        $titolo[0]="Pure Romance";
+                        $titolo[1]="Glam Chic";
+                        $titolo[2]="Simply Chic";
+                        break;
+                    case "tempo-libero":
+                        $arrayImg=array("look-donna-chic-tempo-libero-1.jpg","look-donna-chic-tempo-libero-2.jpg","look-donna-chic-tempo-libero-3.jpg");
+                        $arrayProdotti[0][0]="<span>Tom Ford </span>".$this->__('Maglia');
+                        $arrayProdotti[0][1]="ID-151450DSH000002-00200 BRAND-<span>Proenza Schouler </span>".$this->__('Shorts');
+                        $arrayProdotti[0][2]="ID-151450ABS000017-80438 BRAND-<span>Dolce & Gabbana </span>".$this->__('Borsa');
+                        $arrayProdotti[0][3]="<span>Christian Dior </span>".$this->__('Ballerine');
+                        $arrayProdotti[1][0]="<span>Dolce & Gabbana </span>".$this->__('Giacca');
+                        $arrayProdotti[1][1]="ID-151431DTS000012-100 BRAND-<span>Dsquared2 </span>".$this->__('Top');
+                        $arrayProdotti[1][2]="ID-151395DJE000003-4061 BRAND-<span>Saint Laurent </span>".$this->__('Jeans');
+                        $arrayProdotti[1][3]="<span>Prada </span>".$this->__('Borsa');
+                        $arrayProdotti[1][4]="ID-151395NCX000013-9848 BRAND-<span>Saint Laurent </span>".$this->__('Scarpa');
+                        $arrayProdotti[2][0]="<span>Balenciaga </span>".$this->__('Giacca');
+                        $arrayProdotti[2][1]="ID-151140DTO000001-00101 BRAND-<span>Proenza Schouler </span>".$this->__('Top');
+                        $arrayProdotti[2][2]="<span>Dolce & Gabbana </span>".$this->__('Pantalone');
+                        $arrayProdotti[2][3]="<span>Isabel Marant </span>".$this->__('Sneakers');
+                        $arrayProdotti[2][4]="<span>Prada </span>".$this->__('Borsa');
+                        $titolo[0]="Natural Chic";
+                        $titolo[1]="Street Style";
+                        $titolo[2]="Active Wear";
+                        break;
+                }
+                break;
+            case "minimal":
+                switch($occasione){
+                    case "officewear":
+                        $arrayImg=array("look-donna-minimal-officewear-1.jpg","look-donna-minimal-officewear-2.jpg","look-donna-minimal-officewear-3.jpg");
+                        $arrayProdotti[0][0]="ID-151078DCP000005-210 BRAND-<span>Drome </span>".$this->__('Trench');
+                        $arrayProdotti[0][1]="ID-151608DCW000003-9000 BRAND-<span>Stella Mccartney </span>".$this->__('Camicia');
+                        $arrayProdotti[0][2]="ID-151149DPN000002-001 BRAND-<span>Alexander Wang </span>".$this->__('Pantalone');
+                        $arrayProdotti[0][3]="ID-151395ABS000004-1000 BRAND-<span>Saint Laurent </span>".$this->__('Borsa sac de jour');
+                        $arrayProdotti[0][4]="<span>Miu Miu </span>".$this->__('Ballerine');
+                        $arrayProdotti[1][0]="ID-151078DCP000001-7020 BRAND-<span>Drome </span>".$this->__('Giubbino');
+                        $arrayProdotti[1][1]="ID-151479DTO000016-02 BRAND-<span>Lanvin </span>".$this->__('Top Smanicato');
+                        $arrayProdotti[1][2]="<span>Tom Ford </span>".$this->__('Gonna');
+                        $arrayProdotti[1][3]="<span>Miu Miu </span>".$this->__('Borsa');
+                        $arrayProdotti[1][4]="<span>Tom Ford </span>".$this->__('Decollete');
+                        $arrayProdotti[2][0]="<span>Burberry </span>".$this->__('Trench');
+                        $arrayProdotti[2][1]="ID-151479DTO000011-03 BRAND-<span>Lanvin </span>".$this->__('Top smanicato');
+                        $arrayProdotti[2][2]="<span>Tom Ford </span>".$this->__('Jeans');
+                        $arrayProdotti[2][3]="ID-151510ABS000004-8175 BRAND-<span>Bottega Veneta </span>".$this->__('Borsa');
+                        $arrayProdotti[2][4]="<span>Tom Ford </span>".$this->__('Scarpe');
+                        $titolo[0]="City Khaki";
+                        $titolo[1]="Sophisticated essential";
+                        $titolo[2]="Forever mine";
+                        break;
+                    case "party":
+                        $arrayImg=array("look-donna-minimal-party-1.jpg","look-donna-minimal-party-2.jpg","look-donna-minimal-party-3.jpg");
+                        $arrayProdotti[0][0]="<span>Celine </span>".$this->__('Top');
+                        $arrayProdotti[0][1]="<span>Celine </span>".$this->__('Pantaloni');
+                        $arrayProdotti[0][2]="<span>Saint Laurent </span>".$this->__('Cintura');
+                        $arrayProdotti[0][3]="<span>Bottega Veneta </span>".$this->__('Clutch');
+                        $arrayProdotti[0][4]="<span>Miu Miu </span>".$this->__('Sandali');
+                        $arrayProdotti[1][0]="<span>Tom Ford </span>".$this->__('Abito');
+                        $arrayProdotti[1][1]="ID-151405APG000007-F0W51 BRAND-<span>Fendi </span>".$this->__('Borsa');
+                        $arrayProdotti[1][2]="ID-151431NCX000002-2124 BRAND-<span>Dsquared2 </span>".$this->__('Sandali');
+                        $arrayProdotti[2][0]="ID-151395DPN000001-1000 BRAND-<span>Saint Laurent </span>".$this->__('Pantaloni');;
+                        $arrayProdotti[2][1]="ID-151395DGH000001-1000 BRAND-<span>Saint Laurent </span>".$this->__('Giacca');
+                        $arrayProdotti[2][2]="<span>Celine </span>".$this->__('Top');
+                        $arrayProdotti[2][3]="<span>Saint Laurent </span>".$this->__('Borsa');
+                        $arrayProdotti[2][4]="ID-151450NCX000012-8B956 BRAND-<span>Dolce & Gabbana </span>".$this->__('Sandali');
+                        $titolo[0]="Going for White";
+                        $titolo[1]="Refined Sensuality";
+                        $titolo[2]="Black smoking";
+
+                        break;
+                    case "tempo-libero":
+                        $arrayImg=array("look-donna-minimal-tempo-libero-1.jpg","look-donna-minimal-tempo-libero-2.jpg","look-donna-minimal-tempo-libero-3.jpg");
+                        $arrayProdotti[0][0]="ID-151146DGB000002-999 BRAND-<span>Moncler </span>".$this->__('Giubbino');
+                        $arrayProdotti[0][1]="ID-151395DTS000002-9787 BRAND-<span>Saint Laurent </span>".$this->__('T-shirt');
+                        $arrayProdotti[0][2]="<span>Miu Miu </span>".$this->__('Pantaloni');
+                        $arrayProdotti[0][3]="ID-151001ABS000022-0NO BRAND-<span>Valentino </span>".$this->__('Borsa rockstud');
+                        $arrayProdotti[0][4]="<span>Roger Vivier </span>".$this->__('Ballerine');
+                        $arrayProdotti[1][0]="<span>Celine </span>".$this->__('Maglia');
+                        $arrayProdotti[1][1]="ID-151431DJE000002-470 BRAND-<span>Dsquared2 </span>".$this->__('Pantaloni');
+                        $arrayProdotti[1][2]="ID-151608ABS000002-4061 BRAND-<span>Stella Mccartney </span>".$this->__('Borsa falabella big tote');
+                        $arrayProdotti[1][3]="<span>Miu Miu </span>".$this->__('Ballerine');
+                        $arrayProdotti[2][0]="<span>Prada </span>".$this->__('Giubbino');
+                        $arrayProdotti[2][1]="<span>Alexander Wang </span>".$this->__('Maglia');
+                        $arrayProdotti[2][2]="<span>Saint Laurent </span>".$this->__('Pantaloni');
+                        $arrayProdotti[2][3]="<span>Prada </span>".$this->__('Sandali');
+                        $arrayProdotti[2][4]="ID-151149ABS000002-001 BRAND-<span>Alexander Wang </span>".$this->__('Zaino');
+                        $titolo[0]="Sporty Glam";
+                        $titolo[1]="Casual Deluxe";
+                        $titolo[2]="Navy Style";
+                        break;
+                }
+                break;
+            case "trendy":
+                switch($occasione){
+                    case "officewear":
+                        $arrayImg=array("look-donna-trendy-officewear-1.jpg","look-donna-trendy-officewear-2.jpg","look-donna-trendy-officewear-3.jpg");
+                        $arrayProdotti[0][0]="ID-151608DBL000004-4062 BRAND-<span>Stella Mccartney </span>".$this->__('Camicia');
+                        $arrayProdotti[0][1]="ID-151479DGN000001-77 BRAND-<span>Lanvin </span>".$this->__('Gonna');
+                        $arrayProdotti[0][2]="ID-151400ABS000038-IBLSE BRAND-<span>Salvatore Ferragamo </span>".$this->__('Borsa');
+                        $arrayProdotti[0][3]="ID-151559NCX000002-0713 BRAND-<span>Pollini </span>".$this->__('Decollete');
+                        $arrayProdotti[1][0]="<span>Miu Miu </span>".$this->__('Giacca');
+                        $arrayProdotti[1][1]="ID-151416DAB000001-88 BRAND-<span>Kenzo </span>".$this->__('Abito');
+                        $arrayProdotti[1][2]="ID-151400ABS000013-NEIR BRAND-<span>Salvatore Ferragamo </span>".$this->__('Borsa');
+                        $arrayProdotti[1][3]="<span>Prada </span>".$this->__('Sandali');
+                        $arrayProdotti[2][0]="ID-151078DCP000001-210 BRAND-<span>Drome </span>".$this->__('Giacca');
+                        $arrayProdotti[2][1]="ID-151429DCW000002-12 BRAND-<span>Msgm </span>".$this->__('Camicia');
+                        $arrayProdotti[2][2]="ID-151431DJE000005-470 BRAND-<span>Dsquared2 </span>".$this->__('Jeans');
+                        $arrayProdotti[2][3]="<span>Prada </span>".$this->__('Cintura');
+                        $arrayProdotti[2][4]="<span>Prada </span>".$this->__('Borsa');
+                        $arrayProdotti[2][5]="ID-151001NCX000003-P26 BRAND-<span>Valentino </span>".$this->__('Sandali rockstud');
+                        $titolo[0]="The New Classic";
+                        $titolo[1]="Going For Stripes";
+                        $titolo[2]="Feeling Glamourous";
+                        break;
+                    case "party":
+                        $arrayImg=array("look-donna-trendy-party-1.jpg","look-donna-trendy-party-2.jpg","look-donna-trendy-party-3.jpg");
+                        $arrayProdotti[0][0]="<span>Dior </span>".$this->__('Top');
+                        $arrayProdotti[0][1]="ID-151429DPN000001-01BI BRAND-<span>Msgm </span>".$this->__('Pantalone');
+                        $arrayProdotti[0][2]="<span>Bottega Veneta </span>".$this->__('Clutch');
+                        $arrayProdotti[0][3]="ID-151450NCX000015-80999 BRAND-<span>Dolce & Gabbana </span>".$this->__('Decollete');
+                        $arrayProdotti[1][0]="<span>Balenciaga </span>".$this->__('Giacca');
+                        $arrayProdotti[1][1]="ID-151001DTO000004-EC0 BRAND-<span>Valentino </span>".$this->__('Top');
+                        $arrayProdotti[1][2]="<span>Dior </span>".$this->__('Gonna');
+                        $arrayProdotti[1][3]="<span>Jimmy Choo </span>".$this->__('Borsa');
+                        $arrayProdotti[1][4]="<span>Jimmy Choo </span>".$this->__('Scarpa');
+                        $arrayProdotti[2][0]="<span>Saint Laurent </span>".$this->__('Giacca');
+                        $arrayProdotti[2][1]="<span>Dsquared2 </span>".$this->__('Top');
+                        $arrayProdotti[2][2]="ID-151395DGN000002-1000 BRAND-<span>Saint Laurent </span>".$this->__('Gonna');
+                        $arrayProdotti[2][3]="ID-151516ABS000002-BLACK BRAND-<span>Jimmy Choo </span>".$this->__('Clutch');
+                        $arrayProdotti[2][4]="<span>Miu Miu </span>".$this->__('Sandali');
+                        $titolo[0]="Floral Touch";
+                        $titolo[1]="Fashion Attitude";
+                        $titolo[2]="Lush Glam";
+                        break;
+                    case "tempo-libero":
+                        $arrayImg=array("look-donna-trendy-tempo-libero-1.jpg","look-donna-trendy-tempo-libero-2.jpg","look-donna-trendy-tempo-libero-3.jpg");
+                        $arrayProdotti[0][0]="ID-151395DCP000001-2202 BRAND-<span>Saint Laurent </span>".$this->__('Gilet');
+                        $arrayProdotti[0][1]="ID-151024DTO000001-319 BRAND-<span>Emporio Armani </span>".$this->__('Top');
+                        $arrayProdotti[0][2]="<span>Valentino </span>".$this->__('Pantaloni');
+                        $arrayProdotti[0][3]="<span>Fendi </span>".$this->__('Borsa');
+                        $arrayProdotti[0][4]="<span>Dior </span>".$this->__('Sandali');
+                        $arrayProdotti[1][0]="ID-151431DKA000001-381 BRAND-<span>Dsquared2 </span>".$this->__('Giacca');
+                        $arrayProdotti[1][1]="ID-151149DSH000001-833 BRAND-<span>Alexander Wang </span>".$this->__('Short');
+                        $arrayProdotti[1][2]="ID-151431DCW000001-100 BRAND-<span>Dsquared2 </span>".$this->__('Camicia');
+                        $arrayProdotti[1][3]="ID-151510ABS000004-5270 BRAND-<span>Bottega Veneta </span>".$this->__('Borsa');
+                        $arrayProdotti[1][4]="ID-151395NCX000012-9082 BRAND-<span>Saint Laurent </span>".$this->__('Sneakers');
+                        $arrayProdotti[2][0]="ID-151146DGB000011-999 BRAND-<span>Moncler </span>".$this->__('Giacca');
+                        $arrayProdotti[2][1]="ID-151431DFE000002985 BRAND-<span>Dsquared2 </span>".$this->__('Top');
+                        $arrayProdotti[2][2]="<span>Dolce & Gabbana </span>".$this->__('Shorts');
+                        $arrayProdotti[2][3]="ID-151450ABS000003-8E866 BRAND-<span>Dolce & Gabbana </span>".$this->__('Borsa');
+                        $arrayProdotti[2][4]="<span>Prada </span>".$this->__('Sandali');
+                        $titolo[0]="Gipsy Touch";
+                        $titolo[1]="Posh Style";
+                        $titolo[2]="Off Duty Spring";
+                        break;
+                }
+                break;
+        }
+        break;
+}
+
+for ($i=0; $i<count($arrayImg); $i++){
+    if ( $i & 1 ){
+        $riga="0"; // numero dispari
+    }
+    else {
+        $riga="1"; //numero pari
+    }
+    $url_immagine="images/look/".$categoria."/".$stile." - ".$occasione."/".$arrayImg[$i];
+
+    if ($riga==1) {
+        echo "<div class='div_first_advisor visibile div_first_advisor_dispari'>";
+        echo "<div class='immagine'><img src='" . $this->getSkinUrl($url_immagine) . "' style='height: 719px;display:inline ' />";
+        echo "</div><div class='div_esterno'><div class='contenuto'>";
+        echo "<h1>" . $titolo[$i] . "</h1>";
+        echo "<p>" . ucfirst(strtolower($categoria)) . "</p>";
+        echo "<div class='cat'>";
+
+        $count=0;
+        for ($j=0; $j<count($arrayProdotti[$i]); $j++) {
+            if ($arrayProdotti[$i][$j] != "") {
+                $check=substr($arrayProdotti[$i][$j],0,2);
+                if ($check=="ID") {
+                    $check2=strpos($arrayProdotti[$i][$j]," BRAND-");
+                    $sku_prodotto = substr($arrayProdotti[$i][$j],3,$check2-3);
+                    $brand=substr($arrayProdotti[$i][$j],$check2+7,strlen($arrayProdotti[$i][$j])-($check2+7));
+                    $_product = Mage::getModel('catalog/product');
+                    if ($_product->getIdBySku($sku_prodotto) != null) {
+                        $count = $count + 1;
+                        $_product->load($_product->getIdBySku($sku_prodotto));
+
+                        $visibility = $_product->getVisibility();
+                        if ($visibility=="4") {
+                            $_category = getLastCategory($_product);
+                            echo "<p>". $brand . "<span class='disponibile'>" . $this->__('Disponibile online') . "</span></p>";
+                        }
+                        else {
+                            $_category = getLastCategory($_product);
+                            echo "<p>". $brand . "<span class='disponibile'>" . $this->__('Disponibile in boutique') . "</span></p>";
+                        }
+                    }
+                    else {
+                        echo "<p>" . $brand . "<span class='disponibile'>" . $this->__('Disponibile in boutique') . "</span></p>";
+                    }
+                }
+                else {
+                    echo "<p>" . $arrayProdotti[$i][$j] . "<span class='disponibile'>" . $this->__('Disponibile in boutique') . "</span></p>";
+                }
+            }
+        }
+
+        echo "</div>";
+        if ($count>0) {
+            echo "<div class='shop'><button type='button' name='shop now' value='shop now' >Shop now</button></div>";
+        }
+        else {
+            echo "<div class='shop'><button type='button' name='shop now' value='shop now' disabled >Shop now</button></div>";
+        }
+        echo "</div></div>";
+        if ($count>0) {
+            echo '<ul class="lista_prodotti_hover">';
+            for ($j = 0; $j < count($arrayProdotti[$i]); $j++) {
+                if ($arrayProdotti[$i][$j] != "") {
+                    $check=substr($arrayProdotti[$i][$j],0,2);
+                    if ($check=="ID") {
+                        $check2=strpos($arrayProdotti[$i][$j]," BRAND-");
+                        $sku_prodotto = substr($arrayProdotti[$i][$j],3,$check2-3);
+                        $brand=substr($arrayProdotti[$i][$j],$check2+7,strlen($arrayProdotti[$i][$j])-($check2+7));
+                        $_product = Mage::getModel('catalog/product');
+                        if ($_product->getIdBySku($sku_prodotto) != null) {
+                            $_product->load($_product->getIdBySku($sku_prodotto));
+
+                            $visibility = $_product->getVisibility();
+                            if ($visibility=="4") {
+
+
+                                $flag=false;
+                                $img=$_product->load ( 'media_gallery' )->getMediaGalleryImages()->getItemByColumnValue('label', 'back');
+                                if ($img!=null){
+                                    $over=$img->getFile();
+                                    $flag=true;
+                                }
+                                else {
+                                    $img = $_product->load('media_gallery')->getMediaGalleryImages()->getItemByColumnValue('position_default', '2');
+                                    if ($img != null) {
+                                        $over = $img->getFile();
+                                        $flag = true;
+                                    }
+                                }
+
+                                $_category = getLastCategory($_product);
+                                ?>
+                                <li class="item last">
+                                    <?php
+                                    $stockItem = $_product->getStockItem();
+                                    if ($stockItem->getIsInStock()) {
+                                        ?>
+
+                                        <a href="<?php echo $_product->getProductUrl() ?>"
+                                           title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                                           class="product-image">
+                                            <?php $_imgSize = 210; ?>
+                                            <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                                                 src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image') ?>"
+                                                 alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                                                <?php
+                                                if ($flag == true) {
+                                                    echo "onmouseover=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image', $over) . "'\"";
+                                                    echo "onmouseout=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image') . "'\"";
+                                                }
+                                                ?>
+                                                />
+                                        </a>
+                                    <?php
+                                    } else {
+
+                                        ?>
+
+                                        <?php $_imgSize = 210; ?>
+                                        <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                                             src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image') ?>"
+                                             alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                                            <?php
+                                            if ($flag == true) {
+                                                echo "onmouseover=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image', $over) . "'\"";
+                                                echo "onmouseout=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image') . "'\"";
+                                            }
+                                            ?>
+                                            />
+
+                                    <?php
+                                    }
+                                    ?>
+
+                                    <div class="product-info" style="text-align: center;margin-top:10px;">
+                                        <h2 class="product-name"
+                                            style="font-family: Brandon_bld"><?php echo $_product->getAttributeText("ca_brand") ?></h2>
+
+                                        <h2 class="product-name"
+                                            style="font-size:12px;text-transform: capitalize"><?php echo $_category->getName(); ?></h2>
+                                        <?php echo $this->getPriceHtml($_product, true) ?>
+                                        <?php
+                                        $stockItem = $_product->getStockItem();
+                                        if (!$stockItem->getIsInStock()) {
+                                            echo "<p style='color:red;font-size:12px'>" . $this->__("Articolo terminato") . "</p>";
+                                        }
+                                        ?>
+                                    </div>
+                                </li>
+                            <?php
+                            }
+                    }
+
+
+                    }
+                }
+            }
+            echo '<a class="close skip-link-close yps_close" href="javascript:void(0)" title="">&times;</a>';
+
+            echo "</ul>";
+        }
+
+
+        echo "</div>";
+
+    }
+    else {
+        echo "<div class='div_first_advisor visibile div_first_advisor_pari'>";
+        echo "<div class='div_esterno'><div class='contenuto'>";
+        echo "<h1>". $titolo[$i] ."</h1>";
+        echo "<p>" . ucfirst(strtolower($categoria)) . "</p>";
+
+        echo "<div class='cat'>";
+
+        $count=0;
+        for ($j=0; $j<count($arrayProdotti[$i]); $j++) {
+            if ($arrayProdotti[$i][$j] != "") {
+                $check=substr($arrayProdotti[$i][$j],0,2);
+                if ($check=="ID") {
+                    $check2=strpos($arrayProdotti[$i][$j]," BRAND-");
+                    $sku_prodotto = substr($arrayProdotti[$i][$j],3,$check2-3);
+                    $brand=substr($arrayProdotti[$i][$j],$check2+7,strlen($arrayProdotti[$i][$j])-($check2+7));
+                    $_product = Mage::getModel('catalog/product');
+                    if ($_product->getIdBySku($sku_prodotto) != null) {
+                        $count = $count + 1;
+                        $_product->load($_product->getIdBySku($sku_prodotto));
+
+                        $visibility = $_product->getVisibility();
+                        if ($visibility=="4") {
+                            $_category = getLastCategory($_product);
+                            echo "<p>". $brand . "<span class='disponibile'>" . $this->__('Disponibile online') . "</span></p>";
+                        }
+                        else {
+                            $_category = getLastCategory($_product);
+                            echo "<p>". $brand . "</span><span class='disponibile'>" . $this->__('Disponibile in boutique') . "</span></p>";
+                        }
+                    }
+                    else {
+                        echo "<p>" . $brand . "<span class='disponibile'>" . $this->__('Disponibile in boutique') . "</span></p>";
+                    }
+                }
+                else {
+                    echo "<p>" . $arrayProdotti[$i][$j] . "<span class='disponibile'>" . $this->__('Disponibile in boutique') . "</span></p>";
+                }
+            }
+        }
+
+        echo "</div>";
+        if ($count>0) {
+            echo "<div class='shop'><button type='button' name='shop now' value='shop now' >Shop now</button></div>";
+        }
+        else {
+            echo "<div class='shop'><button type='button' name='shop now' value='shop now' disabled>Shop now</button></div>";
+        }
+        echo "</div></div>";
+        echo "<div class='immagine'><img src='".$this->getSkinUrl($url_immagine)."' style='height: 719px;display:inline ' />";
+        echo "</div>";
+        if ($count>0) {
+            echo '<ul class="lista_prodotti_hover">';
+            for ($j = 0; $j < count($arrayProdotti[$i]); $j++) {
+                if ($arrayProdotti[$i][$j] != "") {
+                    $check=substr($arrayProdotti[$i][$j],0,2);
+                    if ($check=="ID") {
+                        $check2=strpos($arrayProdotti[$i][$j]," BRAND-");
+                        $sku_prodotto = substr($arrayProdotti[$i][$j],3,$check2-3);
+                        $brand=substr($arrayProdotti[$i][$j],$check2+7,strlen($arrayProdotti[$i][$j])-($check2+7));
+                        $_product = Mage::getModel('catalog/product');
+                        if ($_product->getIdBySku($sku_prodotto) != null) {
+                            $_product->load($_product->getIdBySku($sku_prodotto));
+                            $visibility = $_product->getVisibility();
+                            if ($visibility=="4") {
+                                $flag=false;
+                                $img=$_product->load ( 'media_gallery' )->getMediaGalleryImages()->getItemByColumnValue('label', 'back');
+                                if ($img!=null){
+                                    $over=$img->getFile();
+                                    $flag=true;
+                                }
+                                else {
+                                    $img = $_product->load('media_gallery')->getMediaGalleryImages()->getItemByColumnValue('position_default', '2');
+                                    if ($img != null) {
+                                        $over = $img->getFile();
+                                        $flag = true;
+                                    }
+                                }
+
+                                $_category = getLastCategory($_product);
+                                ?>
+                                <?php
+                                $stockItem = $_product->getStockItem();
+                                if ($stockItem->getIsInStock()) {
+                                    ?>
+                                    <li class="item last">
+                                    <a href="<?php echo $_product->getProductUrl() ?>"
+                                       title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                                       class="product-image">
+                                        <?php $_imgSize = 210; ?>
+                                        <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                                             src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image') ?>"
+                                             alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                                            <?php
+                                            if ($flag == true) {
+                                                echo "onmouseover=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image', $over) . "'\"";
+                                                echo "onmouseout=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image') . "'\"";
+                                            }
+                                            ?>
+                                            />
+                                    </a>
+                                <?php
+                                } else {
+
+                                    ?>
+
+                                    <?php $_imgSize = 210; ?>
+                                    <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                                         src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image') ?>"
+                                         alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                                        <?php
+                                        if ($flag == true) {
+                                            echo "onmouseover=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image', $over) . "'\"";
+                                            echo "onmouseout=\"this.src='" . $this->helper('catalog/image')->init($_product, 'small_image') . "'\"";
+                                        }
+                                        ?>
+
+                                        />
+
+                                <?php
+                                }
+                                ?>
+
+                                <div class="product-info" style="text-align: center;margin-top:10px;">
+                                    <h2 class="product-name"
+                                        style="font-family: Brandon_bld"><?php echo $_product->getAttributeText("ca_brand") ?></h2>
+
+                                    <h2 class="product-name"
+                                        style="font-size:12px;text-transform: capitalize"><?php echo $_category->getName(); ?></h2>
+                                    <?php echo $this->getPriceHtml($_product, true) ?>
+                                    <?php
+                                    $stockItem = $_product->getStockItem();
+                                    if (!$stockItem->getIsInStock()) {
+                                        echo "<p style='color:red;font-size:12px'>" . $this->__("Articolo terminato") . "</p>";
+                                    }
+                                    ?>
+                                </div>
+                                </li>
+                            <?php
+                            }
+                        }
+                    }
+                }
+            }
+            echo '<a class="close skip-link-close yps_close" href="javascript:void(0)" title="">&times;</a>';
+
+            echo "</ul>";
+        }
+
+        echo "</div>";
+    }
+}
+
+
+function getLastCategory($product){
+    $categoryModel = Mage::getModel( 'catalog/category' );
+
+//Get Array of Category Id's with Last as First (Reversed)
+    $_categories = array_reverse( $product->getCategoryIds() );
+
+//Load Category
+    $_category = $categoryModel->load($_categories[0]);
+
+    return $_category;
+}
+
+?>
+<!--<ul class="lista_prodotti_hover"><li class="item last">
+        <a href="http://www.coltortiboutique.com/it/jeans-dsquared2-151431dje000002-470.html" title="Jeans dsquared2" class="product-image">
+            <img id="product-collection-image-3748" src="http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/j/e/jeans_dsquared2_blu_151431dje000002-470-3.jpg" alt="Jeans dsquared2" onmouseover="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/j/e/jeans_dsquared2_blu_151431dje000002-470-4.jpg'" onmouseout="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/j/e/jeans_dsquared2_blu_151431dje000002-470-3.jpg'">
+        </a>
+        <div class="product-info">
+            <h2 class="product-name" style="font-family: Brandon_bld"><span style="padding: 0px; background-color: rgb(255, 255, 255);">Dsquared2</span></h2>
+            <h2 class="product-name" style="font-size:12px;text-transform: capitalize">Jeans</h2>
+
+
+
+
+
+            <div class="price-box">
+                                                                <span class="regular-price" id="product-price-3748">
+                                            <span class="price">285,00&nbsp;€</span>                                    </span>
+
+            </div>
+
+        </div>
+
+    </li><li class="item last">
+        <a href="http://www.coltortiboutique.com/it/mocassini-salvatore-ferragamo-151400lcx000053-sugp.html" title="Mocassini salvatore ferragamo" class="product-image">
+            <img id="product-collection-image-4678" src="http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/m/o/mocassini_salvatore-ferragamo_blu_151400lcx000053-sugp-3.jpg" alt="Mocassini salvatore ferragamo" onmouseover="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/m/o/mocassini_salvatore-ferragamo_blu_151400lcx000053-sugp-4.jpg'" onmouseout="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/m/o/mocassini_salvatore-ferragamo_blu_151400lcx000053-sugp-3.jpg'">
+        </a>
+        <div class="product-info">
+            <h2 class="product-name" style="font-family: Brandon_bld"><span style="padding: 0px; background-color: rgb(255, 255, 255);">Salvatore Ferragamo</span></h2>
+            <h2 class="product-name" style="font-size:12px;text-transform: capitalize">Mocassini</h2>
+
+
+
+
+
+            <div class="price-box">
+                                                                <span class="regular-price" id="product-price-4678">
+                                            <span class="price">440,00&nbsp;€</span>                                    </span>
+
+            </div>
+
+        </div>
+
+
+    </li>
+    <li class="item last">
+        <a href="http://www.coltortiboutique.com/it/borse-celine-151414abs000019-06tu.html" title="Borse celine" class="product-image">
+            <img id="product-collection-image-4590" src="http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/b/o/borse_celine_blu_151414abs000019-06tu-3.jpg" alt="Borse celine" onmouseover="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/b/o/borse_celine_blu_151414abs000019-06tu-4.jpg'" onmouseout="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/b/o/borse_celine_blu_151414abs000019-06tu-3.jpg'">
+        </a>
+        <div class="product-info">
+            <h2 class="product-name" style="font-family: Brandon_bld"><span style="padding: 0px; background-color: rgb(255, 255, 255);">Celine</span></h2>
+            <h2 class="product-name" style="font-size:12px;text-transform: capitalize">Borse</h2>
+
+
+
+
+
+            <div class="price-box">
+                                                                <span class="regular-price" id="product-price-4590">
+                                            <span class="price">800,00&nbsp;€</span>                                    </span>
+
+            </div>
+
+        </div>
+
+    </li>
+    <li class="item last">
+        <a href="http://www.coltortiboutique.com/it/jeans-dsquared2-151431dje000011-470.html" title="Jeans dsquared2" class="product-image">
+            <img id="product-collection-image-3721" src="http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/j/e/jeans_dsquared2_blu_151431dje000011-470-3.jpg" alt="Jeans dsquared2" onmouseover="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/j/e/jeans_dsquared2_blu_151431dje000011-470-4.jpg'" onmouseout="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/j/e/jeans_dsquared2_blu_151431dje000011-470-3.jpg'">
+        </a>
+        <div class="product-info">
+            <h2 class="product-name" style="font-family: Brandon_bld"><span style="padding: 0px; background-color: rgb(255, 255, 255);">Dsquared2</span></h2>
+            <h2 class="product-name" style="font-size:12px;text-transform: capitalize">Jeans</h2>
+
+
+
+
+
+            <div class="price-box">
+                                                                <span class="regular-price" id="product-price-3721">
+                                            <span class="price">380,00&nbsp;€</span>                                    </span>
+
+            </div>
+        </div>
+
+    </li>
+    <li class="item last">
+        <a href="http://www.coltortiboutique.com/it/maglie-salvatore-ferragamo-151400dma000002-oxblu.html" title="Maglie salvatore ferragamo" class="product-image">
+            <img id="product-collection-image-4847" src="http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/m/a/maglie_salvatore-ferragamo_blu_151400dma000002-oxblu-3.jpg" alt="Maglie salvatore ferragamo" onmouseover="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/m/a/maglie_salvatore-ferragamo_blu_151400dma000002-oxblu-4.jpg'" onmouseout="this.src='http://www.coltortiboutique.com/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/m/a/maglie_salvatore-ferragamo_blu_151400dma000002-oxblu-3.jpg'">
+        </a>
+        <div class="product-info">
+            <h2 class="product-name" style="font-family: Brandon_bld"><span style="padding: 0px; background-color: rgb(255, 255, 255);">Salvatore Ferragamo</span></h2>
+            <h2 class="product-name" style="font-size:12px;text-transform: capitalize">Maglie</h2>
+
+
+
+
+
+            <div class="price-box">
+                                                                <span class="regular-price" id="product-price-4847">
+                                            <span class="price">530,00&nbsp;€</span>                                    </span>
+
+            </div>
+        </div>
+
+
+    </li></ul>-->
+<?php
+
+/*
+
+echo "<div class='div_first_advisor visibile div_first_advisor_pari'>";
+echo "<div class='div_esterno'><div class='contenuto'>";
+echo "<h1>outfit 2</h1>";
+echo "<p>Uomo / Donna / Accessori</p>";
+echo "<div class='shop'><button type='button' name='shop now' value='shop now' >Shop now</button></div>";
+echo "</div></div>";
+echo "<div class='immagine'><img src='".$this->getSkinUrl("images/look/LOOK-2.jpg")."' style='height: 719px;display:inline ' />";
+echo "</div>";
+echo "</div>";
+
+
+echo "<div class='div_first_advisor visibile div_first_advisor_dispari'>";
+echo "<div class='immagine'><img src='".$this->getSkinUrl("images/look/LOOK-3.jpg")."' style='height: 719px;display:inline ' />";
+echo "</div><div class='div_esterno'><div class='contenuto'>";
+echo "<h1>outfit 3</h1>";
+echo "<p>Uomo / Donna / Accessori</p>";
+echo "<div class='shop'><button type='button' name='shop now' value='shop now'>Shop now</button></div>";
+echo "</div></div>";
+echo "</div>";
+
+*/
+
+
+?>
+
+
+

@@ -35,7 +35,7 @@ public function getLastInsertId($tableName, $primaryKey)
 
 public function replace_accents($string)
     {
-        return str_replace( array('à','á','â','ã','ä', 'ç', 'è','é','ê','ë', 'ì','í','î','ï', 'ñ', 'ò','ó','ô','õ','ö', 'ù','ú','û','ü', 'ý','ÿ', 'À','Á','Â','Ã','Ä', 'Ç', 'È','É','Ê','Ë', 'Ì','Í','Î','Ï', 'Ñ', 'Ò','Ó','Ô','Õ','Ö', 'Ù','Ú','Û','Ü', 'Ý'), array('a','a','a','a','a', 'c', 'e','e','e','e', 'i','i','i','i', 'n', 'o','o','o','o','o', 'u','u','u','u', 'y','y', 'A','A','A','A','A', 'C', 'E','E','E','E', 'I','I','I','I', 'N', 'O','O','O','O','O', 'U','U','U','U', 'Y'), $string);
+        return str_replace( array('Ã ','Ã¡','Ã¢','Ã£','Ã¤', 'Ã§', 'Ã¨','Ã©','Ãª','Ã«', 'Ã¬','Ã­','Ã®','Ã¯', 'Ã±', 'Ã²','Ã³','Ã´','Ãµ','Ã¶', 'Ã¹','Ãº','Ã»','Ã¼', 'Ã½','Ã¿', 'Ã€','Ã�','Ã‚','Ãƒ','Ã„', 'Ã‡', 'Ãˆ','Ã‰','ÃŠ','Ã‹', 'ÃŒ','Ã�','ÃŽ','Ã�', 'Ã‘', 'Ã’','Ã“','Ã”','Ã•','Ã–', 'Ã™','Ãš','Ã›','Ãœ', 'Ã�'), array('a','a','a','a','a', 'c', 'e','e','e','e', 'i','i','i','i', 'n', 'o','o','o','o','o', 'u','u','u','u', 'y','y', 'A','A','A','A','A', 'C', 'E','E','E','E', 'I','I','I','I', 'N', 'O','O','O','O','O', 'U','U','U','U', 'Y'), $string);
     }
 
 // Download Image
@@ -125,69 +125,69 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
 
         $char_map = array(
             // Latin
-            'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'AE', 'Ç' => 'C',
-            'È' => 'E', 'É' => 'E', 'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I',
-            'Ð' => 'D', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ő' => 'O',
-            'Ø' => 'O', 'Ù' => 'U', 'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ű' => 'U', 'Ý' => 'Y', 'Þ' => 'TH',
-            'ß' => 'ss',
-            'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'ae', 'ç' => 'c',
-            'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i',
-            'ð' => 'd', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o', 'ö' => 'o', 'ő' => 'o',
-            'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ü' => 'u', 'ű' => 'u', 'ý' => 'y', 'þ' => 'th',
-            'ÿ' => 'y',
+            'Ã€' => 'A', 'Ã�' => 'A', 'Ã‚' => 'A', 'Ãƒ' => 'A', 'Ã„' => 'A', 'Ã…' => 'A', 'Ã†' => 'AE', 'Ã‡' => 'C',
+            'Ãˆ' => 'E', 'Ã‰' => 'E', 'ÃŠ' => 'E', 'Ã‹' => 'E', 'ÃŒ' => 'I', 'Ã�' => 'I', 'ÃŽ' => 'I', 'Ã�' => 'I',
+            'Ã�' => 'D', 'Ã‘' => 'N', 'Ã’' => 'O', 'Ã“' => 'O', 'Ã”' => 'O', 'Ã•' => 'O', 'Ã–' => 'O', 'Å�' => 'O',
+            'Ã˜' => 'O', 'Ã™' => 'U', 'Ãš' => 'U', 'Ã›' => 'U', 'Ãœ' => 'U', 'Å°' => 'U', 'Ã�' => 'Y', 'Ãž' => 'TH',
+            'ÃŸ' => 'ss',
+            'Ã ' => 'a', 'Ã¡' => 'a', 'Ã¢' => 'a', 'Ã£' => 'a', 'Ã¤' => 'a', 'Ã¥' => 'a', 'Ã¦' => 'ae', 'Ã§' => 'c',
+            'Ã¨' => 'e', 'Ã©' => 'e', 'Ãª' => 'e', 'Ã«' => 'e', 'Ã¬' => 'i', 'Ã­' => 'i', 'Ã®' => 'i', 'Ã¯' => 'i',
+            'Ã°' => 'd', 'Ã±' => 'n', 'Ã²' => 'o', 'Ã³' => 'o', 'Ã´' => 'o', 'Ãµ' => 'o', 'Ã¶' => 'o', 'Å‘' => 'o',
+            'Ã¸' => 'o', 'Ã¹' => 'u', 'Ãº' => 'u', 'Ã»' => 'u', 'Ã¼' => 'u', 'Å±' => 'u', 'Ã½' => 'y', 'Ã¾' => 'th',
+            'Ã¿' => 'y',
 
             // Latin symbols
-            '©' => '(c)',
+            'Â©' => '(c)',
 
             // Greek
-            'Α' => 'A', 'Β' => 'B', 'Γ' => 'G', 'Δ' => 'D', 'Ε' => 'E', 'Ζ' => 'Z', 'Η' => 'H', 'Θ' => '8',
-            'Ι' => 'I', 'Κ' => 'K', 'Λ' => 'L', 'Μ' => 'M', 'Ν' => 'N', 'Ξ' => '3', 'Ο' => 'O', 'Π' => 'P',
-            'Ρ' => 'R', 'Σ' => 'S', 'Τ' => 'T', 'Υ' => 'Y', 'Φ' => 'F', 'Χ' => 'X', 'Ψ' => 'PS', 'Ω' => 'W',
-            'Ά' => 'A', 'Έ' => 'E', 'Ί' => 'I', 'Ό' => 'O', 'Ύ' => 'Y', 'Ή' => 'H', 'Ώ' => 'W', 'Ϊ' => 'I',
-            'Ϋ' => 'Y',
-            'α' => 'a', 'β' => 'b', 'γ' => 'g', 'δ' => 'd', 'ε' => 'e', 'ζ' => 'z', 'η' => 'h', 'θ' => '8',
-            'ι' => 'i', 'κ' => 'k', 'λ' => 'l', 'μ' => 'm', 'ν' => 'n', 'ξ' => '3', 'ο' => 'o', 'π' => 'p',
-            'ρ' => 'r', 'σ' => 's', 'τ' => 't', 'υ' => 'y', 'φ' => 'f', 'χ' => 'x', 'ψ' => 'ps', 'ω' => 'w',
-            'ά' => 'a', 'έ' => 'e', 'ί' => 'i', 'ό' => 'o', 'ύ' => 'y', 'ή' => 'h', 'ώ' => 'w', 'ς' => 's',
-            'ϊ' => 'i', 'ΰ' => 'y', 'ϋ' => 'y', 'ΐ' => 'i',
+            'Î‘' => 'A', 'Î’' => 'B', 'Î“' => 'G', 'Î”' => 'D', 'Î•' => 'E', 'Î–' => 'Z', 'Î—' => 'H', 'Î˜' => '8',
+            'Î™' => 'I', 'Îš' => 'K', 'Î›' => 'L', 'Îœ' => 'M', 'Î�' => 'N', 'Îž' => '3', 'ÎŸ' => 'O', 'Î ' => 'P',
+            'Î¡' => 'R', 'Î£' => 'S', 'Î¤' => 'T', 'Î¥' => 'Y', 'Î¦' => 'F', 'Î§' => 'X', 'Î¨' => 'PS', 'Î©' => 'W',
+            'Î†' => 'A', 'Îˆ' => 'E', 'ÎŠ' => 'I', 'ÎŒ' => 'O', 'ÎŽ' => 'Y', 'Î‰' => 'H', 'Î�' => 'W', 'Îª' => 'I',
+            'Î«' => 'Y',
+            'Î±' => 'a', 'Î²' => 'b', 'Î³' => 'g', 'Î´' => 'd', 'Îµ' => 'e', 'Î¶' => 'z', 'Î·' => 'h', 'Î¸' => '8',
+            'Î¹' => 'i', 'Îº' => 'k', 'Î»' => 'l', 'Î¼' => 'm', 'Î½' => 'n', 'Î¾' => '3', 'Î¿' => 'o', 'Ï€' => 'p',
+            'Ï�' => 'r', 'Ïƒ' => 's', 'Ï„' => 't', 'Ï…' => 'y', 'Ï†' => 'f', 'Ï‡' => 'x', 'Ïˆ' => 'ps', 'Ï‰' => 'w',
+            'Î¬' => 'a', 'Î­' => 'e', 'Î¯' => 'i', 'ÏŒ' => 'o', 'Ï�' => 'y', 'Î®' => 'h', 'ÏŽ' => 'w', 'Ï‚' => 's',
+            'ÏŠ' => 'i', 'Î°' => 'y', 'Ï‹' => 'y', 'Î�' => 'i',
 
             // Turkish
-            'Ş' => 'S', 'İ' => 'I', 'Ç' => 'C', 'Ü' => 'U', 'Ö' => 'O', 'Ğ' => 'G',
-            'ş' => 's', 'ı' => 'i', 'ç' => 'c', 'ü' => 'u', 'ö' => 'o', 'ğ' => 'g',
+            'Åž' => 'S', 'Ä°' => 'I', 'Ã‡' => 'C', 'Ãœ' => 'U', 'Ã–' => 'O', 'Äž' => 'G',
+            'ÅŸ' => 's', 'Ä±' => 'i', 'Ã§' => 'c', 'Ã¼' => 'u', 'Ã¶' => 'o', 'ÄŸ' => 'g',
 
             // Russian
-            'А' => 'A', 'Б' => 'B', 'В' => 'V', 'Г' => 'G', 'Д' => 'D', 'Е' => 'E', 'Ё' => 'Yo', 'Ж' => 'Zh',
-            'З' => 'Z', 'И' => 'I', 'Й' => 'J', 'К' => 'K', 'Л' => 'L', 'М' => 'M', 'Н' => 'N', 'О' => 'O',
-            'П' => 'P', 'Р' => 'R', 'С' => 'S', 'Т' => 'T', 'У' => 'U', 'Ф' => 'F', 'Х' => 'H', 'Ц' => 'C',
-            'Ч' => 'Ch', 'Ш' => 'Sh', 'Щ' => 'Sh', 'Ъ' => '', 'Ы' => 'Y', 'Ь' => '', 'Э' => 'E', 'Ю' => 'Yu',
-            'Я' => 'Ya',
-            'а' => 'a', 'б' => 'b', 'в' => 'v', 'г' => 'g', 'д' => 'd', 'е' => 'e', 'ё' => 'yo', 'ж' => 'zh',
-            'з' => 'z', 'и' => 'i', 'й' => 'j', 'к' => 'k', 'л' => 'l', 'м' => 'm', 'н' => 'n', 'о' => 'o',
-            'п' => 'p', 'р' => 'r', 'с' => 's', 'т' => 't', 'у' => 'u', 'ф' => 'f', 'х' => 'h', 'ц' => 'c',
-            'ч' => 'ch', 'ш' => 'sh', 'щ' => 'sh', 'ъ' => '', 'ы' => 'y', 'ь' => '', 'э' => 'e', 'ю' => 'yu',
-            'я' => 'ya',
+            'Ð�' => 'A', 'Ð‘' => 'B', 'Ð’' => 'V', 'Ð“' => 'G', 'Ð”' => 'D', 'Ð•' => 'E', 'Ð�' => 'Yo', 'Ð–' => 'Zh',
+            'Ð—' => 'Z', 'Ð˜' => 'I', 'Ð™' => 'J', 'Ðš' => 'K', 'Ð›' => 'L', 'Ðœ' => 'M', 'Ð�' => 'N', 'Ðž' => 'O',
+            'ÐŸ' => 'P', 'Ð ' => 'R', 'Ð¡' => 'S', 'Ð¢' => 'T', 'Ð£' => 'U', 'Ð¤' => 'F', 'Ð¥' => 'H', 'Ð¦' => 'C',
+            'Ð§' => 'Ch', 'Ð¨' => 'Sh', 'Ð©' => 'Sh', 'Ðª' => '', 'Ð«' => 'Y', 'Ð¬' => '', 'Ð­' => 'E', 'Ð®' => 'Yu',
+            'Ð¯' => 'Ya',
+            'Ð°' => 'a', 'Ð±' => 'b', 'Ð²' => 'v', 'Ð³' => 'g', 'Ð´' => 'd', 'Ðµ' => 'e', 'Ñ‘' => 'yo', 'Ð¶' => 'zh',
+            'Ð·' => 'z', 'Ð¸' => 'i', 'Ð¹' => 'j', 'Ðº' => 'k', 'Ð»' => 'l', 'Ð¼' => 'm', 'Ð½' => 'n', 'Ð¾' => 'o',
+            'Ð¿' => 'p', 'Ñ€' => 'r', 'Ñ�' => 's', 'Ñ‚' => 't', 'Ñƒ' => 'u', 'Ñ„' => 'f', 'Ñ…' => 'h', 'Ñ†' => 'c',
+            'Ñ‡' => 'ch', 'Ñˆ' => 'sh', 'Ñ‰' => 'sh', 'ÑŠ' => '', 'Ñ‹' => 'y', 'ÑŒ' => '', 'Ñ�' => 'e', 'ÑŽ' => 'yu',
+            'Ñ�' => 'ya',
 
             // Ukrainian
-            'Є' => 'Ye', 'І' => 'I', 'Ї' => 'Yi', 'Ґ' => 'G',
-            'є' => 'ye', 'і' => 'i', 'ї' => 'yi', 'ґ' => 'g',
+            'Ð„' => 'Ye', 'Ð†' => 'I', 'Ð‡' => 'Yi', 'Ò�' => 'G',
+            'Ñ”' => 'ye', 'Ñ–' => 'i', 'Ñ—' => 'yi', 'Ò‘' => 'g',
 
             // Czech
-            'Č' => 'C', 'Ď' => 'D', 'Ě' => 'E', 'Ň' => 'N', 'Ř' => 'R', 'Š' => 'S', 'Ť' => 'T', 'Ů' => 'U',
-            'Ž' => 'Z',
-            'č' => 'c', 'ď' => 'd', 'ě' => 'e', 'ň' => 'n', 'ř' => 'r', 'š' => 's', 'ť' => 't', 'ů' => 'u',
-            'ž' => 'z',
+            'ÄŒ' => 'C', 'ÄŽ' => 'D', 'Äš' => 'E', 'Å‡' => 'N', 'Å˜' => 'R', 'Å ' => 'S', 'Å¤' => 'T', 'Å®' => 'U',
+            'Å½' => 'Z',
+            'Ä�' => 'c', 'Ä�' => 'd', 'Ä›' => 'e', 'Åˆ' => 'n', 'Å™' => 'r', 'Å¡' => 's', 'Å¥' => 't', 'Å¯' => 'u',
+            'Å¾' => 'z',
 
             // Polish
-            'Ą' => 'A', 'Ć' => 'C', 'Ę' => 'e', 'Ł' => 'L', 'Ń' => 'N', 'Ó' => 'o', 'Ś' => 'S', 'Ź' => 'Z',
-            'Ż' => 'Z',
-            'ą' => 'a', 'ć' => 'c', 'ę' => 'e', 'ł' => 'l', 'ń' => 'n', 'ó' => 'o', 'ś' => 's', 'ź' => 'z',
-            'ż' => 'z',
+            'Ä„' => 'A', 'Ä†' => 'C', 'Ä˜' => 'e', 'Å�' => 'L', 'Åƒ' => 'N', 'Ã“' => 'o', 'Åš' => 'S', 'Å¹' => 'Z',
+            'Å»' => 'Z',
+            'Ä…' => 'a', 'Ä‡' => 'c', 'Ä™' => 'e', 'Å‚' => 'l', 'Å„' => 'n', 'Ã³' => 'o', 'Å›' => 's', 'Åº' => 'z',
+            'Å¼' => 'z',
 
             // Latvian
-            'Ā' => 'A', 'Č' => 'C', 'Ē' => 'E', 'Ģ' => 'G', 'Ī' => 'i', 'Ķ' => 'k', 'Ļ' => 'L', 'Ņ' => 'N',
-            'Š' => 'S', 'Ū' => 'u', 'Ž' => 'Z',
-            'ā' => 'a', 'č' => 'c', 'ē' => 'e', 'ģ' => 'g', 'ī' => 'i', 'ķ' => 'k', 'ļ' => 'l', 'ņ' => 'n',
-            'š' => 's', 'ū' => 'u', 'ž' => 'z'
+            'Ä€' => 'A', 'ÄŒ' => 'C', 'Ä’' => 'E', 'Ä¢' => 'G', 'Äª' => 'i', 'Ä¶' => 'k', 'Ä»' => 'L', 'Å…' => 'N',
+            'Å ' => 'S', 'Åª' => 'u', 'Å½' => 'Z',
+            'Ä�' => 'a', 'Ä�' => 'c', 'Ä“' => 'e', 'Ä£' => 'g', 'Ä«' => 'i', 'Ä·' => 'k', 'Ä¼' => 'l', 'Å†' => 'n',
+            'Å¡' => 's', 'Å«' => 'u', 'Å¾' => 'z'
         );
 
         // Make custom replacements
@@ -224,9 +224,9 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
         );
 
 
-        curl_setopt($curlPost, CURLOPT_POST, true);  // indico che la richiesta è di tipo POST
+        curl_setopt($curlPost, CURLOPT_POST, true);  // indico che la richiesta Ã¨ di tipo POST
         curl_setopt($curlPost, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-        curl_setopt($curlPost, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; è necessario perchè altrimenti non esegue la chiamata rest
+        curl_setopt($curlPost, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; Ã¨ necessario perchÃ¨ altrimenti non esegue la chiamata rest
         curl_setopt($curlPost, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curlPost, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curlPost, CURLOPT_HTTPHEADER, $headersPost);
@@ -256,8 +256,8 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
 // recupero solo l'header della richiesta
             $service_urlGet = $service_url . "/attributes?&limit=100";
             $curlGet = curl_init($service_urlGet);
-            curl_setopt($curlGet, CURLOPT_HTTPAUTH, CURLAUTH_ANY); // accetto ogni autenticazione. Il sitema utilizzerà la migliore
-            curl_setopt($curlGet, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; è necessario perchè altrimenti non esegue la chiamata rest
+            curl_setopt($curlGet, CURLOPT_HTTPAUTH, CURLAUTH_ANY); // accetto ogni autenticazione. Il sitema utilizzerÃ  la migliore
+            curl_setopt($curlGet, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; Ã¨ necessario perchÃ¨ altrimenti non esegue la chiamata rest
             curl_setopt($curlGet, CURLOPT_RETURNTRANSFER, true); // salvo l'output della richiesta in una variabile
             curl_setopt($curlGet, CURLOPT_HEADER, true);
             curl_setopt($curlGet, CURLOPT_SSL_VERIFYHOST, false);
@@ -299,9 +299,9 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                     );
 
 
-                    curl_setopt($curlPost, CURLOPT_POST, true);  // indico che la richiesta è di tipo POST
+                    curl_setopt($curlPost, CURLOPT_POST, true);  // indico che la richiesta Ã¨ di tipo POST
                     curl_setopt($curlPost, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-                    curl_setopt($curlPost, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; è necessario perchè altrimenti non esegue la chiamata rest
+                    curl_setopt($curlPost, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; Ã¨ necessario perchÃ¨ altrimenti non esegue la chiamata rest
                     curl_setopt($curlPost, CURLOPT_RETURNTRANSFER, true);
                     curl_setopt($curlPost, CURLOPT_SSL_VERIFYHOST, false);
                     curl_setopt($curlPost, CURLOPT_HTTPHEADER, $headersPost);
@@ -328,8 +328,8 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                         );
                         $service_urlGet = $service_url . "/attributes?limit=100&page=" . $p;
                         $curlGet = curl_init($service_urlGet);
-                        curl_setopt($curlGet, CURLOPT_HTTPAUTH, CURLAUTH_ANY); // accetto ogni autenticazione. Il sitema utilizzerà la migliore
-                        curl_setopt($curlGet, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; è necessario perchè altrimenti non esegue la chiamata rest
+                        curl_setopt($curlGet, CURLOPT_HTTPAUTH, CURLAUTH_ANY); // accetto ogni autenticazione. Il sitema utilizzerÃ  la migliore
+                        curl_setopt($curlGet, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; Ã¨ necessario perchÃ¨ altrimenti non esegue la chiamata rest
                         curl_setopt($curlGet, CURLOPT_RETURNTRANSFER, true); // salvo l'output della richiesta in una variabile
                         curl_setopt($curlGet, CURLOPT_HTTPHEADER, $headersGet); // setto l'header della richiesta
                         curl_setopt($curlGet, CURLOPT_SSL_VERIFYHOST, false);
@@ -436,7 +436,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                     $nome_attributoMage = substr("ca_" . $id_attributo, 0, 30);
                                 }
 
-                                // se l'attributo è il supercolore utilizzo anche l'attributo colore
+                                // se l'attributo Ã¨ il supercolore utilizzo anche l'attributo colore
                                 if ($nome_attributo == "Supercolore") {
 
 
@@ -591,9 +591,9 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                         );
 
 
-                        curl_setopt($curlPost, CURLOPT_POST, true);  // indico che la richiesta è di tipo POST
+                        curl_setopt($curlPost, CURLOPT_POST, true);  // indico che la richiesta Ã¨ di tipo POST
                         curl_setopt($curlPost, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-                        curl_setopt($curlPost, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; è necessario perchè altrimenti non esegue la chiamata rest
+                        curl_setopt($curlPost, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; Ã¨ necessario perchÃ¨ altrimenti non esegue la chiamata rest
                         curl_setopt($curlPost, CURLOPT_RETURNTRANSFER, true);
                         curl_setopt($curlPost, CURLOPT_SSL_VERIFYHOST, false);
                         curl_setopt($curlPost, CURLOPT_HTTPHEADER, $headersPost);
@@ -637,8 +637,8 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                             $service_urlGet = $service_url . "/products?images=true&attributes=true&limit=100&since_updated_at=" . $dataImport . "&until_updated_at=" . $dataFine;
                             Mage::log($service_urlGet, null, $logFileName);
                             $curlGet = curl_init($service_urlGet);
-                            curl_setopt($curlGet, CURLOPT_HTTPAUTH, CURLAUTH_ANY); // accetto ogni autenticazione. Il sitema utilizzerà la migliore
-                            curl_setopt($curlGet, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; è necessario perchè altrimenti non esegue la chiamata rest
+                            curl_setopt($curlGet, CURLOPT_HTTPAUTH, CURLAUTH_ANY); // accetto ogni autenticazione. Il sitema utilizzerÃ  la migliore
+                            curl_setopt($curlGet, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; Ã¨ necessario perchÃ¨ altrimenti non esegue la chiamata rest
                             curl_setopt($curlGet, CURLOPT_RETURNTRANSFER, true); // salvo l'output della richiesta in una variabile
                             curl_setopt($curlGet, CURLOPT_HEADER, true);
                             curl_setopt($curlGet, CURLOPT_SSL_VERIFYHOST, false);
@@ -690,9 +690,9 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                     );
 
 
-                                    curl_setopt($curlPost, CURLOPT_POST, true);  // indico che la richiesta è di tipo POST
+                                    curl_setopt($curlPost, CURLOPT_POST, true);  // indico che la richiesta Ã¨ di tipo POST
                                     curl_setopt($curlPost, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-                                    curl_setopt($curlPost, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; è necessario perchè altrimenti non esegue la chiamata rest
+                                    curl_setopt($curlPost, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; Ã¨ necessario perchÃ¨ altrimenti non esegue la chiamata rest
                                     curl_setopt($curlPost, CURLOPT_RETURNTRANSFER, true);
                                     curl_setopt($curlPost, CURLOPT_SSL_VERIFYHOST, false);
                                     curl_setopt($curlPost, CURLOPT_HTTPHEADER, $headersPost);
@@ -729,8 +729,8 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                         $service_urlGet = $service_url . "/products?images=true&attributes=true&limit=100&since_updated_at=" . $dataImport . "&until_updated_at=" . $dataFine . "&page=" . $p;
 
                                         $curlGet = curl_init($service_urlGet);
-                                        curl_setopt($curlGet, CURLOPT_HTTPAUTH, CURLAUTH_ANY); // accetto ogni autenticazione. Il sitema utilizzerà la migliore
-                                        curl_setopt($curlGet, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; è necessario perchè altrimenti non esegue la chiamata rest
+                                        curl_setopt($curlGet, CURLOPT_HTTPAUTH, CURLAUTH_ANY); // accetto ogni autenticazione. Il sitema utilizzerÃ  la migliore
+                                        curl_setopt($curlGet, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; Ã¨ necessario perchÃ¨ altrimenti non esegue la chiamata rest
                                         curl_setopt($curlGet, CURLOPT_RETURNTRANSFER, true); // salvo l'output della richiesta in una variabile
                                         curl_setopt($curlGet, CURLOPT_HTTPHEADER, $headersGet); // setto l'header della richiesta
                                         curl_setopt($curlGet, CURLOPT_SSL_VERIFYHOST, false);
@@ -934,9 +934,9 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                     );
 
 
-                                                    curl_setopt($curlPostEng, CURLOPT_POST, true);  // indico che la richiesta è di tipo POST
+                                                    curl_setopt($curlPostEng, CURLOPT_POST, true);  // indico che la richiesta Ã¨ di tipo POST
                                                     curl_setopt($curlPostEng, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-                                                    curl_setopt($curlPostEng, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; è necessario perchè altrimenti non esegue la chiamata rest
+                                                    curl_setopt($curlPostEng, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; Ã¨ necessario perchÃ¨ altrimenti non esegue la chiamata rest
                                                     curl_setopt($curlPostEng, CURLOPT_RETURNTRANSFER, true);
                                                     curl_setopt($curlPostEng, CURLOPT_SSL_VERIFYHOST, false);
                                                     curl_setopt($curlPostEng, CURLOPT_HTTPHEADER, $headersPostEng);
@@ -964,8 +964,8 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                     $service_urlGetEng = $service_url . "/products?lang=en&id=".$skuUrl;
 
                                                     $curlGetEng = curl_init($service_urlGetEng);
-                                                    curl_setopt($curlGetEng, CURLOPT_HTTPAUTH, CURLAUTH_ANY); // accetto ogni autenticazione. Il sitema utilizzerà la migliore
-                                                    curl_setopt($curlGetEng, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; è necessario perchè altrimenti non esegue la chiamata rest
+                                                    curl_setopt($curlGetEng, CURLOPT_HTTPAUTH, CURLAUTH_ANY); // accetto ogni autenticazione. Il sitema utilizzerÃ  la migliore
+                                                    curl_setopt($curlGetEng, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; Ã¨ necessario perchÃ¨ altrimenti non esegue la chiamata rest
                                                     curl_setopt($curlGetEng, CURLOPT_RETURNTRANSFER, true); // salvo l'output della richiesta in una variabile
                                                     curl_setopt($curlGetEng, CURLOPT_HTTPHEADER, $headersGetEng); // setto l'header della richiesta
                                                     curl_setopt($curlGetEng, CURLOPT_SSL_VERIFYHOST, false);
@@ -1184,7 +1184,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
 
                                                     // CATEGORIE
 
-                                                    // 1° LIVELLO CATEGORIA
+                                                    // 1Â° LIVELLO CATEGORIA
                                                     // recupero id magento associato (se esiste)
                                                     $stringQuery = "select id_magento from " . $resource->getTableName('wsca_macro_category') . " where id_ws='" . $id_categoria . "'";
                                                     $id_categoriaMage = $readConnection->fetchOne($stringQuery);
@@ -1230,8 +1230,8 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                         $sesso = $nomeCategoriaMage;
                                                     }
 
-                                                    // 2° LIVELLO CATEGORIA
-                                                    // recupero id magento associato (se esiste). Controllo il group associato alla macro category precedente è presente in magento
+                                                    // 2Â° LIVELLO CATEGORIA
+                                                    // recupero id magento associato (se esiste). Controllo il group associato alla macro category precedente Ã¨ presente in magento
                                                     $stringQuery = "select id_magento from " . $resource->getTableName('wsca_group') . " where id_ws='" . $id_sottocategoria1 . "' and id_macro_category='" . $id_categoria . "'";
                                                     $id_sottocategoria1Mage = $readConnection->fetchOne($stringQuery);
                                                     if ($id_sottocategoria1Mage == null) {
@@ -1278,8 +1278,8 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                         $nomeSottocategoria1Mage = $sottocategoria1->getName();
                                                     }
 
-                                                    // 3° LIVELLO CATEGORIA
-                                                    // recupero id magento associato (se esiste). Controllo il group associato alla macro category precedente è presente in magento
+                                                    // 3Â° LIVELLO CATEGORIA
+                                                    // recupero id magento associato (se esiste). Controllo il group associato alla macro category precedente Ã¨ presente in magento
                                                     $stringQuery = "select id_magento from " . $resource->getTableName('wsca_subgroup') . " where id_ws='" . $id_sottocategoria2 . "' and id_group='" . $id_sottocategoria1 . "' and id_macro_category='" . $id_categoria . "'";
                                                     $id_sottocategoria2Mage = $readConnection->fetchOne($stringQuery);
                                                     if ($id_sottocategoria2Mage == null) {
@@ -1326,9 +1326,9 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                         $nomeSottocategoria2Mage = $sottocategoria2->getName();
                                                     }
 
-                                                    // 4° LIVELLO CATEGORIA
+                                                    // 4Â° LIVELLO CATEGORIA
                                                     if ($id_sottocategoria3 != null) {
-                                                        // recupero id magento associato (se esiste). Controllo il group associato alla macro category precedente è presente in magento
+                                                        // recupero id magento associato (se esiste). Controllo il group associato alla macro category precedente Ã¨ presente in magento
                                                         $stringQuery = "select id_magento from " . $resource->getTableName('wsca_category') . " where id_ws='" . $id_sottocategoria3 . "' and id_subgroup='" . $id_sottocategoria2 . "' and id_group='" . $id_sottocategoria1 . "' and id_macro_category='" . $id_categoria . "'";
                                                         $id_sottocategoria3Mage = $readConnection->fetchOne($stringQuery);
                                                         if ($id_sottocategoria3Mage == null) {
@@ -1455,7 +1455,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                         $nome_attributoMage = substr("ca_" . $id_attributo, 0, 30);
 
                                                         if ($tipoAttributoMage == "select") {
-                                                            // se l'attributo è il supercolore utilizzo anche l'attributo colore
+                                                            // se l'attributo Ã¨ il supercolore utilizzo anche l'attributo colore
                                                             if ($nome_attributo == "Supercolore") {
                                                                 $stringaIdAttributo = "";
                                                                 $stringaValoreAttributo = "";
@@ -1552,7 +1552,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                                         $query = "insert into " . $resource->getTableName('wsca_filtraggio_colore') . " (id_magento,id_ws) values('" . $id_valoreattributoMage . "','" . $stringaIdAttributo . "')";
                                                                         $writeConnection->query($query);
                                                                     } else {
-                                                                        // se il prodotto ha più colori, salverò nell'attributo colore la dicitura Colori misti (se non esiste già)
+                                                                        // se il prodotto ha piÃ¹ colori, salverÃ² nell'attributo colore la dicitura Colori misti (se non esiste giÃ )
                                                                         $stringQuery = "select id_magento from " . $resource->getTableName('wsca_colore') . " where nome_magento='Colori misti'";
                                                                         $id_coloriMisti = $readConnection->fetchOne($stringQuery);
 
@@ -1582,7 +1582,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                                         }
 
 
-                                                                        // se il prodotto ha più colori, salverò nell'attributo filtraggio_colore tutti i colori presenti (se non esiste già)
+                                                                        // se il prodotto ha piÃ¹ colori, salverÃ² nell'attributo filtraggio_colore tutti i colori presenti (se non esiste giÃ )
                                                                         $filtraggio_colori = explode("/", $stringaIdAttributo);
                                                                         $filtraggio_coloriName = explode("/", $stringaValoreAttributo);
                                                                         for ($u = 0; $u < count($filtraggio_colori); $u++) {
@@ -1704,7 +1704,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                                             $writeConnection->query($query);
                                                                         }
                                                                     } else {
-                                                                        // se il prodotto ha più colori, salverò nell'attributo filtraggio_colore tutti i colori presenti (se non esiste già)
+                                                                        // se il prodotto ha piÃ¹ colori, salverÃ² nell'attributo filtraggio_colore tutti i colori presenti (se non esiste giÃ )
                                                                         $filtraggio_colori = explode("/", $stringaIdAttributo);
                                                                         $filtraggio_coloriName = explode("/", $stringaValoreAttributo);
                                                                         for ($u = 0; $u < count($filtraggio_colori); $u++) {
@@ -1747,7 +1747,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                                     $nome_valoreattributo = $value;
 
 
-                                                                    // salvo la supercomposizione se c'è
+                                                                    // salvo la supercomposizione se c'Ã¨
                                                                     if ($nome_attributo == "Supercomposizione") {
                                                                         $supercomposizione = $nome_valoreattributo;
                                                                     }
@@ -2336,6 +2336,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                         $productConfigurable->setMetaTitle($title);
 
                                                         // controllo brand non vendibili. Se non vendibili li metto a non visibile individualmente
+                                                        /*
                                                         if (($id_brandMage==2352 ||
                                                                 $id_brandMage==2510 ||
                                                                 $id_brandMage==1069 ||
@@ -2477,12 +2478,12 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                             )
 
                                                         ) {
-
+													  */
                                                             $productConfigurable->setVisibility(4);
 
-                                                        } else {
+                                                      /*  } else {
                                                             $productConfigurable->setVisibility(1);
-                                                        }
+                                                        }*/
 
 
 
@@ -3740,9 +3741,9 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                         );
 
 
-                        curl_setopt($curlPost, CURLOPT_POST, true);  // indico che la richiesta è di tipo POST
+                        curl_setopt($curlPost, CURLOPT_POST, true);  // indico che la richiesta Ã¨ di tipo POST
                         curl_setopt($curlPost, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-                        curl_setopt($curlPost, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; è necessario perchè altrimenti non esegue la chiamata rest
+                        curl_setopt($curlPost, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; Ã¨ necessario perchÃ¨ altrimenti non esegue la chiamata rest
                         curl_setopt($curlPost, CURLOPT_RETURNTRANSFER, true);
                         curl_setopt($curlPost, CURLOPT_HTTPHEADER, $headersPost);
                         curl_setopt($curlPost, CURLOPT_SSL_VERIFYHOST, false);
@@ -3789,7 +3790,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                     $skuUrl = str_replace(" ", "%20", $skuUrl);
 
                                     // per ogni prodotto configurabile recupero lo sku
-                                    // controllo quante occorrenze si ha con quello sku ( se il prodotto è presente su più depositi)
+                                    // controllo quante occorrenze si ha con quello sku ( se il prodotto Ã¨ presente su piÃ¹ depositi)
 
 
                                     $headersGet = array(
@@ -3799,8 +3800,8 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
 
                                     $service_urlGet = $service_url . "/stocks?id=" . $skuUrl;
                                     $curlGet = curl_init($service_urlGet);
-                                    curl_setopt($curlGet, CURLOPT_HTTPAUTH, CURLAUTH_ANY); // accetto ogni autenticazione. Il sitema utilizzerà la migliore
-                                    curl_setopt($curlGet, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; è necessario perchè altrimenti non esegue la chiamata rest
+                                    curl_setopt($curlGet, CURLOPT_HTTPAUTH, CURLAUTH_ANY); // accetto ogni autenticazione. Il sitema utilizzerÃ  la migliore
+                                    curl_setopt($curlGet, CURLOPT_SSL_VERIFYPEER, false); // disabilito la verifica del certificato SSL; Ã¨ necessario perchÃ¨ altrimenti non esegue la chiamata rest
                                     curl_setopt($curlGet, CURLOPT_RETURNTRANSFER, true); // salvo l'output della richiesta in una variabile
                                     curl_setopt($curlGet, CURLOPT_HTTPHEADER, $headersGet); // setto l'header della richiesta
                                     curl_setopt($curlGet, CURLOPT_SSL_VERIFYHOST, false);
@@ -3909,7 +3910,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                                         $productSimple = Mage::getModel("catalog/product")->load($product_id);
 
 
-                                                                        // controllo esistenza quantità prodotto nella tabella magazzini
+                                                                        // controllo esistenza quantitÃ  prodotto nella tabella magazzini
                                                                         $query = "select qty from " . $resource->getTableName('wg_warehouse_product') . " where warehouse_id = '" . $idDepositoMage . "' and product_id = '" . $product_id . "'";
                                                                         $qtyMagazzino = $readConnection->fetchOne($query);
 
@@ -3917,7 +3918,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
 
                                                                         if ($qtyMagazzino == null) {
                                                                             // se la qta non esiste allora la metto nel database dei magazzino
-                                                                            // setto flag a true per indicare che è stata fatta una modifica per il prodotto semplice relativo
+                                                                            // setto flag a true per indicare che Ã¨ stata fatta una modifica per il prodotto semplice relativo
                                                                             $data = Mage::getSingleton('core/date')->gmtDate();
                                                                             $query = "insert into " . $resource->getTableName('wg_warehouse_product') . " (warehouse_id,product_id,qty,created_at,updated_at) values('" . $idDepositoMage . "','" . $product_id . "','" . $disponibilita . "','" . $data . "','" . $data . "')";
                                                                             $writeConnection->query($query);
@@ -3925,7 +3926,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
 
                                                                         } else {
 
-                                                                            // aggiorno la qta solo se è effettivamente cambiata
+                                                                            // aggiorno la qta solo se Ã¨ effettivamente cambiata
                                                                             if ($qtyMagazzino != $disponibilita) {
                                                                                 $query = "update " . $resource->getTableName('wg_warehouse_product') . " set qty='" . $disponibilita . "' where warehouse_id = '" . $idDepositoMage . "' and product_id = '" . $product_id . "'";
                                                                                 $writeConnection->query($query);
@@ -3943,11 +3944,11 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
 
                                                                         if ($flag == true) {
                                                                             // aggiorno la qta del prodotto su magento solo se sono state fatte modifiche
-                                                                            // calcolo il totale quantità per il prodotto
+                                                                            // calcolo il totale quantitÃ  per il prodotto
                                                                             $query = "select SUM(qty) from " . $resource->getTableName('wg_warehouse_product') . " where product_id = '" . $product_id . "'";
                                                                             $qtyTot = $readConnection->fetchOne($query);
 
-                                                                            // salvo il totale quantità
+                                                                            // salvo il totale quantitÃ 
                                                                             $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productSimple->getId());
                                                                             $stockItem->setData('qty', $qtyTot);
                                                                             if ($qtyTot > 0) {
@@ -3981,9 +3982,9 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                                     $indiceP = strtolower($productSimple->getAttributeText("ca_misura"));
                                                                     $query = "select SUM(qty) from " . $resource->getTableName('wg_warehouse_product') . " where product_id = '" . $id . "'";
                                                                     $qtyTot = $readConnection->fetchOne($query);
-                                                                    // controllo quanta quantità è salvata nel db per il prodotto e la confronto con quella effetivamente ritornata dal WS
+                                                                    // controllo quanta quantitÃ  Ã¨ salvata nel db per il prodotto e la confronto con quella effetivamente ritornata dal WS
                                                                     if (number_format($qtyTot, 0) != $qtaTotale[$indiceP]) {
-                                                                        // se è diversa significa che alcuni magazzini sono stati eliminati
+                                                                        // se Ã¨ diversa significa che alcuni magazzini sono stati eliminati
                                                                         // li trovvo facendo l'array diff di tutti i magazzini con quelli recuperati dal WS per il prodotto
                                                                         $magazziniNot = array_values(array_diff($depositiAll, $magazzinoArray));
                                                                         for ($t = 0; $t < count($magazziniNot); $t++) {
@@ -3992,7 +3993,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                                             $writeConnection->query($query2);
                                                                         }
 
-                                                                        // salvo il totale quantità in Magento contanto le ultime modifiche
+                                                                        // salvo il totale quantitÃ  in Magento contanto le ultime modifiche
                                                                         $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productSimple->getId());
                                                                         $stockItem->setData('qty', $qtaTotale[$indiceP]);
                                                                         if ($qtaTotale[$indiceP] > 0) {
@@ -4010,7 +4011,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
 
 
                                                                     else if ($qtaTotale[$indiceP] != number_format($productSimple->getStockItem()->getQty(),0)){
-                                                                        // salvo il totale quantità in Magento contanto le ultime modifiche
+                                                                        // salvo il totale quantitÃ  in Magento contanto le ultime modifiche
 
                                                                         $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productSimple->getId());
                                                                         $stockItem->setData('qty', $qtaTotale[$indiceP]);
@@ -4029,14 +4030,14 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
 
                                                                 }
 
-                                                                // recupero la quantità totale per il prodotto configurabile
+                                                                // recupero la quantitÃ  totale per il prodotto configurabile
                                                                 $qtaSum = array_sum($qtaTotale);
                                                                 $stockItem = $prodottoConfigurabile->getStockItem();
-                                                                // se è >0 setto inStock a true
+                                                                // se Ã¨ >0 setto inStock a true
                                                                 if ($qtaSum > 0 && $prodottoConfigurabile->getSmallImage() != null && $prodottoConfigurabile->getSmallImage() != "no_selection") {
                                                                     $inStock = true;
                                                                 }
-                                                                // se lo stock del prodotto salvato in magento è diverso a quello calcolato dalla risposta del WS
+                                                                // se lo stock del prodotto salvato in magento Ã¨ diverso a quello calcolato dalla risposta del WS
                                                                 // salvo lo stock del prodotto configurabile
                                                                 if ($stockItem->getIsInStock() != $inStock) {
 

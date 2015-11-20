@@ -2705,7 +2705,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                             Mage::log($e->getMessage());
                                                         }
 
-
+/*
                                                         if (($id_brandMage!=2352 &&
                                                                 $id_brandMage!=2510 &&
                                                                 $id_brandMage!=1069 &&
@@ -2848,11 +2848,11 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
 
                                                         ) {
 
-
+*/
                                                             $query = "insert into " . $resource->getTableName('am_groupcat_product') . " (rule_id,product_id) values ('3','" . $productConfigurable->getId() . "')";
                                                             $writeConnection->query($query);
 
-                                                        }
+                                              //          }
 
 
                                                         $productEng = Mage::getModel('catalog/product')->setStoreId(2)->load($productConfigurable->getId());
@@ -2956,6 +2956,7 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                         $productConfigurable->setMetaTitle($title);
 
                                                         // controllo brand non vendibili. Se non vendibili li metto a non visibile individualmente
+                                                        /*
                                                         if (($id_brandMage==2352 ||
                                                             $id_brandMage==2510 ||
                                                             $id_brandMage==1069 ||
@@ -3097,12 +3098,12 @@ public function getDownloadImage($type,$file,$sottoCat,$nome_brand,$nome_colore,
                                                             )
 
                                                         ) {
-
+*/
                                                             $productConfigurable->setVisibility(4);
 
-                                                        } else {
+                                                   /*     } else {
                                                             $productConfigurable->setVisibility(1);
-                                                        }
+                                                        }*/
 
 
                                                         //inserimento immagini
